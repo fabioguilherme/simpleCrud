@@ -1,5 +1,6 @@
 package com.portofolio.demo.domain.Item;
 
+import com.portofolio.demo.errors.BusinessException;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,11 +13,18 @@ public class Item {
     @Column(name = "name")
     private String name;
 
-    public Item() {
+    protected Item() {
     }
 
     private Item(String name) {
         this.name = name;
+        validate();
+    }
+
+    private void validate() {
+        if (this.name == null || this.name.isEmpty()) {
+            throw new BusinessException("Field name can not be null");
+        }
     }
 
     public Long getId() {
