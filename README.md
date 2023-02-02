@@ -14,7 +14,7 @@ Entities
 	> Item           
 	> quantity
 - Order           
-	> creationDate           
+	     
 	> Item           
 	> quantity           
 	> User (who created the order)
@@ -23,6 +23,7 @@ Entities
 	> name           
 	> email
 - notification
+	> creationDate      
 	> user
 	> type
 	> message	
