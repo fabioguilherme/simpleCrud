@@ -6,6 +6,6 @@ public class UserFixture {
         String name = "fakeName";
         String email = "fakeName@email.com";
 
-        return User.Builder.with().email(name).email(email);
+        return User.Builder.with().name(name).email(email);
     }
 }

@@ -78,7 +78,7 @@ class StockTest {
     void canRemoveQuantity() {
         // Given
         int numberItemsToRemove = 3;
-        int oldQuantity = 1;
+        int oldQuantity = 4;
         Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
 
         // When
@@ -105,7 +105,7 @@ class StockTest {
         int numberItemsToRemove = 3;
         int oldQuantity = 1;
         Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
-        
+
         // When
         assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.subtractStock(numberItemsToRemove)).withMessage("Final quantity result can not be bellow zero");
     }
