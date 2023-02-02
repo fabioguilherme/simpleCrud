@@ -1,6 +1,7 @@
 package com.portofolio.demo.domain.user;
 
 import com.portofolio.demo.IntegrationBaseTest;
+import com.portofolio.demo.infrastructure.user.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;

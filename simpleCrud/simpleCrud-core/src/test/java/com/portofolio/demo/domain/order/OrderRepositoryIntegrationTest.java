@@ -2,9 +2,10 @@ package com.portofolio.demo.domain.order;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.Item.Item;
-import com.portofolio.demo.domain.Item.ItemRepository;
 import com.portofolio.demo.domain.user.User;
-import com.portofolio.demo.domain.user.UserRepository;
+import com.portofolio.demo.infrastructure.item.ItemRepository;
+import com.portofolio.demo.infrastructure.order.OrderRepository;
+import com.portofolio.demo.infrastructure.user.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
