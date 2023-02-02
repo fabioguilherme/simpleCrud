@@ -63,6 +63,29 @@ public class Stock {
         }
     }
 
+    protected void addStock(int quantity) {
+
+        if (quantity < 0) {
+            throw new BusinessException("Quantity can not be bellow zero");
+        }
+
+        this.quantity = this.quantity + quantity;
+    }
+
+    protected void subtractStock(int quantity) {
+
+        if (quantity < 0) {
+            throw new BusinessException("Quantity can not be bellow zero");
+        }
+
+        if (this.quantity - quantity < 0) {
+            throw new BusinessException("Final quantity result can not be bellow zero");
+        }
+
+
+        this.quantity = this.quantity - quantity;
+    }
+
 
     public static final class Builder {
         private int quantity;

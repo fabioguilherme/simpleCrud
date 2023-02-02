@@ -48,4 +48,65 @@ class StockTest {
         // When
         assertThatExceptionOfType(BusinessException.class).isThrownBy(stockBuilder::build).withMessage("Quantity can not be bellow zero");
     }
+
+    @Test
+    void canAddMoreQuantity() {
+        // Given
+        int moreItemsToAdd = 3;
+        int oldQuantity = 1;
+        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+
+        // When
+        stock.addStock(moreItemsToAdd);
+
+        // Then
+        assertThat(stock.getQuantity()).isEqualTo(oldQuantity + moreItemsToAdd);
+    }
+
+    @Test
+    public void shouldThrowBusinessExceptionWhenAddingQuantityBellowZero() {
+        // Given
+        int moreItemsToAdd = -3;
+        int oldQuantity = 1;
+        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.addStock(moreItemsToAdd)).withMessage("Quantity can not be bellow zero");
+    }
+
+    @Test
+    void canRemoveQuantity() {
+        // Given
+        int numberItemsToRemove = 3;
+        int oldQuantity = 1;
+        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+
+        // When
+        stock.subtractStock(numberItemsToRemove);
+
+        // Then
+        assertThat(stock.getQuantity()).isEqualTo(oldQuantity - numberItemsToRemove);
+    }
+
+    @Test
+    public void shouldThrowBusinessExceptionWhenSubtractQuantityBellowZero() {
+        // Given
+        int numberItemsToRemove = -3;
+        int oldQuantity = 1;
+        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.subtractStock(numberItemsToRemove)).withMessage("Quantity can not be bellow zero");
+    }
+
+    @Test
+    public void shouldThrowBusinessExceptionWhenQuantityIsBellowZero() {
+        // Given
+        int numberItemsToRemove = 3;
+        int oldQuantity = 1;
+        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+        
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.subtractStock(numberItemsToRemove)).withMessage("Final quantity result can not be bellow zero");
+    }
 }
