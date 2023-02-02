@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
@@ -44,33 +46,37 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
         assertThat(stored.getStatus()).isEqualTo(OrderStatus.DRAFT);
     }
 
-//    @Test
-//    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
-//            "INSERT INTO Order(id, item_id, quantity, creation_date) values (1,1,3,CURRENT_TIMESTAMP);"})
-//    public void canFindById() {
-//        // Given
-//        long id = 1L;
-//
-//        // When
-//        Optional<Order> storedOptional = repository.findById(id);
-//
-//        // Then
-//        assertThat(storedOptional).isPresent();
-//    }
-//
-//    @Test
-//    @Sql(statements = {
-//            "INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
-//                    "INSERT INTO Order(id, item_id, quantity, creation_date) values (1,1,3,CURRENT_TIMESTAMP);"})
-//    public void canDeleteById() {
-//        // Given
-//        long id = 1L;
-//
-//        // When
-//        repository.deleteById(id);
-//
-//        // Then
-//        Optional<Order> storedOptional = repository.findById(id);
-//        assertThat(storedOptional).isEmpty();
-//    }
+    @Test
+    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
+            "INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");" +
+            "INSERT INTO simple_crud_test.simple_crud_order (id, item_id,user_id,quantity,creation_date,order_status)\n" +
+            "\tVALUES (1,1,1,30,CURRENT_TIMESTAMP,'DRAFT');"})
+    public void canFindById() {
+        // Given
+        long id = 1L;
+
+        // When
+        Optional<Order> storedOptional = repository.findById(id);
+
+        // Then
+        assertThat(storedOptional).isPresent();
+    }
+
+    @Test
+    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
+            "INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");" +
+            "INSERT INTO simple_crud_test.simple_crud_order (id, item_id,user_id,quantity,creation_date,order_status)\n" +
+            "\tVALUES (1,1,1,30,CURRENT_TIMESTAMP,'DRAFT');"})
+    public void canDeleteById() {
+        // Given
+        long id = 1L;
+
+        // When
+        repository.deleteById(id);
+
+        // Then
+        Optional<Order> storedOptional = repository.findById(id);
+
+        assertThat(storedOptional).isEmpty();
+    }
 }
