@@ -1,4 +1,4 @@
-package com.portofolio.demo.persistence;
+package com.portofolio.demo;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

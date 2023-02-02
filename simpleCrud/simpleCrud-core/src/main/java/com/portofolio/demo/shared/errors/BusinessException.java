@@ -1,4 +1,4 @@
-package com.portofolio.demo.errors;
+package com.portofolio.demo.shared.errors;
 
 public class BusinessException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package com.portofolio.demo.domain.Item;
 
-import com.portofolio.demo.errors.BusinessException;
+import com.portofolio.demo.shared.errors.BusinessException;
 import jakarta.persistence.*;
 
 @Entity
