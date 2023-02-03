@@ -10,6 +10,7 @@
     <artifactId>simpleCrud-core</artifactId>
     <name>Archetype - simpleCrud-core</name>
     <url>http://maven.apache.org</url>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>17</java.version>
