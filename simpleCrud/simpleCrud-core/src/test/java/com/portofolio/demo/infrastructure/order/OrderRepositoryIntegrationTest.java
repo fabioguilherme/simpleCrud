@@ -1,10 +1,11 @@
-package com.portofolio.demo.domain.order;
+package com.portofolio.demo.infrastructure.order;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.Item.Item;
+import com.portofolio.demo.domain.order.Order;
+import com.portofolio.demo.domain.order.OrderStatus;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.infrastructure.item.ItemRepository;
-import com.portofolio.demo.infrastructure.order.OrderRepository;
 import com.portofolio.demo.infrastructure.user.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

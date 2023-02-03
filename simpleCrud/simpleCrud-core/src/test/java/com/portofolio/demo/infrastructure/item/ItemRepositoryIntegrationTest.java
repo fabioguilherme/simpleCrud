@@ -1,7 +1,7 @@
-package com.portofolio.demo.domain.Item;
+package com.portofolio.demo.infrastructure.item;
 
 import com.portofolio.demo.IntegrationBaseTest;
-import com.portofolio.demo.infrastructure.item.ItemRepository;
+import com.portofolio.demo.domain.Item.Item;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
