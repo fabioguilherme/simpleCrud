@@ -2,6 +2,7 @@ package com.portofolio.demo.infrastructure.item;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.Item.Item;
+import com.portofolio.demo.domain.Item.ItemFixture;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -19,15 +20,14 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
     @Test
     public void canPersist() {
         // Given
-        String name = "FAKE-name";
-        Item entity = Item.withName(name);
+        Item entity = ItemFixture.getItem();
 
         // When
         Item stored = repository.save(entity);
 
         // Then
         assertThat(stored).isNotNull();
-        assertThat(stored.getName()).isEqualTo(name);
+        assertThat(stored.getName()).isEqualTo(entity.getName());
     }
 
     @Test

@@ -35,7 +35,7 @@ public class Item {
         return name;
     }
 
-    public static Item withName(String name) {
+    protected static Item withName(String name) {
         return new Item(name);
     }
 }
