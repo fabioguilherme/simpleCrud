@@ -2,12 +2,13 @@ package com.portofolio.demo.infrastructure.persistence.notification;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.notification.Notification;
+import com.portofolio.demo.domain.notification.NotificationFixture;
 import com.portofolio.demo.domain.notification.NotificationType;
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.domain.user.UserFixture;
 import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
@@ -21,11 +22,20 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private NotificationRepository repository;
 
+    @Override
+    public void beforeTesting() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public void afterTesting() {
+        repository.deleteAll();
+    }
+
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");"})
     public void canPersist() {
         // Given
-        User user = userRepository.findById(1L).get();
+        User user = userRepository.save(UserFixture.getUser().build());
         String message = "this is a fake message";
         int quantity = 3;
 
@@ -44,11 +54,12 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");" +
-            "INSERT INTO simple_crud_test.notification (id,user_id,`type`,creation_date,message)\tVALUES (1,1,'EMAIL',CURRENT_TIMESTAMP,'fake-message');"})
+
     public void canFindById() {
         // Given
-        long id = 1L;
+        User user = userRepository.save(UserFixture.getUser().build());
+        Notification notification = repository.save(NotificationFixture.getNotification().user(user).build());
+        long id = notification.getId();
 
         // When
         Optional<Notification> storedOptional = repository.findById(id);
@@ -58,11 +69,11 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");" +
-            "INSERT INTO simple_crud_test.notification (id,user_id,`type`,creation_date,message)\tVALUES (1,1,'EMAIL',CURRENT_TIMESTAMP,'fake-message');"})
     public void canDeleteById() {
         // Given
-        long id = 1L;
+        User user = userRepository.save(UserFixture.getUser().build());
+        Notification notification = repository.save(NotificationFixture.getNotification().user(user).build());
+        long id = notification.getId();
 
         // When
         repository.deleteById(id);

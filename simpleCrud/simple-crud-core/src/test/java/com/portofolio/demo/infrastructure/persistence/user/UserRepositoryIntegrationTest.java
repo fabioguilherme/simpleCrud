@@ -1,20 +1,29 @@
-package com.portofolio.demo.infrastructure.user;
+package com.portofolio.demo.infrastructure.persistence.user;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.user.User;
-import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
-import org.junit.Test;
+import com.portofolio.demo.domain.user.UserFixture;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
 
     @Autowired
     private UserRepository repository;
+
+    @Override
+    public void beforeTesting() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public void afterTesting() {
+        repository.deleteAll();
+    }
+
 
     @Test
     public void canPersist() {
@@ -27,38 +36,36 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
         User stored = repository.save(userToStore);
 
         // Then
-        assertThat(stored).isNotNull();
+        Assertions.assertThat(stored).isNotNull();
 
-        assertThat(stored.getName()).isEqualTo(name);
-        assertThat(stored.getEmail()).isEqualTo(email);
+        Assertions.assertThat(stored.getName()).isEqualTo(name);
+        Assertions.assertThat(stored.getEmail()).isEqualTo(email);
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\n" +
-            "\tVALUES (1, \"fake-name\",\"fake-name@email.com\");"})
     public void canFindById() {
         // Given
-        long id = 1L;
+        User userPersisted = repository.save(UserFixture.getUser().build());
+        Long id = userPersisted.getId();
 
         // When
         Optional<User> storedOptional = repository.findById(id);
 
         // Then
-        assertThat(storedOptional).isPresent();
+        Assertions.assertThat(storedOptional).isPresent();
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\n" +
-            "\tVALUES (1, \"fake-name\",\"fake-name@email.com\");"})
     public void canDeleteById() {
         // Given
-        long id = 1L;
+        User userPersisted = repository.save(UserFixture.getUser().build());
+        Long id = userPersisted.getId();
 
         // When
         repository.deleteById(id);
 
         // Then
         Optional<User> storedOptional = repository.findById(id);
-        assertThat(storedOptional).isEmpty();
+        Assertions.assertThat(storedOptional).isEmpty();
     }
 }

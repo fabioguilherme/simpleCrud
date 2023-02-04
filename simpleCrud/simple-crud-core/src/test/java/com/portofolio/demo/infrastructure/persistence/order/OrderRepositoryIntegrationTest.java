@@ -2,14 +2,15 @@ package com.portofolio.demo.infrastructure.persistence.order;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.item.Item;
+import com.portofolio.demo.domain.item.ItemFixture;
 import com.portofolio.demo.domain.order.Order;
 import com.portofolio.demo.domain.order.OrderStatus;
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.domain.user.UserFixture;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
 import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
@@ -23,13 +24,21 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private OrderRepository repository;
 
+    @Override
+    public void beforeTesting() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public void afterTesting() {
+        repository.deleteAll();
+    }
+
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
-            "INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");"})
     public void canPersist() {
         // Given
-        Item item = itemRepository.findById(1L).get();
-        User user = userRepository.findById(1L).get();
+        Item item = itemRepository.save(ItemFixture.getItem());
+        User user = userRepository.save(UserFixture.getUser().build());
         int quantity = 3;
 
         Order orderToStore = Order.Builder.with().item(item).user(user).quantity(quantity).build();
@@ -48,13 +57,12 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
-            "INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");" +
-            "INSERT INTO simple_crud_test.simple_crud_order (id, item_id,user_id,quantity,creation_date,order_status)\n" +
-            "\tVALUES (1,1,1,30,CURRENT_TIMESTAMP,'DRAFT');"})
     public void canFindById() {
         // Given
-        long id = 1L;
+        Item item = itemRepository.save(ItemFixture.getItem());
+        User user = userRepository.save(UserFixture.getUser().build());
+        Order order = repository.save(Order.Builder.with().item(item).user(user).quantity(3).build());
+        long id = order.getId();
 
         // When
         Optional<Order> storedOptional = repository.findById(id);
@@ -64,13 +72,12 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\tVALUES (1, \"fake\");" +
-            "INSERT INTO simple_crud_test.simple_crud_user (id, name, email)\tVALUES (1, \"fake-name\",\"fake-name@email.com\");" +
-            "INSERT INTO simple_crud_test.simple_crud_order (id, item_id,user_id,quantity,creation_date,order_status)\n" +
-            "\tVALUES (1,1,1,30,CURRENT_TIMESTAMP,'DRAFT');"})
     public void canDeleteById() {
         // Given
-        long id = 1L;
+        Item item = itemRepository.save(ItemFixture.getItem());
+        User user = userRepository.save(UserFixture.getUser().build());
+        Order order = repository.save(Order.Builder.with().item(item).user(user).quantity(3).build());
+        long id = order.getId();
 
         // When
         repository.deleteById(id);

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemController {
 
 
-    //    private final ItemDomainService service;
-//
+//    private final ItemDomainService service;
+
     private Logger log = LoggerFactory.getLogger(ItemController.class);
-//
+
 //    @Autowired
 //    public ItemController(ItemDomainService service) {
 //        this.service = service;

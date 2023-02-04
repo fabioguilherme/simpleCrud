@@ -3,9 +3,8 @@ package com.portofolio.demo.infrastructure.persistence.item;
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.item.ItemFixture;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
@@ -16,6 +15,16 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
 
     @Autowired
     private ItemRepository repository;
+
+    @Override
+    public void beforeTesting() {
+        repository.deleteAll();
+    }
+
+    @Override
+    public void afterTesting() {
+        repository.deleteAll();
+    }
 
     @Test
     public void canPersist() {
@@ -31,13 +40,12 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\n" +
-            "\tVALUES (1, \"fake\");"})
     public void canFindById() {
         // Given
+        Item stored = repository.save(ItemFixture.getItem());
+        Long id = stored.getId();
 
         // When
-        long id = 1L;
         Optional<Item> storedOptional = repository.findById(id);
 
         // Then
@@ -45,13 +53,12 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    @Sql(statements = {"INSERT INTO simple_crud_test.item (id, name)\n" +
-            "\tVALUES (1, \"fake\");"})
     public void canDeleteById() {
         // Given
+        Item stored = repository.save(ItemFixture.getItem());
+        Long id = stored.getId();
 
         // When
-        long id = 1L;
         repository.deleteById(id);
 
         // Then
