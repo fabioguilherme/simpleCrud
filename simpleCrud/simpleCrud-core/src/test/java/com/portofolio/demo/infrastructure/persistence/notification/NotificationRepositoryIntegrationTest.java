@@ -1,10 +1,10 @@
-package com.portofolio.demo.infrastructure.notification;
+package com.portofolio.demo.infrastructure.persistence.notification;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.notification.Notification;
 import com.portofolio.demo.domain.notification.NotificationType;
 import com.portofolio.demo.domain.user.User;
-import com.portofolio.demo.infrastructure.user.UserRepository;
+import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;

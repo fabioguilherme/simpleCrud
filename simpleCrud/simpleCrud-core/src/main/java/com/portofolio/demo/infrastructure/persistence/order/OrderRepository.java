@@ -1,4 +1,4 @@
-package com.portofolio.demo.infrastructure.order;
+package com.portofolio.demo.infrastructure.persistence.order;
 
 import com.portofolio.demo.domain.order.Order;
 import org.springframework.data.repository.CrudRepository;

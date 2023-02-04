@@ -1,4 +1,4 @@
-package com.portofolio.demo.infrastructure.notification;
+package com.portofolio.demo.infrastructure.persistence.notification;
 
 import com.portofolio.demo.domain.notification.Notification;
 import org.springframework.data.repository.CrudRepository;

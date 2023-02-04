@@ -1,9 +1,9 @@
-package com.portofolio.demo.infrastructure.stock;
+package com.portofolio.demo.infrastructure.persistence.stock;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.Item.Item;
 import com.portofolio.demo.domain.stock.Stock;
-import com.portofolio.demo.infrastructure.item.ItemRepository;
+import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;

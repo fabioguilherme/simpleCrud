@@ -1,4 +1,4 @@
-package com.portofolio.demo.infrastructure.user;
+package com.portofolio.demo.infrastructure.persistence.user;
 
 import com.portofolio.demo.domain.user.User;
 import org.springframework.data.repository.CrudRepository;

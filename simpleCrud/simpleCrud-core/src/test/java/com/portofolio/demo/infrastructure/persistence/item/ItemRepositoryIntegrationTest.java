@@ -1,4 +1,4 @@
-package com.portofolio.demo.infrastructure.item;
+package com.portofolio.demo.infrastructure.persistence.item;
 
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.Item.Item;

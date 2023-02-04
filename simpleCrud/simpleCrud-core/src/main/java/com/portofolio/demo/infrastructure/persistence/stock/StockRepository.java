@@ -1,4 +1,4 @@
-package com.portofolio.demo.infrastructure.stock;
+package com.portofolio.demo.infrastructure.persistence.stock;
 
 import com.portofolio.demo.domain.stock.Stock;
 import org.springframework.data.repository.CrudRepository;
