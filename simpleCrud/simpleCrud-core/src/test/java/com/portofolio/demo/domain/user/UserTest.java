@@ -85,4 +85,39 @@ class UserTest {
         assertThatExceptionOfType(BusinessException.class).isThrownBy(throwingCallable).withMessage("Email is not valid");
     }
 
+    @Test
+    void canUpdateEmail() {
+        // Given
+        User user = UserFixture.getUser().build();
+        String email = "new-email";
+
+        // When
+        user.updateEmail(email);
+
+        // Then
+        assertThat(user.getEmail()).isEqualTo(email);
+    }
+
+    @Test
+    void shouldThrowAnExceptionWhenEmailIsNull() {
+        // Given
+        User user = UserFixture.getUser().build();
+        String email = null;
+
+        // When
+        // Then
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> user.updateEmail(email)).withMessage("Email can not be empty or null");
+
+    }
+
+    @Test
+    void shouldThrowAnExceptionWhenEmailIsEmpty() {
+        // Given
+        User user = UserFixture.getUser().build();
+        String email = "";
+
+        // When
+        // Then
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> user.updateEmail(email)).withMessage("Email can not be empty or null");
+    }
 }

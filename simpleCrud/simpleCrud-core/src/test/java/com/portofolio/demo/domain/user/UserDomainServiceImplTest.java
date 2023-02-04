@@ -30,4 +30,18 @@ public class UserDomainServiceImplTest {
         assertThat(newUser.getEmail()).isEqualTo(email);
     }
 
+    @Test
+    void canUpdateEmail() {
+        // Given
+        User user = UserFixture.getUser().build();
+        String newEmail = "new-name@emai.com";
+
+        // When
+        this.service.updateEmail(user, newEmail);
+
+        // Then
+        assertThat(user).isNotNull();
+
+        assertThat(user.getEmail()).isEqualTo(newEmail);
+    }
 }

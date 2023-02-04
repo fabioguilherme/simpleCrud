@@ -5,4 +5,9 @@ public class UserDomainServiceImpl implements UserDomainService {
     public User createUser(String name, String email) {
         return User.Builder.with().name(name).email(email).build();
     }
+
+    @Override
+    public void updateEmail(User user, String email) {
+        user.updateEmail(email);
+    }
 }

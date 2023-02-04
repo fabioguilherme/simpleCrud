@@ -1,5 +1,6 @@
 package com.portofolio.demo.domain.user;
 
+import com.mysql.cj.util.StringUtils;
 import com.portofolio.demo.shared.errors.BusinessException;
 import jakarta.persistence.*;
 
@@ -52,6 +53,15 @@ public class User {
         if (!this.email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
             throw new BusinessException("Email is not valid");
         }
+    }
+
+    protected void updateEmail(String email) {
+
+        if (StringUtils.isNullOrEmpty(email)) {
+            throw new BusinessException("Email can not be empty or null");
+        }
+
+        this.email = email;
     }
 
     public static final class Builder {
