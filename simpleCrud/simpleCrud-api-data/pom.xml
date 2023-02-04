@@ -5,11 +5,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.2</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <artifactId>simpleCrud-api-data</artifactId>
-    <name>Archetype - simpleCrud-api-data</name>
+    <name>simpleCrud-api-data</name>
     <url>http://maven.apache.org</url>
     <packaging>jar</packaging>
 
