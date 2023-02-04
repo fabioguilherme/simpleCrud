@@ -1,6 +1,7 @@
 package com.portofolio.demo.domain.notification;
 
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.shared.errors.BusinessException;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,19 @@ public class Notification {
         this.message = builder.message;
         this.type = NotificationType.EMAIL; //this will be the default value
         this.creationDate = LocalDateTime.now();
+
+        validate();
+    }
+
+    private void validate() {
+
+        if (this.user == null) {
+            throw new BusinessException("User can not be null");
+        }
+
+        if (this.message == null) {
+            throw new BusinessException("Message can not be null");
+        }
     }
 
     public Long getId() {
