@@ -5,3 +5,6 @@ simpleCrud/.idea/
 *.iml
 *.ipr
 *.iws
+simpleCrud/simple-crud-web-app/target/
+simpleCrud/simple-crud-core/target/
+simpleCrud/simple-crud-api-data/target/

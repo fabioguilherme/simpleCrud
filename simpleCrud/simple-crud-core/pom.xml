@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.portofolio</groupId>
-        <artifactId>simpleCrud</artifactId>
+        <artifactId>simple-crud</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>simpleCrud-core</artifactId>
-    <name>simpleCrud-core</name>
+    <artifactId>simple-crud-core</artifactId>
+    <name>simple-crud-core</name>
     <url>http://maven.apache.org</url>
     <packaging>jar</packaging>
 

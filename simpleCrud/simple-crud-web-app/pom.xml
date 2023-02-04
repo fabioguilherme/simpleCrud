@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>com.portofolio</groupId>
-        <artifactId>simpleCrud</artifactId>
+        <artifactId>simple-crud</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>simpleCrud-web-app</artifactId>
+    <artifactId>simple-crud-web-app</artifactId>
     <name>simpleCrud-web-app</name>
     <url>http://maven.apache.org</url>
     <packaging>war</packaging>
@@ -18,12 +18,12 @@
     </properties>
     <dependencies>
 
-        <!-- internal -->
-        <dependency>
-            <groupId>com.portofolio</groupId>
-            <artifactId>simpleCrud-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!--        &lt;!&ndash; internal &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.portofolio</groupId>-->
+        <!--            <artifactId>simpleCrud-core</artifactId>-->
+        <!--            <version>1.0-SNAPSHOT</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -54,18 +54,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>simpleCrud-core</artifactId>
-            <version>3.0.2</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>log4j-slf4j2-impl</artifactId>
-                    <groupId>org.apache.logging.log4j</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 

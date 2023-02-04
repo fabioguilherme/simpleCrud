@@ -1,10 +1,8 @@
 package com.portofolio.demo.userInterface.item;
 
 
-import com.portofolio.demo.domain.Item.ItemDomainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemController {
 
 
-    private final ItemDomainService service;
-
+    //    private final ItemDomainService service;
+//
     private Logger log = LoggerFactory.getLogger(ItemController.class);
-
-    @Autowired
-    public ItemController(ItemDomainService service) {
-        this.service = service;
-    }
+//
+//    @Autowired
+//    public ItemController(ItemDomainService service) {
+//        this.service = service;
+//    }
 
     @PostMapping
     public void createItem() {

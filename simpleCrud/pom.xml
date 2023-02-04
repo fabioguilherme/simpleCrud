@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.portofolio</groupId>
-    <artifactId>simpleCrud</artifactId>
+    <artifactId>simple-crud</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>simpleCrud</name>
+    <name>simple-crud</name>
     <url>http://maven.apache.org</url>
 
     <parent>
@@ -15,9 +15,9 @@
     </parent>
 
     <modules>
-        <module>simpleCrud-api-data</module>
-        <module>simpleCrud-web-app</module>
-        <module>simpleCrud-core</module>
+        <module>simple-crud-api-data</module>
+        <module>simple-crud-web-app</module>
+        <module>simple-crud-core</module>
     </modules>
 
     <packaging>pom</packaging>
