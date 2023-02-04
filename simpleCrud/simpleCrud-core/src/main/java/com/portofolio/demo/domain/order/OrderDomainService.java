@@ -1,6 +1,6 @@
 package com.portofolio.demo.domain.order;
 
-import com.portofolio.demo.domain.Item.Item;
+import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.user.User;
 
 public interface OrderDomainService {

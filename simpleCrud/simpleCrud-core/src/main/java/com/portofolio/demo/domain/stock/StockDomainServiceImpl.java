@@ -1,6 +1,6 @@
 package com.portofolio.demo.domain.stock;
 
-import com.portofolio.demo.domain.Item.Item;
+import com.portofolio.demo.domain.item.Item;
 
 public class StockDomainServiceImpl implements StockDomainService {
     @Override

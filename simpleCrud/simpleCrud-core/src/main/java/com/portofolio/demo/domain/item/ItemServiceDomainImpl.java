@@ -1,4 +1,4 @@
-package com.portofolio.demo.domain.Item;
+package com.portofolio.demo.domain.item;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

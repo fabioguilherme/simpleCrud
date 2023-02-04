@@ -1,7 +1,7 @@
 package com.portofolio.demo.infrastructure.persistence.order;
 
 import com.portofolio.demo.IntegrationBaseTest;
-import com.portofolio.demo.domain.Item.Item;
+import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.order.Order;
 import com.portofolio.demo.domain.order.OrderStatus;
 import com.portofolio.demo.domain.user.User;

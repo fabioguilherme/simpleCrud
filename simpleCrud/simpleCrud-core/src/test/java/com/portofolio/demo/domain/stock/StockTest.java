@@ -1,7 +1,7 @@
 package com.portofolio.demo.domain.stock;
 
-import com.portofolio.demo.domain.Item.Item;
-import com.portofolio.demo.domain.Item.ItemFixture;
+import com.portofolio.demo.domain.item.Item;
+import com.portofolio.demo.domain.item.ItemFixture;
 import com.portofolio.demo.shared.errors.BusinessException;
 import org.junit.jupiter.api.Test;
 

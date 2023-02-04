@@ -1,4 +1,4 @@
-package com.portofolio.demo.domain.Item;
+package com.portofolio.demo.domain.item;
 
 import com.portofolio.demo.shared.errors.BusinessException;
 import jakarta.persistence.*;

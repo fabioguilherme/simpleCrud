@@ -1,8 +1,8 @@
 package com.portofolio.demo.infrastructure.persistence.item;
 
 import com.portofolio.demo.IntegrationBaseTest;
-import com.portofolio.demo.domain.Item.Item;
-import com.portofolio.demo.domain.Item.ItemFixture;
+import com.portofolio.demo.domain.item.Item;
+import com.portofolio.demo.domain.item.ItemFixture;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;

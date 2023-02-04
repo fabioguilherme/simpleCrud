@@ -1,4 +1,4 @@
-package com.portofolio.demo.domain.Item;
+package com.portofolio.demo.domain.item;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
