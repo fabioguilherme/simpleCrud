@@ -2,3 +2,6 @@ simpleCrud/simpleCrud-web-app/target/
 simpleCrud/simpleCrud-core/target/
 simpleCrud/simpleCrud-api-data/target/
 simpleCrud/.idea/
+*.iml
+*.ipr
+*.iws

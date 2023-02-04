@@ -4,7 +4,7 @@
     <groupId>org.portofolio</groupId>
     <artifactId>simpleCrud</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Archetype - simpleCrud</name>
+    <name>simpleCrud</name>
     <url>http://maven.apache.org</url>
     <modules>
         <module>simpleCrud-api-data</module>
