@@ -67,7 +67,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Override
-    protected void clearDataBase() {
+    public void clearDataBase() {
         repository.deleteAll();
         repositoryItem.deleteAll();
     }

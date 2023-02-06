@@ -75,7 +75,7 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Override
-    protected void clearDataBase() {
+    public void clearDataBase() {
         repository.deleteAll();
         userRepository.deleteAll();
     }

@@ -24,16 +24,6 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private OrderRepository repository;
 
-    @Override
-    public void beforeTesting() {
-        repository.deleteAll();
-    }
-
-    @Override
-    public void afterTesting() {
-        repository.deleteAll();
-    }
-
     @Test
     public void canPersist() {
         // Given
@@ -89,7 +79,7 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Override
-    protected void clearDataBase() {
+    public void clearDataBase() {
         repository.deleteAll();
         itemRepository.deleteAll();
         userRepository.deleteAll();

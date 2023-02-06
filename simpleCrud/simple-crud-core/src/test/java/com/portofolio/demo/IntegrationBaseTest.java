@@ -19,5 +19,5 @@ public abstract class IntegrationBaseTest {
         clearDataBase();
     }
 
-    protected abstract void clearDataBase();
+    public abstract void clearDataBase();
 }

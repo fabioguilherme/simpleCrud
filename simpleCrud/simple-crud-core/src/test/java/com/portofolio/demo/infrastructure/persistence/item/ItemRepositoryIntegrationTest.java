@@ -58,7 +58,7 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Override
-    protected void clearDataBase() {
+    public void clearDataBase() {
         repository.deleteAll();
     }
 }
