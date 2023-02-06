@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,7 +24,7 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = {"com.portofolio.demo.infrastructure.persistence", "com.portofolio.demo.domain"})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @EnableTransactionManagement
-//@ComponentScan(value = {"com.portofolio.demo.infrastructure.persistence", "com.portofolio.demo.domain"})
+@ComponentScan(value = {"com.portofolio.demo.infrastructure.persistence", "com.portofolio.demo.domain"})
 public class JpaContextConfig {
 
     @Value("${spring.datasource.url}")
