@@ -16,15 +16,6 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private ItemRepository repository;
 
-    @Override
-    public void beforeTesting() {
-        repository.deleteAll();
-    }
-
-    @Override
-    public void afterTesting() {
-        repository.deleteAll();
-    }
 
     @Test
     public void canPersist() {
@@ -64,5 +55,10 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
         // Then
         Optional<Item> storedOptional = repository.findById(id);
         assertThat(storedOptional).isEmpty();
+    }
+
+    @Override
+    protected void clearDataBase() {
+        repository.deleteAll();
     }
 }

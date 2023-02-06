@@ -87,4 +87,11 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
 
         assertThat(storedOptional).isEmpty();
     }
+
+    @Override
+    protected void clearDataBase() {
+        repository.deleteAll();
+        itemRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 }

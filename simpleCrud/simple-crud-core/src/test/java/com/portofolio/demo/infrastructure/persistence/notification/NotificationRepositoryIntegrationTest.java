@@ -22,16 +22,6 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private NotificationRepository repository;
 
-    @Override
-    public void beforeTesting() {
-        repository.deleteAll();
-    }
-
-    @Override
-    public void afterTesting() {
-        repository.deleteAll();
-    }
-
     @Test
     public void canPersist() {
         // Given
@@ -84,4 +74,9 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
         assertThat(storedOptional).isEmpty();
     }
 
+    @Override
+    protected void clearDataBase() {
+        repository.deleteAll();
+        userRepository.deleteAll();
+    }
 }

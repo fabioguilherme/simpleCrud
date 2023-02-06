@@ -14,17 +14,6 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private UserRepository repository;
 
-    @Override
-    public void beforeTesting() {
-        repository.deleteAll();
-    }
-
-    @Override
-    public void afterTesting() {
-        repository.deleteAll();
-    }
-
-
     @Test
     public void canPersist() {
         // Given
@@ -67,5 +56,10 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
         // Then
         Optional<User> storedOptional = repository.findById(id);
         Assertions.assertThat(storedOptional).isEmpty();
+    }
+
+    @Override
+    protected void clearDataBase() {
+        repository.deleteAll();
     }
 }

@@ -19,17 +19,6 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     @Autowired
     private StockRepository repository;
 
-    @Override
-    public void beforeTesting() {
-        repository.deleteAll();
-    }
-
-    @Override
-    public void afterTesting() {
-        repository.deleteAll();
-    }
-
-
     @Test
     public void canPersist() {
         // Given
@@ -75,5 +64,11 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
         // Then
         Optional<Stock> storedOptional = repository.findById(id);
         assertThat(storedOptional).isEmpty();
+    }
+
+    @Override
+    protected void clearDataBase() {
+        repository.deleteAll();
+        repositoryItem.deleteAll();
     }
 }
