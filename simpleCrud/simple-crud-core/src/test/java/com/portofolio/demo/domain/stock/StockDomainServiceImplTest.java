@@ -48,7 +48,7 @@ public class StockDomainServiceImplTest {
     }
 
     @Test
-    void canRemoveQuantity() {
+    void canSubtractQuantity() {
         // Given
         int numberItemsToRemove = 3;
         int oldQuantity = 4;

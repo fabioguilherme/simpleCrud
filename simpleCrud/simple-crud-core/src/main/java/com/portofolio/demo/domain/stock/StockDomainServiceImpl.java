@@ -1,7 +1,9 @@
 package com.portofolio.demo.domain.stock;
 
 import com.portofolio.demo.domain.item.Item;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StockDomainServiceImpl implements StockDomainService {
     @Override
     public Stock createStock(Item item, int quantity) {
