@@ -33,21 +33,21 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
 
 
     @Test
-    void canCreate() {
+    public void canCreate() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         int quantity = 5;
-        com.portofolio.demo.domain.stock.Stock stockToPersist = StockFixture.getStockWithItem(item, quantity);
+        Stock stockToPersist = StockFixture.getStockWithItem(item, quantity);
 
         // When
-        com.portofolio.demo.domain.stock.Stock stockPersisted = service.save(stockToPersist);
+        Stock stockPersisted = service.save(stockToPersist);
 
         // Then
-        Optional<com.portofolio.demo.domain.stock.Stock> stockFoundOptional = repository.findById(stockPersisted.getId());
+        Optional<Stock> stockFoundOptional = repository.findById(stockPersisted.getId());
 
         assertThat(stockFoundOptional).isPresent();
 
-        com.portofolio.demo.domain.stock.Stock stock = stockFoundOptional.get();
+        Stock stock = stockFoundOptional.get();
 
         assertThat(stock.getItem()).isNotNull();
 
@@ -55,7 +55,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
+    public void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
         // Given
         Stock stockToPersist = null;
 
@@ -65,7 +65,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void canUpdate() {
+    public void canUpdate() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         int originalQuantity = 5;
@@ -85,7 +85,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void canDeleteById() {
+    public void canDeleteById() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         Stock stockToPersisted = repository.save(StockFixture.getStockWithItem(item, 5));
@@ -101,7 +101,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
+    public void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
         // Given
         Long id = null;
 
@@ -111,7 +111,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void canGetById() {
+    public void canGetById() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         Stock stockToPersisted = repository.save(StockFixture.getStockWithItem(item, 5));
@@ -125,7 +125,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
+    public void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
         // Given
         Long id = null;
 
@@ -135,7 +135,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    void canGetAll() {
+    public void canGetAll() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         Stock stockToPersist = StockFixture.getStockWithItem(item, 5);

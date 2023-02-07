@@ -3,7 +3,9 @@ package com.portofolio.demo.domain.order;
 import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.shared.errors.BusinessException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class OrderDomainServiceImpl implements OrderDomainService {
 
     @Override

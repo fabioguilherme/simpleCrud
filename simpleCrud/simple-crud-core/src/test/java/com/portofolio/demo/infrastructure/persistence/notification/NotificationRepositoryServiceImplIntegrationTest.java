@@ -28,7 +28,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
 
 
     @Test
-    void canCreate() {
+    public void canCreate() {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";
@@ -50,7 +50,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
+    public void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
         // Given
         Notification notificationToPersist = null;
 
@@ -60,7 +60,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    void canDeleteById() {
+    public void canDeleteById() {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";
@@ -77,7 +77,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
+    public void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
         // Given
         Long id = null;
 
@@ -87,7 +87,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    void canGetById() {
+    public void canGetById() {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";
@@ -103,7 +103,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
+    public void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
         // Given
         Long id = null;
 
@@ -113,7 +113,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    void canGetAll() {
+    public void canGetAll() {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";

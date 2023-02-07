@@ -23,7 +23,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
 
 
     @Test
-    void canCreate() {
+    public void canCreate() {
         // Given
         Item itemToPersist = ItemFixture.getItem();
 
@@ -41,7 +41,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
+    public void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
         // Given
         Item itemToPersist = null;
 
@@ -51,7 +51,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    void canDeleteById() {
+    public void canDeleteById() {
         // Given
         Item itemToPersist = ItemFixture.getItem();
 
@@ -66,7 +66,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
+    public void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
         // Given
         Long id = null;
 
@@ -76,7 +76,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    void canGetById() {
+    public void canGetById() {
         // Given
         Item itemToPersist = ItemFixture.getItem();
         Item itemPersisted = service.save(itemToPersist);
@@ -90,7 +90,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
+    public void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
         // Given
         Long id = null;
 
@@ -100,7 +100,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    void canGetAll() {
+    public void canGetAll() {
         // Given
         Item itemToPersist = ItemFixture.getItem();
         Item itemToPersist2 = ItemFixture.getItemWithName("FAKE-name-2");

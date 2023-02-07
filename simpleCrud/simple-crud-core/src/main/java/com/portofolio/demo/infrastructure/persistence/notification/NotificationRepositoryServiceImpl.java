@@ -1,7 +1,6 @@
 package com.portofolio.demo.infrastructure.persistence.notification;
 
 import com.portofolio.demo.domain.notification.Notification;
-import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +10,6 @@ import java.util.Optional;
 
 @Service
 public class NotificationRepositoryServiceImpl implements NotificationRepositoryService {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private NotificationRepository repository;
