@@ -19,7 +19,7 @@ public class ItemRepositoryServiceImpl implements ItemRepositoryService {
     }
 
     @Override
-    public Item create(Item item) {
+    public Item save(Item item) {
         if (item == null) {
             throw new IllegalArgumentException("Item can not be null");
         }

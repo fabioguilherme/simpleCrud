@@ -17,7 +17,7 @@ public class OrderTest {
     void canBuild() {
         // Given
         Item item = ItemFixture.getItem();
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         int quantity = 20;
         // When
         Order order = Order.Builder.with().item(item).quantity(quantity).user(user).build();
@@ -36,11 +36,11 @@ public class OrderTest {
     void shouldThrowABusinessExceptionIfItemIsNUll() {
         // Given
         Item item = null;
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         int quantity = 20;
 
         // When
-        ThrowableAssert.ThrowingCallable throwingCallable = () -> Order.Builder.with().item(item).quantity(quantity).user(user).build();
+        ThrowableAssert.ThrowingCallable throwingCallable = () -> Order.Builder.with().item(item).quantity(quantity).user(user);
         assertThatExceptionOfType(BusinessException.class).isThrownBy(throwingCallable).withMessage("Item can not be null");
     }
 
@@ -60,7 +60,7 @@ public class OrderTest {
     void shouldThrowABusinessExceptionIfQuantityEqualZero() {
         // Given
         Item item = ItemFixture.getItem();
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         int quantity = 0;
 
         // When
@@ -72,7 +72,7 @@ public class OrderTest {
     void shouldThrowABusinessExceptionIfQuantityBellowZero() {
         // Given
         Item item = ItemFixture.getItem();
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         int quantity = -1;
 
         // When
@@ -83,7 +83,7 @@ public class OrderTest {
     @Test
     void shouldThrowABusinessExceptionIfOrderStatusIsNull() {
         // Given
-        Order order = OrderFixture.getOrder().build();
+        Order order = OrderFixture.getOrder();
         OrderStatus newStatus = null;
 
         // When
@@ -95,7 +95,7 @@ public class OrderTest {
     @Test
     void canUpdateOrderStatus() {
         // Given
-        Order order = OrderFixture.getOrder().build();
+        Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;
 
         // When

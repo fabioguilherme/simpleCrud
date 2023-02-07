@@ -19,7 +19,7 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
         // Given
         String name = "fakeName";
         String email = "fakeName@email.com";
-        User userToStore = User.Builder.with().name(name).email(email).build();
+        User userToStore = UserFixture.getUseWithEmailAndName(email, name);
 
         // When
         User stored = repository.save(userToStore);
@@ -34,7 +34,7 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     @Test
     public void canFindById() {
         // Given
-        User userPersisted = repository.save(UserFixture.getUser().build());
+        User userPersisted = repository.save(UserFixture.getUser());
         Long id = userPersisted.getId();
 
         // When
@@ -47,7 +47,7 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     @Test
     public void canDeleteById() {
         // Given
-        User userPersisted = repository.save(UserFixture.getUser().build());
+        User userPersisted = repository.save(UserFixture.getUser());
         Long id = userPersisted.getId();
 
         // When

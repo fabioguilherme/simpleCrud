@@ -71,7 +71,7 @@ public class Notification {
         return creationDate;
     }
 
-    public static final class Builder {
+    protected static final class Builder {
         private User user;
         private String message;
 

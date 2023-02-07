@@ -27,7 +27,7 @@ public class OrderDomainServiceImplTest {
     public void canCreateAnOrder() {
         // Given
         Item item = ItemFixture.getItem();
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         int quantity = 20;
         // When
         Order order = this.orderDomainService.createOrder(item, user, quantity);
@@ -45,7 +45,7 @@ public class OrderDomainServiceImplTest {
     @Test
     public void canUpdateTheStatusOfAnOrder() {
         // Given
-        Order order = OrderFixture.getOrder().build();
+        Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;
 
         // When
@@ -60,7 +60,7 @@ public class OrderDomainServiceImplTest {
     @Test
     public void shouldThrowABusinessExceptionWhenUpdatingToLowerPositionStatus() throws NoSuchFieldException {
         // Given
-        Order order = OrderFixture.getOrder().build();
+        Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;
         order.changeStatus(newStatus);
         Field field = order.getClass().getDeclaredField("status");
@@ -75,7 +75,7 @@ public class OrderDomainServiceImplTest {
     @Test
     public void shouldThrowABusinessExceptionWhenUpdatingToNullStatus() throws NoSuchFieldException {
         // Given
-        Order order = OrderFixture.getOrder().build();
+        Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;
         order.changeStatus(newStatus);
 

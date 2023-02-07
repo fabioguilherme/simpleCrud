@@ -33,7 +33,7 @@ public class UserDomainServiceImplTest {
     @Test
     void canUpdateEmail() {
         // Given
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         String newEmail = "new-name@emai.com";
 
         // When

@@ -64,7 +64,7 @@ public class User {
         this.email = email;
     }
 
-    public static final class Builder {
+    protected static final class Builder {
         private String email;
         private String name;
 

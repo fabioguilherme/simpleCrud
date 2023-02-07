@@ -98,7 +98,7 @@ public class Order {
         this.status = newStatus;
     }
 
-    public static final class Builder {
+    protected static final class Builder {
         private Item item;
         private User user;
         private int quantity;

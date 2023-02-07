@@ -20,7 +20,7 @@ public class NotificationDomainServiceImplTest {
     void canCreateANotification() {
         // Given
         String message = "fake message";
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
 
         // When
         Notification notification = this.notificationDomainService.createNotification(user, message);

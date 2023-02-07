@@ -5,12 +5,18 @@ import com.portofolio.demo.domain.user.UserFixture;
 
 public class NotificationFixture {
 
-    public static Notification.Builder getNotification() {
+    public static Notification getNotification() {
 
         String message = "fake message";
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
 
-        return Notification.Builder.with().message(message).user(user);
+        return Notification.Builder.with().message(message).user(user).build();
+
+    }
+
+    public static Notification getNotificationForUser(User user, String message) {
+
+        return Notification.Builder.with().message(message).user(user).build();
 
     }
 }

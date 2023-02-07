@@ -4,6 +4,7 @@ import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.item.ItemFixture;
 import com.portofolio.demo.domain.stock.Stock;
+import com.portofolio.demo.domain.stock.StockFixture;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
         int quantity = 3;
-        Stock stockToStore = Stock.Builder.with().item(item).quantity(quantity).build();
+        Stock stockToStored = repository.save(StockFixture.getStockWithItem(item, 3));
 
         // When
-        Stock stored = repository.save(stockToStore);
+        Stock stored = repository.save(stockToStored);
 
         // Then
         assertThat(stored).isNotNull();
@@ -41,7 +42,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     public void canFindById() {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
-        Stock stock = repository.save(Stock.Builder.with().item(item).quantity(3).build());
+        Stock stock = repository.save(StockFixture.getStockWithItem(item, 3));
         long id = stock.getId();
 
         // When
@@ -55,7 +56,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     public void canDeleteById() {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
-        Stock stock = repository.save(Stock.Builder.with().item(item).quantity(3).build());
+        Stock stock = repository.save(StockFixture.getStockWithItem(item, 3));
         long id = stock.getId();
 
         // When

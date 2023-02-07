@@ -15,7 +15,7 @@ public class NotificationTest {
     void canBuild() {
         // Given
         String message = "fake message";
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
 
         // When
         Notification notification = Notification.Builder.with().message(message).user(user).build();
@@ -33,7 +33,7 @@ public class NotificationTest {
     void shouldThrowExceptionIfMessageIsNull() {
         // Given
         String message = null;
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
 
         // When
         ThrowableAssert.ThrowingCallable throwingCallable = () -> Notification.Builder.with().message(message).user(user).build();

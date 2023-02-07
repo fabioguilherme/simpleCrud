@@ -1,5 +1,8 @@
 package com.portofolio.demo.domain.user;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserDomainServiceImpl implements UserDomainService {
     @Override
     public User createUser(String name, String email) {

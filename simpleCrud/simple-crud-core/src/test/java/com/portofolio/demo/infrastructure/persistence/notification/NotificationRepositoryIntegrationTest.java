@@ -25,11 +25,11 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     @Test
     public void canPersist() {
         // Given
-        User user = userRepository.save(UserFixture.getUser().build());
+        User user = userRepository.save(UserFixture.getUser());
         String message = "this is a fake message";
         int quantity = 3;
 
-        Notification notificationToStore = Notification.Builder.with().user(user).message(message).build();
+        Notification notificationToStore = NotificationFixture.getNotificationForUser(user, message);
 
         // When
         Notification stored = repository.save(notificationToStore);
@@ -47,8 +47,8 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
 
     public void canFindById() {
         // Given
-        User user = userRepository.save(UserFixture.getUser().build());
-        Notification notification = repository.save(NotificationFixture.getNotification().user(user).build());
+        User user = userRepository.save(UserFixture.getUser());
+        Notification notification = repository.save(NotificationFixture.getNotificationForUser(user, "fake-message"));
         long id = notification.getId();
 
         // When
@@ -61,8 +61,8 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     @Test
     public void canDeleteById() {
         // Given
-        User user = userRepository.save(UserFixture.getUser().build());
-        Notification notification = repository.save(NotificationFixture.getNotification().user(user).build());
+        User user = userRepository.save(UserFixture.getUser());
+        Notification notification = repository.save(NotificationFixture.getNotificationForUser(user, "fake-message"));
         long id = notification.getId();
 
         // When

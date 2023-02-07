@@ -28,7 +28,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
         Item itemToPersist = ItemFixture.getItem();
 
         // When
-        Item itemPersisted = service.create(itemToPersist);
+        Item itemPersisted = service.save(itemToPersist);
 
         // Then
         Optional<Item> itemFoundOptional = repository.findById(itemPersisted.getId());
@@ -47,7 +47,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
 
         // When
         // Then
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.create(itemToPersist)).withMessage("Item can not be null");
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.save(itemToPersist)).withMessage("Item can not be null");
     }
 
     @Test
@@ -56,7 +56,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
         Item itemToPersist = ItemFixture.getItem();
 
         // When
-        Item itemPersisted = service.create(itemToPersist);
+        Item itemPersisted = service.save(itemToPersist);
 
         // Then
         service.deleteById(itemPersisted.getId());
@@ -79,7 +79,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     void canGetById() {
         // Given
         Item itemToPersist = ItemFixture.getItem();
-        Item itemPersisted = service.create(itemToPersist);
+        Item itemPersisted = service.save(itemToPersist);
         Long id = itemPersisted.getId();
 
         // When
@@ -104,8 +104,8 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
         // Given
         Item itemToPersist = ItemFixture.getItem();
         Item itemToPersist2 = ItemFixture.getItemWithName("FAKE-name-2");
-        service.create(itemToPersist);
-        service.create(itemToPersist2);
+        service.save(itemToPersist);
+        service.save(itemToPersist2);
 
 
         // When

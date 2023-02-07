@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ItemRepositoryService {
 
-    Item create(Item item);
+    Item save(Item item);
 
     void deleteById(Long id);
 

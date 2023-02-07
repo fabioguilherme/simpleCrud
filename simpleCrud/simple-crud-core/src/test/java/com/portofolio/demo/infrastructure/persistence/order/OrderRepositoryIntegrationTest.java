@@ -4,6 +4,7 @@ import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.item.ItemFixture;
 import com.portofolio.demo.domain.order.Order;
+import com.portofolio.demo.domain.order.OrderFixture;
 import com.portofolio.demo.domain.order.OrderStatus;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.domain.user.UserFixture;
@@ -28,10 +29,10 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     public void canPersist() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
-        User user = userRepository.save(UserFixture.getUser().build());
+        User user = userRepository.save(UserFixture.getUser());
         int quantity = 3;
 
-        Order orderToStore = Order.Builder.with().item(item).user(user).quantity(quantity).build();
+        Order orderToStore = OrderFixture.getOrderWithUserAndItem(user, item, quantity);
 
         // When
         Order stored = repository.save(orderToStore);
@@ -50,8 +51,8 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     public void canFindById() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
-        User user = userRepository.save(UserFixture.getUser().build());
-        Order order = repository.save(Order.Builder.with().item(item).user(user).quantity(3).build());
+        User user = userRepository.save(UserFixture.getUser());
+        Order order = repository.save(OrderFixture.getOrderWithUserAndItem(user, item, 3));
         long id = order.getId();
 
         // When
@@ -65,8 +66,8 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     public void canDeleteById() {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
-        User user = userRepository.save(UserFixture.getUser().build());
-        Order order = repository.save(Order.Builder.with().item(item).user(user).quantity(3).build());
+        User user = userRepository.save(UserFixture.getUser());
+        Order order = repository.save(OrderFixture.getOrderWithUserAndItem(user, item, 3));
         long id = order.getId();
 
         // When

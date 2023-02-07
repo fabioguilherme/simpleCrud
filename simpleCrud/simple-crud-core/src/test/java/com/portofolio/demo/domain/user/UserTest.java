@@ -88,7 +88,7 @@ class UserTest {
     @Test
     void canUpdateEmail() {
         // Given
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         String email = "new-email";
 
         // When
@@ -101,7 +101,7 @@ class UserTest {
     @Test
     void shouldThrowAnExceptionWhenEmailIsNull() {
         // Given
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         String email = null;
 
         // When
@@ -113,7 +113,7 @@ class UserTest {
     @Test
     void shouldThrowAnExceptionWhenEmailIsEmpty() {
         // Given
-        User user = UserFixture.getUser().build();
+        User user = UserFixture.getUser();
         String email = "";
 
         // When

@@ -54,7 +54,7 @@ class StockTest {
         // Given
         int moreItemsToAdd = 3;
         int oldQuantity = 1;
-        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+        Stock stock = Stock.Builder.with().item(ItemFixture.getItem()).quantity(oldQuantity).build();
 
         // When
         stock.addStock(moreItemsToAdd);
@@ -68,7 +68,7 @@ class StockTest {
         // Given
         int moreItemsToAdd = -3;
         int oldQuantity = 1;
-        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+        Stock stock = Stock.Builder.with().item(ItemFixture.getItem()).quantity(oldQuantity).build();
 
         // When
         assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.addStock(moreItemsToAdd)).withMessage("Quantity can not be bellow zero");
@@ -79,7 +79,7 @@ class StockTest {
         // Given
         int numberItemsToRemove = 3;
         int oldQuantity = 4;
-        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+        Stock stock = Stock.Builder.with().item(ItemFixture.getItem()).quantity(oldQuantity).build();
 
         // When
         stock.subtractStock(numberItemsToRemove);
@@ -93,7 +93,7 @@ class StockTest {
         // Given
         int numberItemsToRemove = -3;
         int oldQuantity = 1;
-        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+        Stock stock = Stock.Builder.with().item(ItemFixture.getItem()).quantity(oldQuantity).build();
 
         // When
         assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.subtractStock(numberItemsToRemove)).withMessage("Quantity can not be bellow zero");
@@ -104,7 +104,7 @@ class StockTest {
         // Given
         int numberItemsToRemove = 3;
         int oldQuantity = 1;
-        Stock stock = StockFixture.getStock().quantity(oldQuantity).build();
+        Stock stock = Stock.Builder.with().item(ItemFixture.getItem()).quantity(oldQuantity).build();
 
         // When
         assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> stock.subtractStock(numberItemsToRemove)).withMessage("Final quantity result can not be bellow zero");

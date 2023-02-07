@@ -87,7 +87,7 @@ public class Stock {
     }
 
 
-    public static final class Builder {
+    protected static final class Builder {
         private int quantity;
         private Item item;
 
