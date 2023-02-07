@@ -40,7 +40,7 @@ public class OrderTest {
         int quantity = 20;
 
         // When
-        ThrowableAssert.ThrowingCallable throwingCallable = () -> Order.Builder.with().item(item).quantity(quantity).user(user);
+        ThrowableAssert.ThrowingCallable throwingCallable = () -> Order.Builder.with().item(item).quantity(quantity).user(user).build();
         assertThatExceptionOfType(BusinessException.class).isThrownBy(throwingCallable).withMessage("Item can not be null");
     }
 
