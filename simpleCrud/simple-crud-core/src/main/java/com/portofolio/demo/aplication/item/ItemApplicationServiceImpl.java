@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemApplicationServiceImpl implements ItemApplicationService {
 
-    private final String uri_base;
+    private final String URI_BASE;
     private final String ITEM_URI_BASE = "/item/";
 
     private final ItemDomainService itemDomainService;
@@ -23,7 +24,7 @@ public class ItemApplicationServiceImpl implements ItemApplicationService {
 
     @Autowired
     public ItemApplicationServiceImpl(ItemDomainService itemDomainService, ItemRepositoryService itemRepositoryService, @Value("${uri.base}") String uriBase) {
-        this.uri_base = uriBase;
+        this.URI_BASE = uriBase;
         this.itemDomainService = itemDomainService;
         this.itemRepositoryService = itemRepositoryService;
     }
@@ -34,7 +35,7 @@ public class ItemApplicationServiceImpl implements ItemApplicationService {
         Item itemToPersist = itemDomainService.createItem(request.getName());
         Item itemPersisted = itemRepositoryService.save(itemToPersist);
 
-        return ItemDto.Builder.with().name(itemPersisted.getName()).id(itemPersisted.getId()).uri(uri_base + ITEM_URI_BASE + itemToPersist.getId()).build();
+        return fromEntity(itemPersisted);
     }
 
     @Override
@@ -47,17 +48,18 @@ public class ItemApplicationServiceImpl implements ItemApplicationService {
 
         Optional<Item> itemOptional = itemRepositoryService.getById(id);
 
-        if (itemOptional.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Item item = itemOptional.get();
-
-        return Optional.of(ItemDto.Builder.with().id(item.getId()).name(item.getName()).uri(uri_base + ITEM_URI_BASE + item.getId()).build());
+        return itemOptional.map(this::fromEntity);
     }
 
     @Override
     public List<ItemDto> getAll() {
-        return null;
+
+        List<Item> list = itemRepositoryService.getAll();
+
+        return list.stream().map(this::fromEntity).collect(Collectors.toList());
+    }
+
+    private ItemDto fromEntity(Item item) {
+        return ItemDto.Builder.with().id(item.getId()).name(item.getName()).uri(URI_BASE + ITEM_URI_BASE + item.getId()).build();
     }
 }

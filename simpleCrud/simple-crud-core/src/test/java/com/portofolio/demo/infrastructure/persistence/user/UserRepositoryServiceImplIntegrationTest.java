@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-class UserRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
+public class UserRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
 
     @Autowired
     private UserRepository repository;

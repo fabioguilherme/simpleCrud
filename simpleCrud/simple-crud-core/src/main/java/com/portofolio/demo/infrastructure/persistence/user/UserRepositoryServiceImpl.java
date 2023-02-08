@@ -1,6 +1,7 @@
 package com.portofolio.demo.infrastructure.persistence.user;
 
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,10 @@ public class UserRepositoryServiceImpl implements UserRepositoryService {
     public void deleteById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id can not be null");
+        }
+
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("User not found with id: " + id, null);
         }
 
         repository.deleteById(id);

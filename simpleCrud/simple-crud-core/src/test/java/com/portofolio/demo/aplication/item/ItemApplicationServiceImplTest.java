@@ -6,23 +6,25 @@ import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.item.ItemDomainService;
 import com.portofolio.demo.domain.item.ItemFixture;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepositoryService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ItemApplicationServiceImplTest {
 
-    private final String uri_base = "fake-uribase";
+    private final String URI_BASE = "fake-uribase";
     private final String ITEM_URI_BASE = "/item/";
 
     @Mock
@@ -32,9 +34,9 @@ public class ItemApplicationServiceImplTest {
 
     private ItemApplicationServiceImpl applicationService;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
-        this.applicationService = new ItemApplicationServiceImpl(itemDomainService, itemRepositoryService, uri_base);
+        this.applicationService = new ItemApplicationServiceImpl(itemDomainService, itemRepositoryService, URI_BASE);
     }
 
     @Test
@@ -54,7 +56,7 @@ public class ItemApplicationServiceImplTest {
         assertThat(response).isNotNull();
 
         assertThat(response.getName()).isEqualTo(name);
-        assertThat(response.getUri()).isEqualTo(uri_base + ITEM_URI_BASE + itemPersisted.getId());
+        assertThat(response.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + itemPersisted.getId());
 
         ArgumentCaptor<Item> argumentCaptor = ArgumentCaptor.forClass(Item.class);
 
@@ -88,8 +90,6 @@ public class ItemApplicationServiceImplTest {
         assertThat(idCaptured).isEqualTo(id);
     }
 
-    //    Optional<ItemDto> getById(Long id);
-
     @Test
     public void canGetItemById() throws Exception {
         // Given
@@ -107,6 +107,8 @@ public class ItemApplicationServiceImplTest {
         ItemDto dto = response.get();
 
         assertThat(dto.getName()).isEqualTo(itemFound.getName());
+        assertThat(dto.getId()).isEqualTo(itemFound.getId());
+        assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + itemFound.getId());
 
         ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
 
@@ -120,33 +122,39 @@ public class ItemApplicationServiceImplTest {
     }
 
     @Test
-    public void canGetAll() throws Exception {
+    public void shouldReturnOptionalEmptyIfItemDoNotExists() throws Exception {
         // Given
         Long id = 1L;
         Item itemFound = ItemFixture.getItem();
 
-        Mockito.when(itemRepositoryService.getById(id)).thenReturn(Optional.of(itemFound));
+        Mockito.when(itemRepositoryService.getById(id)).thenReturn(Optional.empty());
 
         // When
         Optional<ItemDto> response = applicationService.getById(id);
 
         // Then
-        assertThat(response).isPresent();
+        assertThat(response).isEmpty();
+    }
 
-        ItemDto dto = response.get();
+    @Test
+    public void canGetAll() throws Exception {
+        // Given
+        Long id = 1L;
+        Item itemFound = ItemFixture.getItem();
+
+        Mockito.when(itemRepositoryService.getAll()).thenReturn(Collections.singletonList(itemFound));
+
+        // When
+        List<ItemDto> response = applicationService.getAll();
+
+        // Then
+        assertThat(response).hasSize(1);
+
+        ItemDto dto = response.get(0);
 
         assertThat(dto.getName()).isEqualTo(itemFound.getName());
-
-        ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
-
-        Mockito.verify(itemRepositoryService).getById(argumentCaptor.capture());
-
-        Long idCaptured = argumentCaptor.getValue();
-
-        assertThat(idCaptured).isNotNull();
-
-        assertThat(idCaptured).isEqualTo(id);
-        assertThat(false).isTrue();
+        assertThat(dto.getId()).isEqualTo(itemFound.getId());
+        assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + itemFound.getId());
     }
 
 }
