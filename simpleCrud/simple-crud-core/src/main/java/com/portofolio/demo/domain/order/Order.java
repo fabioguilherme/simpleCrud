@@ -73,26 +73,26 @@ public class Order {
     private void validate() {
 
         if (this.item == null) {
-            throw new BusinessException("Item can not be null");
+            throw new BusinessException("Item can not be null", null);
         }
 
         if (this.user == null) {
-            throw new BusinessException("User can not be null");
+            throw new BusinessException("User can not be null", null);
         }
 
         if (this.quantity == 0) {
-            throw new BusinessException("Quantity can not be zero");
+            throw new BusinessException("Quantity can not be zero", null);
         }
 
         if (this.quantity < 0) {
-            throw new BusinessException("Quantity can not be bellow zero");
+            throw new BusinessException("Quantity can not be bellow zero", null);
         }
     }
 
     protected void changeStatus(OrderStatus newStatus) {
 
         if (newStatus == null) {
-            throw new BusinessException("Status can not be null");
+            throw new BusinessException("Status can not be null", null);
         }
 
         this.status = newStatus;

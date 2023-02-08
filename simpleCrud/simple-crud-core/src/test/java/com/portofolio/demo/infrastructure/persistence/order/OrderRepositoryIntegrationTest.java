@@ -26,7 +26,7 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     private OrderRepository repository;
 
     @Test
-    public void canPersist() {
+    public void canPersist() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         User user = userRepository.save(UserFixture.getUser());
@@ -48,7 +48,7 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canFindById() {
+    public void canFindById() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         User user = userRepository.save(UserFixture.getUser());
@@ -63,7 +63,7 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         User user = userRepository.save(UserFixture.getUser());

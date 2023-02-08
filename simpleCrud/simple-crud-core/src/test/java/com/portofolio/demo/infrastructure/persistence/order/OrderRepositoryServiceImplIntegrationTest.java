@@ -38,7 +38,7 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     private OrderRepositoryService service;
 
     @Test
-    public void canCreate() {
+    public void canCreate() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Item item = itemRepository.save(ItemFixture.getItem());
@@ -72,7 +72,7 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canUpdateStatus() {
+    public void canUpdateStatus() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Item item = itemRepository.save(ItemFixture.getItem());
@@ -95,7 +95,7 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Item item = itemRepository.save(ItemFixture.getItem());
@@ -123,7 +123,7 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canGetById() {
+    public void canGetById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Item item = itemRepository.save(ItemFixture.getItem());
@@ -149,7 +149,7 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canGetAll() {
+    public void canGetAll() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Item item = itemRepository.save(ItemFixture.getItem());

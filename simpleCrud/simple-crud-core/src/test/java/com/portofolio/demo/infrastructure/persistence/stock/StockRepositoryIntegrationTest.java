@@ -21,7 +21,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     private StockRepository repository;
 
     @Test
-    public void canPersist() {
+    public void canPersist() throws Exception {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
         int quantity = 3;
@@ -39,7 +39,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canFindById() {
+    public void canFindById() throws Exception {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
         Stock stock = repository.save(StockFixture.getStockWithItem(item, 3));
@@ -53,7 +53,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
         Stock stock = repository.save(StockFixture.getStockWithItem(item, 3));

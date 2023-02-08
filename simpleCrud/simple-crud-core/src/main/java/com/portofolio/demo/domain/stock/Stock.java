@@ -55,18 +55,18 @@ public class Stock {
     private void validate() {
 
         if (this.item == null) {
-            throw new BusinessException("Item can not be null");
+            throw new BusinessException("Item can not be null", null);
         }
 
         if (this.quantity < 0) {
-            throw new BusinessException("Quantity can not be bellow zero");
+            throw new BusinessException("Quantity can not be bellow zero", null);
         }
     }
 
     protected void addStock(int quantity) {
 
         if (quantity < 0) {
-            throw new BusinessException("Quantity can not be bellow zero");
+            throw new BusinessException("Quantity can not be bellow zero", null);
         }
 
         this.quantity = this.quantity + quantity;
@@ -75,11 +75,11 @@ public class Stock {
     protected void subtractStock(int quantity) {
 
         if (quantity < 0) {
-            throw new BusinessException("Quantity can not be bellow zero");
+            throw new BusinessException("Quantity can not be bellow zero", null);
         }
 
         if (this.quantity - quantity < 0) {
-            throw new BusinessException("Final quantity result can not be bellow zero");
+            throw new BusinessException("Final quantity result can not be bellow zero", null);
         }
 
 

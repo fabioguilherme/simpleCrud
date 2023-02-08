@@ -33,7 +33,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
 
 
     @Test
-    public void canCreate() {
+    public void canCreate() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         int quantity = 5;
@@ -65,7 +65,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canUpdate() {
+    public void canUpdate() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         int originalQuantity = 5;
@@ -85,7 +85,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         Stock stockToPersisted = repository.save(StockFixture.getStockWithItem(item, 5));
@@ -111,7 +111,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canGetById() {
+    public void canGetById() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         Stock stockToPersisted = repository.save(StockFixture.getStockWithItem(item, 5));
@@ -135,7 +135,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
-    public void canGetAll() {
+    public void canGetAll() throws Exception {
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         Stock stockToPersist = StockFixture.getStockWithItem(item, 5);

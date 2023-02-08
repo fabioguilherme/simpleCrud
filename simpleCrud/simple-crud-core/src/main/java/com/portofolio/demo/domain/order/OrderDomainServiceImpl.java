@@ -17,11 +17,11 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     public void updateOrderStatus(Order order, OrderStatus status) {
 
         if (status == null) {
-            throw new BusinessException("New status can not be null");
+            throw new BusinessException("New status can not be null", null);
         }
 
         if (order.getStatus().getPosition() > status.getPosition()) {
-            throw new BusinessException("Can update the order status to a lower status level");
+            throw new BusinessException("Can update the order status to a lower status level", null);
         }
 
         order.changeStatus(status);

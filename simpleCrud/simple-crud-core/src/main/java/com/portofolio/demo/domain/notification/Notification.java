@@ -43,11 +43,11 @@ public class Notification {
     private void validate() {
 
         if (this.user == null) {
-            throw new BusinessException("User can not be null");
+            throw new BusinessException("User can not be null", null);
         }
 
         if (this.message == null) {
-            throw new BusinessException("Message can not be null");
+            throw new BusinessException("Message can not be null", null);
         }
     }
 

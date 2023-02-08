@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 class StockTest {
 
     @Test
-    public void canBuild() {
+    public void canBuild() throws Exception {
         // Given
         int quantity = 1;
         Item item = ItemFixture.getItem();
@@ -39,7 +39,7 @@ class StockTest {
     }
 
     @Test
-    public void shouldThrowBusinessExceptionIfQuantityIsBellowZero() {
+    public void shouldThrowBusinessExceptionIfQuantityIsBellowZero() throws Exception {
         // Given
         int quantity = -1;
         Item item = ItemFixture.getItem();
@@ -50,7 +50,7 @@ class StockTest {
     }
 
     @Test
-    void canAddMoreQuantity() {
+    void canAddMoreQuantity() throws Exception {
         // Given
         int moreItemsToAdd = 3;
         int oldQuantity = 1;
@@ -64,7 +64,7 @@ class StockTest {
     }
 
     @Test
-    public void shouldThrowBusinessExceptionWhenAddingQuantityBellowZero() {
+    public void shouldThrowBusinessExceptionWhenAddingQuantityBellowZero() throws Exception {
         // Given
         int moreItemsToAdd = -3;
         int oldQuantity = 1;
@@ -75,7 +75,7 @@ class StockTest {
     }
 
     @Test
-    void canRemoveQuantity() {
+    void canRemoveQuantity() throws Exception {
         // Given
         int numberItemsToRemove = 3;
         int oldQuantity = 4;
@@ -89,7 +89,7 @@ class StockTest {
     }
 
     @Test
-    public void shouldThrowBusinessExceptionWhenSubtractQuantityBellowZero() {
+    public void shouldThrowBusinessExceptionWhenSubtractQuantityBellowZero() throws Exception {
         // Given
         int numberItemsToRemove = -3;
         int oldQuantity = 1;
@@ -100,7 +100,7 @@ class StockTest {
     }
 
     @Test
-    public void shouldThrowBusinessExceptionWhenQuantityIsBellowZero() {
+    public void shouldThrowBusinessExceptionWhenQuantityIsBellowZero() throws Exception {
         // Given
         int numberItemsToRemove = 3;
         int oldQuantity = 1;

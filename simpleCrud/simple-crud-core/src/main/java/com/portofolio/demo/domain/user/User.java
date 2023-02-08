@@ -43,22 +43,22 @@ public class User {
     private void validate() {
 
         if (this.name == null || this.name.isEmpty()) {
-            throw new BusinessException("Name can not be null or empty");
+            throw new BusinessException("Name can not be null or empty", null);
         }
 
         if (this.email == null || this.email.isEmpty()) {
-            throw new BusinessException("Email can not be null or empty");
+            throw new BusinessException("Email can not be null or empty", null);
         }
 
         if (!this.email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-            throw new BusinessException("Email is not valid");
+            throw new BusinessException("Email is not valid", null);
         }
     }
 
     protected void updateEmail(String email) {
 
         if (StringUtils.isNullOrEmpty(email)) {
-            throw new BusinessException("Email can not be empty or null");
+            throw new BusinessException("Email can not be empty or null", null);
         }
 
         this.email = email;

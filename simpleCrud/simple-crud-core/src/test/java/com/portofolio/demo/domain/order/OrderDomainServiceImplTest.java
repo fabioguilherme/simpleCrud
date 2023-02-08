@@ -24,7 +24,7 @@ public class OrderDomainServiceImplTest {
     }
 
     @Test
-    public void canCreateAnOrder() {
+    public void canCreateAnOrder() throws Exception {
         // Given
         Item item = ItemFixture.getItem();
         User user = UserFixture.getUser();
@@ -43,7 +43,7 @@ public class OrderDomainServiceImplTest {
     }
 
     @Test
-    public void canUpdateTheStatusOfAnOrder() {
+    public void canUpdateTheStatusOfAnOrder() throws Exception {
         // Given
         Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;
@@ -58,7 +58,7 @@ public class OrderDomainServiceImplTest {
     }
 
     @Test
-    public void shouldThrowABusinessExceptionWhenUpdatingToLowerPositionStatus() throws NoSuchFieldException {
+    public void shouldThrowABusinessExceptionWhenUpdatingToLowerPositionStatus() throws Exception {
         // Given
         Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;
@@ -73,7 +73,7 @@ public class OrderDomainServiceImplTest {
     }
 
     @Test
-    public void shouldThrowABusinessExceptionWhenUpdatingToNullStatus() throws NoSuchFieldException {
+    public void shouldThrowABusinessExceptionWhenUpdatingToNullStatus() throws Exception {
         // Given
         Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;

@@ -7,7 +7,7 @@ import com.portofolio.demo.domain.user.UserFixture;
 
 public class OrderFixture {
 
-    public static Order getOrder() {
+    public static Order getOrder() throws Exception {
         Item item = ItemFixture.getItem();
         User user = UserFixture.getUser();
         int quantity = 20;

@@ -5,7 +5,7 @@ import com.portofolio.demo.domain.item.ItemFixture;
 
 public class StockFixture {
 
-    public static Stock getStock() {
+    public static Stock getStock() throws Exception {
 
         Item item = ItemFixture.getItem();
         int quantity = 2;

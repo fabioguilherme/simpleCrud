@@ -23,7 +23,7 @@ public class Item {
 
     private void validate() {
         if (this.name == null || this.name.isEmpty()) {
-            throw new BusinessException("Field name can not be null");
+            throw new BusinessException("Field name can not be null", null);
         }
     }
 

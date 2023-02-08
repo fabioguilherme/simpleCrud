@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class OrderTest {
 
     @Test
-    void canBuild() {
+    void canBuild() throws Exception {
         // Given
         Item item = ItemFixture.getItem();
         User user = UserFixture.getUser();
@@ -45,7 +45,7 @@ public class OrderTest {
     }
 
     @Test
-    void shouldThrowABusinessExceptionIfUserIsNUll() {
+    void shouldThrowABusinessExceptionIfUserIsNUll() throws Exception {
         // Given
         Item item = ItemFixture.getItem();
         User user = null;
@@ -57,7 +57,7 @@ public class OrderTest {
     }
 
     @Test
-    void shouldThrowABusinessExceptionIfQuantityEqualZero() {
+    void shouldThrowABusinessExceptionIfQuantityEqualZero() throws Exception {
         // Given
         Item item = ItemFixture.getItem();
         User user = UserFixture.getUser();
@@ -69,7 +69,7 @@ public class OrderTest {
     }
 
     @Test
-    void shouldThrowABusinessExceptionIfQuantityBellowZero() {
+    void shouldThrowABusinessExceptionIfQuantityBellowZero() throws Exception {
         // Given
         Item item = ItemFixture.getItem();
         User user = UserFixture.getUser();
@@ -81,7 +81,7 @@ public class OrderTest {
     }
 
     @Test
-    void shouldThrowABusinessExceptionIfOrderStatusIsNull() {
+    void shouldThrowABusinessExceptionIfOrderStatusIsNull() throws Exception {
         // Given
         Order order = OrderFixture.getOrder();
         OrderStatus newStatus = null;
@@ -93,7 +93,7 @@ public class OrderTest {
     }
 
     @Test
-    void canUpdateOrderStatus() {
+    void canUpdateOrderStatus() throws Exception {
         // Given
         Order order = OrderFixture.getOrder();
         OrderStatus newStatus = OrderStatus.DONE;

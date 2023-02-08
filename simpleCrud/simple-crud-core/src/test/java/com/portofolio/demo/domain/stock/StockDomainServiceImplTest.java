@@ -17,7 +17,7 @@ public class StockDomainServiceImplTest {
     }
 
     @Test
-    public void canBuild() {
+    public void canBuild() throws Exception {
         // Given
         int quantity = 1;
         Item item = ItemFixture.getItem();
@@ -34,7 +34,7 @@ public class StockDomainServiceImplTest {
     }
 
     @Test
-    void canAddMoreQuantity() {
+    void canAddMoreQuantity() throws Exception {
         // Given
         int moreItemsToAdd = 3;
         int oldQuantity = 1;
@@ -48,7 +48,7 @@ public class StockDomainServiceImplTest {
     }
 
     @Test
-    void canSubtractQuantity() {
+    void canSubtractQuantity() throws Exception {
         // Given
         int numberItemsToRemove = 3;
         int oldQuantity = 4;

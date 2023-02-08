@@ -3,6 +3,7 @@ package com.portofolio.demo.infrastructure.persistence.item;
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.item.ItemFixture;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +24,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
 
 
     @Test
-    public void canCreate() {
+    public void canCreate() throws Exception {
         // Given
         Item itemToPersist = ItemFixture.getItem();
 
@@ -41,7 +42,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void shouldThrowAnExceptionIfItemIsNullWhenCreating() {
+    public void shouldThrowAnExceptionIfItemIsNullWhenCreating() throws Exception {
         // Given
         Item itemToPersist = null;
 
@@ -51,7 +52,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         Item itemToPersist = ItemFixture.getItem();
 
@@ -76,7 +77,17 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canGetById() {
+    public void shouldThowResourceNotFoundWhenItemNotExists() {
+        // Given
+        Long id = 5L;
+
+        // When
+        // Then
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> service.deleteById(id)).withMessage("Item not found with id: " + id);
+    }
+
+    @Test
+    public void canGetById() throws Exception {
         // Given
         Item itemToPersist = ItemFixture.getItem();
         Item itemPersisted = service.save(itemToPersist);
@@ -100,7 +111,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canGetAll() {
+    public void canGetAll() throws NoSuchFieldException {
         // Given
         Item itemToPersist = ItemFixture.getItem();
         Item itemToPersist2 = ItemFixture.getItemWithName("FAKE-name-2");
