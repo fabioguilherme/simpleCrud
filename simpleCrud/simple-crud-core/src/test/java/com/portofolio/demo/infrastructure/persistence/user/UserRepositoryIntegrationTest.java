@@ -15,7 +15,7 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     private UserRepository repository;
 
     @Test
-    public void canPersist() {
+    public void canPersist() throws Exception {
         // Given
         String name = "fakeName";
         String email = "fakeName@email.com";
@@ -32,7 +32,7 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canFindById() {
+    public void canFindById() throws Exception {
         // Given
         User userPersisted = repository.save(UserFixture.getUser());
         Long id = userPersisted.getId();
@@ -45,7 +45,7 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         User userPersisted = repository.save(UserFixture.getUser());
         Long id = userPersisted.getId();

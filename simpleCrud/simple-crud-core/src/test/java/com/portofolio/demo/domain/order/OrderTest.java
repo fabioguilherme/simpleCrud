@@ -33,7 +33,7 @@ public class OrderTest {
     }
 
     @Test
-    void shouldThrowABusinessExceptionIfItemIsNUll() {
+    void shouldThrowABusinessExceptionIfItemIsNUll() throws Exception {
         // Given
         Item item = null;
         User user = UserFixture.getUser();

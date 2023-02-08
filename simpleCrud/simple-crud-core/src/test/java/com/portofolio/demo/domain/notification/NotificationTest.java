@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class NotificationTest {
 
     @Test
-    void canBuild() {
+    void canBuild() throws Exception {
         // Given
         String message = "fake message";
         User user = UserFixture.getUser();
@@ -30,7 +30,7 @@ public class NotificationTest {
     }
 
     @Test
-    void shouldThrowExceptionIfMessageIsNull() {
+    void shouldThrowExceptionIfMessageIsNull() throws Exception {
         // Given
         String message = null;
         User user = UserFixture.getUser();

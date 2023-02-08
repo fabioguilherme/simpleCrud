@@ -77,7 +77,7 @@ class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void shouldThowResourceNotFoundWhenItemNotExists() {
+    public void shouldThrowResourceNotFoundWhenItemNotExists() {
         // Given
         Long id = 5L;
 

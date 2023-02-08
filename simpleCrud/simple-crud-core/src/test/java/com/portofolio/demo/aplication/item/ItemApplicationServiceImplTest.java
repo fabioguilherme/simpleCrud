@@ -38,12 +38,13 @@ public class ItemApplicationServiceImplTest {
     }
 
     @Test
-    public void canSaveAnItem() throws NoSuchFieldException {
+    public void canSaveAnItem() throws Exception {
         // Given
         String name = "fake-name";
         CreateItemRequest request = CreateItemRequest.withName(name);
+        Item itemPersisted = ItemFixture.getItemWithName(name);
 
-        Mockito.when(itemDomainService.createItem(name)).thenReturn(ItemFixture.getItemWithName(name));
+        Mockito.when(itemDomainService.createItem(name)).thenReturn(itemPersisted);
         Mockito.when(itemRepositoryService.save(any())).thenReturn(ItemFixture.getItemWithName(name));
 
         // When
@@ -53,7 +54,7 @@ public class ItemApplicationServiceImplTest {
         assertThat(response).isNotNull();
 
         assertThat(response.getName()).isEqualTo(name);
-        assertThat(response.getUri()).isEqualTo(uri_base + ITEM_URI_BASE + 1L);
+        assertThat(response.getUri()).isEqualTo(uri_base + ITEM_URI_BASE + itemPersisted.getId());
 
         ArgumentCaptor<Item> argumentCaptor = ArgumentCaptor.forClass(Item.class);
 
@@ -118,9 +119,6 @@ public class ItemApplicationServiceImplTest {
         assertThat(idCaptured).isEqualTo(id);
     }
 
-//
-//    List<ItemDto> getAll();
-
     @Test
     public void canGetAll() throws Exception {
         // Given
@@ -148,6 +146,7 @@ public class ItemApplicationServiceImplTest {
         assertThat(idCaptured).isNotNull();
 
         assertThat(idCaptured).isEqualTo(id);
+        assertThat(false).isTrue();
     }
 
 }

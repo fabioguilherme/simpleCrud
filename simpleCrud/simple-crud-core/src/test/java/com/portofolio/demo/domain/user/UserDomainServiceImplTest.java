@@ -31,7 +31,7 @@ public class UserDomainServiceImplTest {
     }
 
     @Test
-    void canUpdateEmail() {
+    void canUpdateEmail() throws Exception {
         // Given
         User user = UserFixture.getUser();
         String newEmail = "new-name@emai.com";

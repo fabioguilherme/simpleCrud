@@ -4,6 +4,7 @@ import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.domain.user.UserDomainService;
 import com.portofolio.demo.domain.user.UserFixture;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-class UserRepositoryServiceImplTest extends IntegrationBaseTest {
+class UserRepositoryServiceImplIntegrationTest extends IntegrationBaseTest {
 
     @Autowired
     private UserRepository repository;
@@ -24,7 +25,7 @@ class UserRepositoryServiceImplTest extends IntegrationBaseTest {
     private UserDomainService domainService;
 
     @Test
-    void save() {
+    void save() throws Exception {
         // Given
         User userToPersist = UserFixture.getUser();
 
@@ -42,7 +43,7 @@ class UserRepositoryServiceImplTest extends IntegrationBaseTest {
     }
 
     @Test
-    void canUpdateEmail() {
+    void canUpdateEmail() throws Exception {
         // Given
         User userToPersist = UserFixture.getUser();
         User userPersisted = service.save(userToPersist);
@@ -74,7 +75,7 @@ class UserRepositoryServiceImplTest extends IntegrationBaseTest {
     }
 
     @Test
-    void deleteById() {
+    void deleteById() throws Exception {
         // Given
         User userToPersist = UserFixture.getUser();
         User userPersisted = service.save(userToPersist);
@@ -100,7 +101,17 @@ class UserRepositoryServiceImplTest extends IntegrationBaseTest {
     }
 
     @Test
-    void getById() {
+    public void shouldThrowResourceNotFoundWhenItemNotExists() {
+        // Given
+        Long id = 5L;
+
+        // When
+        // Then
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> service.deleteById(id)).withMessage("User not found with id: " + id);
+    }
+
+    @Test
+    void getById() throws Exception {
         // Given
         User userToPersist = UserFixture.getUser();
         User userPersisted = service.save(userToPersist);
@@ -124,7 +135,7 @@ class UserRepositoryServiceImplTest extends IntegrationBaseTest {
     }
 
     @Test
-    void getAll() {
+    void getAll() throws Exception {
         // Given
         User UserToPersist = UserFixture.getUser();
         User UserToPersist2 = UserFixture.getUseWithEmailAndName("email2@email.com", "FAKE-name-2");

@@ -28,7 +28,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
 
 
     @Test
-    public void canCreate() {
+    public void canCreate() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";
@@ -60,7 +60,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";
@@ -87,7 +87,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    public void canGetById() {
+    public void canGetById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";
@@ -113,7 +113,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    public void canGetAll() {
+    public void canGetAll() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "fake-message";

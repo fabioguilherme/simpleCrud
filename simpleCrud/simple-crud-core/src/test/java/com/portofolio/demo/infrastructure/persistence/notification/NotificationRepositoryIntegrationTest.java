@@ -23,7 +23,7 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     private NotificationRepository repository;
 
     @Test
-    public void canPersist() {
+    public void canPersist() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         String message = "this is a fake message";
@@ -45,7 +45,7 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
 
     @Test
 
-    public void canFindById() {
+    public void canFindById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Notification notification = repository.save(NotificationFixture.getNotificationForUser(user, "fake-message"));
@@ -59,7 +59,7 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-    public void canDeleteById() {
+    public void canDeleteById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
         Notification notification = repository.save(NotificationFixture.getNotificationForUser(user, "fake-message"));

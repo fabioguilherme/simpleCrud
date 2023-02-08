@@ -17,7 +17,7 @@ public class NotificationDomainServiceImplTest {
     }
 
     @Test
-    void canCreateANotification() {
+    void canCreateANotification() throws Exception {
         // Given
         String message = "fake message";
         User user = UserFixture.getUser();

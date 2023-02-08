@@ -86,7 +86,7 @@ class UserTest {
     }
 
     @Test
-    void canUpdateEmail() {
+    void canUpdateEmail() throws Exception {
         // Given
         User user = UserFixture.getUser();
         String email = "new-email";
@@ -99,7 +99,7 @@ class UserTest {
     }
 
     @Test
-    void shouldThrowAnExceptionWhenEmailIsNull() {
+    void shouldThrowAnExceptionWhenEmailIsNull() throws Exception {
         // Given
         User user = UserFixture.getUser();
         String email = null;
@@ -111,7 +111,7 @@ class UserTest {
     }
 
     @Test
-    void shouldThrowAnExceptionWhenEmailIsEmpty() {
+    void shouldThrowAnExceptionWhenEmailIsEmpty() throws Exception {
         // Given
         User user = UserFixture.getUser();
         String email = "";
