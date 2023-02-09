@@ -2,8 +2,6 @@ package com.portofolio.demo.aplication.user;
 
 import com.portofolio.demo.aplication.user.model.CreateUserRequest;
 import com.portofolio.demo.aplication.user.model.UserDto;
-import com.portofolio.demo.domain.item.Item;
-import com.portofolio.demo.domain.item.ItemFixture;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.domain.user.UserDomainService;
 import com.portofolio.demo.domain.user.UserFixture;
@@ -80,7 +78,6 @@ public class UserApplicationServiceImplTest {
         String email = "old-name@email.com";
         Long userId = 1L;
         String newEmail = "new-name@email.com";
-        CreateUserRequest request = CreateUserRequest.Builder.with().name(name).email(email).build();
         User userPersisted = UserFixture.getUseWithEmailAndName(newEmail, name);
 
         Mockito.when(userRepositoryService.save(any())).thenReturn(userPersisted);
@@ -99,7 +96,7 @@ public class UserApplicationServiceImplTest {
         Mockito.verify(userDomainService).updateEmail(any(), argumentCaptor.capture());
 
         assertThat(argumentCaptor.getValue()).isEqualTo(newEmail);
-        
+
         Mockito.verify(userRepositoryService).save(any());
         Mockito.verify(userRepositoryService).getById(userId);
     }
@@ -160,7 +157,6 @@ public class UserApplicationServiceImplTest {
     public void shouldReturnOptionalEmptyIfUserDoNotExists() throws Exception {
         // Given
         Long id = 1L;
-        Item itemFound = ItemFixture.getItem();
 
         Mockito.when(userRepositoryService.getById(id)).thenReturn(Optional.empty());
 
@@ -174,7 +170,6 @@ public class UserApplicationServiceImplTest {
     @Test
     public void canGetAll() throws Exception {
         // Given
-        Long id = 1L;
         User userFound = UserFixture.getUser();
 
         Mockito.when(userRepositoryService.getAll()).thenReturn(Collections.singletonList(userFound));

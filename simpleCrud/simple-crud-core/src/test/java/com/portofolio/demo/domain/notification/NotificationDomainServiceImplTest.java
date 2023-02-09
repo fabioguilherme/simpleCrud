@@ -2,10 +2,12 @@ package com.portofolio.demo.domain.notification;
 
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.domain.user.UserFixture;
+import com.portofolio.demo.shared.errors.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class NotificationDomainServiceImplTest {
 
@@ -32,5 +34,25 @@ public class NotificationDomainServiceImplTest {
         assertThat(notification.getType()).isEqualTo(NotificationType.EMAIL);
         assertThat(notification.getUser()).isEqualTo(user);
         assertThat(notification.getMessage()).isEqualTo(message);
+    }
+
+    @Test
+    void shouldThrowAnExceptionWhenCreatingANotificationWithNullUser() throws Exception {
+        // Given
+        String message = "fake message";
+        User user = null;
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.notificationDomainService.createNotification(user, message)).withMessage("User and message can not be null");
+    }
+
+    @Test
+    void shouldThrowAnExceptionWhenCreatingANotificationWithNullMessage() throws Exception {
+        // Given
+        String message = null;
+        User user = UserFixture.getUser();
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.notificationDomainService.createNotification(user, message)).withMessage("User and message can not be null");
     }
 }

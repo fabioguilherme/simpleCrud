@@ -45,10 +45,7 @@ public class ItemApplicationServiceImpl implements ItemApplicationService {
 
     @Override
     public Optional<ItemDto> getById(Long id) {
-
-        Optional<Item> itemOptional = itemRepositoryService.getById(id);
-
-        return itemOptional.map(this::fromEntity);
+        return itemRepositoryService.getById(id).map(this::fromEntity);
     }
 
     @Override

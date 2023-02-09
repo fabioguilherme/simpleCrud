@@ -54,7 +54,7 @@ public class UserDomainServiceImplTest {
         String newEmail = null;
 
         // When
-        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.service.updateEmail(user, newEmail)).withMessage("");
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.service.updateEmail(user, newEmail)).withMessage("User and email can not be null");
     }
 
     @Test
@@ -64,6 +64,6 @@ public class UserDomainServiceImplTest {
         String newEmail = "fake-email@email.com";
 
         // When
-        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.service.updateEmail(user, newEmail)).withMessage("");
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.service.updateEmail(user, newEmail)).withMessage("User and email can not be null");
     }
 }

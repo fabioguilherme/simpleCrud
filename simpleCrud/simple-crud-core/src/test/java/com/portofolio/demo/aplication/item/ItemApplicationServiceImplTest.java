@@ -125,7 +125,6 @@ public class ItemApplicationServiceImplTest {
     public void shouldReturnOptionalEmptyIfItemDoNotExists() throws Exception {
         // Given
         Long id = 1L;
-        Item itemFound = ItemFixture.getItem();
 
         Mockito.when(itemRepositoryService.getById(id)).thenReturn(Optional.empty());
 
@@ -139,7 +138,6 @@ public class ItemApplicationServiceImplTest {
     @Test
     public void canGetAll() throws Exception {
         // Given
-        Long id = 1L;
         Item itemFound = ItemFixture.getItem();
 
         Mockito.when(itemRepositoryService.getAll()).thenReturn(Collections.singletonList(itemFound));

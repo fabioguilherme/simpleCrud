@@ -44,9 +44,7 @@ public class UserApplicationServiceImpl implements UserApplicationService {
 
     @Override
     public Optional<UserDto> getById(Long id) {
-        Optional<User> userOptional = repositoryService.getById(id);
-
-        return userOptional.map(this::fromEntity);
+        return repositoryService.getById(id).map(this::fromEntity);
     }
 
     @Override
