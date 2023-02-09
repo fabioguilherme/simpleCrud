@@ -31,4 +31,8 @@ public class StockFixture {
 
         return stock;
     }
+
+    public static Stock getNewStockWithItem(Item item, int quantity) {
+        return Stock.Builder.with().item(item).quantity(quantity).build();
+    }
 }

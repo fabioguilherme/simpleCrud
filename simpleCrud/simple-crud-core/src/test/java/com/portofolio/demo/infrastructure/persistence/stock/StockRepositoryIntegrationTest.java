@@ -53,6 +53,20 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
+    public void canFindByItemId() throws Exception {
+        // Given
+        Item item = repositoryItem.save(ItemFixture.getItem());
+        Stock stock = repository.save(StockFixture.getStockWithItem(item, 3));
+        long id = item.getId();
+
+        // When
+        Optional<Stock> storedOptional = repository.findStockByItemId(id);
+
+        // Then
+        assertThat(storedOptional).isPresent();
+    }
+
+    @Test
     public void canDeleteById() throws Exception {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());

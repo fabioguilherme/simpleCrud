@@ -34,4 +34,8 @@ public class NotificationFixture {
         return notification;
 
     }
+
+    public static Notification getNewNotificationForUser(User user, String message) {
+        return Notification.Builder.with().user(user).message(message).build();
+    }
 }

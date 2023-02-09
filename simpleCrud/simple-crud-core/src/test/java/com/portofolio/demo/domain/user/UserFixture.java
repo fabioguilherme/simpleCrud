@@ -28,4 +28,8 @@ public class UserFixture {
 
         return user;
     }
+
+    public static User getNewUseWithEmailAndName(String email, String name) {
+        return User.Builder.with().name(name).email(email).build();
+    }
 }

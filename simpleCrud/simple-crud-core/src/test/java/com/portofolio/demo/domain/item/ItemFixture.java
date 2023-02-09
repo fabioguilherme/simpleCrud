@@ -27,4 +27,8 @@ public class ItemFixture {
 
         return item;
     }
+
+    public static Item getNewItemWithName(String name) {
+        return Item.withName(name);
+    }
 }

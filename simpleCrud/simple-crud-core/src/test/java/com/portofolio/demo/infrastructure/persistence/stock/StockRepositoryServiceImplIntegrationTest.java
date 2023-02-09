@@ -7,6 +7,8 @@ import com.portofolio.demo.domain.stock.Stock;
 import com.portofolio.demo.domain.stock.StockDomainService;
 import com.portofolio.demo.domain.stock.StockFixture;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
+import com.portofolio.demo.shared.errors.BusinessException;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,7 +39,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
         // Given
         Item item = itemRepository.save(ItemFixture.getItem());
         int quantity = 5;
-        Stock stockToPersist = StockFixture.getStockWithItem(item, quantity);
+        Stock stockToPersist = StockFixture.getNewStockWithItem(item, quantity);
 
         // When
         Stock stockPersisted = service.save(stockToPersist);
@@ -52,6 +54,21 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
         assertThat(stock.getItem()).isNotNull();
 
         assertThat(stock.getQuantity()).isEqualTo(quantity);
+    }
+
+    @Test
+    void canNotCreateAnewStockForAnItemThatAlreadyHasAStock() throws Exception {
+        // Given
+        Item item = itemRepository.save(ItemFixture.getItem());
+        int quantity = 5;
+        Stock stockToPersist = StockFixture.getNewStockWithItem(item, quantity);
+        Stock newStockToPersist = StockFixture.getNewStockWithItem(item, quantity);
+
+        service.save(stockToPersist);
+
+        // When
+        ThrowableAssert.ThrowingCallable throwingCallable = () -> service.save(newStockToPersist);
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(throwingCallable).withMessage("There already exists a stock for the item id: " + newStockToPersist.getItem().getId());
     }
 
     @Test

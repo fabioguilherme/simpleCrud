@@ -24,13 +24,7 @@ public class OrderFixture {
         return order;
     }
 
-    public static Order getOrderWithUserAndItem(User user, Item item, int quantity) throws Exception {
-        Order order = Order.Builder.with().item(item).quantity(quantity).user(user).build();
-
-        Field field = order.getClass().getDeclaredField("id");
-        field.setAccessible(true);
-        ReflectionUtils.setField(field, order, 1L);
-
-        return order;
+    public static Order getOrderWithUserAndItem(User user, Item item, int quantity) {
+        return Order.Builder.with().item(item).quantity(quantity).user(user).build();
     }
 }

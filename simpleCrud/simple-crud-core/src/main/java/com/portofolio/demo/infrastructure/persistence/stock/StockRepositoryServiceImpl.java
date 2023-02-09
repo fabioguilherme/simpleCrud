@@ -2,6 +2,7 @@ package com.portofolio.demo.infrastructure.persistence.stock;
 
 import com.portofolio.demo.domain.stock.Stock;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
+import com.portofolio.demo.shared.errors.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,15 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
 
         if (stock == null) {
             throw new IllegalArgumentException("Stock can not be null");
+        }
+
+        if (stock.getId() == null) {
+
+            Optional<Stock> stockOptional = repository.findStockByItemId(stock.getItem().getId());
+
+            if (stockOptional.isPresent()) {
+                throw new BusinessException("There already exists a stock for the item id: " + stock.getItem().getId(), null);
+            }
         }
 
         return repository.save(stock);
