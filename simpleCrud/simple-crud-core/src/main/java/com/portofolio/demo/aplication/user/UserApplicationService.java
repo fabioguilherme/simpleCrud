@@ -15,4 +15,6 @@ public interface UserApplicationService {
     Optional<UserDto> getById(Long id);
 
     List<UserDto> getAll();
+
+    UserDto updateUserEmail(Long userId, String newEmail);
 }

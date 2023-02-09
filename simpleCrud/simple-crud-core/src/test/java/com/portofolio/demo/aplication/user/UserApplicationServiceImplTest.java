@@ -74,6 +74,37 @@ public class UserApplicationServiceImplTest {
     }
 
     @Test
+    public void canUpdateUserEmail() throws Exception {
+        // Given
+        String name = "fake-name";
+        String email = "old-name@email.com";
+        Long userId = 1L;
+        String newEmail = "new-name@email.com";
+        CreateUserRequest request = CreateUserRequest.Builder.with().name(name).email(email).build();
+        User userPersisted = UserFixture.getUseWithEmailAndName(newEmail, name);
+
+        Mockito.when(userRepositoryService.save(any())).thenReturn(userPersisted);
+
+        // When
+        UserDto response = applicationService.updateUserEmail(userId, newEmail);
+
+        // Then
+        assertThat(response).isNotNull();
+
+        assertThat(response.getName()).isEqualTo(name);
+        assertThat(response.getUri()).isEqualTo(URI_BASE + USER_URI_BASE + userPersisted.getId());
+
+        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        Mockito.verify(userDomainService).updateEmail(any(), argumentCaptor.capture());
+
+        assertThat(argumentCaptor.getValue()).isEqualTo(newEmail);
+        
+        Mockito.verify(userRepositoryService).save(any());
+        Mockito.verify(userRepositoryService).getById(userId);
+    }
+
+    @Test
     public void canDeleteById() {
         // Given
         Long id = 1L;

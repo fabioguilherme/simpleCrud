@@ -1,9 +1,11 @@
 package com.portofolio.demo.domain.user;
 
+import com.portofolio.demo.shared.errors.BusinessException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class UserDomainServiceImplTest {
 
@@ -43,5 +45,25 @@ public class UserDomainServiceImplTest {
         assertThat(user).isNotNull();
 
         assertThat(user.getEmail()).isEqualTo(newEmail);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUpdatingUserWithNullEmail() throws Exception {
+        // Given
+        User user = UserFixture.getUser();
+        String newEmail = null;
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.service.updateEmail(user, newEmail)).withMessage("");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUpdatingNullUser() throws Exception {
+        // Given
+        User user = null;
+        String newEmail = "fake-email@email.com";
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> this.service.updateEmail(user, newEmail)).withMessage("");
     }
 }

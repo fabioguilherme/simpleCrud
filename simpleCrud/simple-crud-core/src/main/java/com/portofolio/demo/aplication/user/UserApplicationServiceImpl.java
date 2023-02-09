@@ -56,6 +56,18 @@ public class UserApplicationServiceImpl implements UserApplicationService {
         return list.stream().map(this::fromEntity).collect(Collectors.toList());
     }
 
+    @Override
+    public UserDto updateUserEmail(Long userId, String newEmail) {
+
+        Optional<User> userToUpdateOptional = repositoryService.getById(userId);
+        User userToUpdate = userToUpdateOptional.orElse(null);
+        domainService.updateEmail(userToUpdate, newEmail);
+
+        User userPersisted = repositoryService.save(userToUpdate);
+
+        return fromEntity(userPersisted);
+    }
+
     private UserDto fromEntity(User entity) {
         return UserDto.Builder.with().name(entity.getName()).email(entity.getEmail()).id(entity.getId()).uri(URI_BASE + USER_URI_BASE + entity.getId()).build();
     }
