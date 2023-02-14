@@ -72,6 +72,6 @@ public class CreateItemRequestTest {
 
         assertThat(violations.size()).isEqualTo(1);
         List<ConstraintViolation<CreateItemRequest>> list = violations.stream().toList();
-        assertThat(list.get(0).getMessage()).isEqualTo("name of the item cannot be empty");
+        assertThat(list.get(0).getMessage()).isEqualTo("Name of the item can not be empty");
     }
 }

@@ -7,7 +7,7 @@ public class Item {
 
     private Long id;
     @NotNull
-    @Size(min = 1, message = "name of the item cannot be empty")
+    @Size(min = 1, message = "Name of the item can not be empty")
     private String name;
 
     public String getName() {
