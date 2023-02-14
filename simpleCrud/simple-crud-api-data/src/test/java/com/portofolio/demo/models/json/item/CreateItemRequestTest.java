@@ -1,9 +1,9 @@
 package com.portofolio.demo.models.json.item;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import java.util.List;
 import java.util.Set;
 
@@ -47,10 +47,10 @@ public class CreateItemRequestTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<CreateItemRequest>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<CreateItemRequest>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
 
-        assertThat(vialations.size()).isEqualTo(0);
+        assertThat(violations.size()).isEqualTo(0);
         assertThat(item.getName()).isEqualTo(name);
     }
 
@@ -68,10 +68,10 @@ public class CreateItemRequestTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<CreateItemRequest>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<CreateItemRequest>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateItemRequest>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateItemRequest>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("name of the item cannot be empty");
     }
 }

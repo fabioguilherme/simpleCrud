@@ -1,9 +1,9 @@
 package com.portofolio.demo.models.json.item;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import java.util.List;
 import java.util.Set;
 
@@ -25,11 +25,11 @@ public class ItemTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<Item>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<Item>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<Item>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<Item>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("must not be null");
     }
 
@@ -47,10 +47,10 @@ public class ItemTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<Item>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<Item>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
 
-        assertThat(vialations.size()).isEqualTo(0);
+        assertThat(violations.size()).isEqualTo(0);
         assertThat(item.getName()).isEqualTo(name);
     }
 

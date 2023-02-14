@@ -1,11 +1,11 @@
 package com.portofolio.demo.models.json.item;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class CreateItemRequest {
     @NotNull
-    @Size(min = 1, message = "name of the item cannot be empty")
+    @Size(min = 1, message = "Name of the item can not be empty")
     private String name;
 
     public String getName() {
