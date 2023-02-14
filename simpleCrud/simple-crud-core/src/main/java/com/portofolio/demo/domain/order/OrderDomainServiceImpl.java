@@ -10,6 +10,8 @@ public class OrderDomainServiceImpl implements OrderDomainService {
 
     @Override
     public Order createOrder(Item item, User user, int quantity) {
+
+        //TODO only create stock if there is enough to complete the order
         return Order.Builder.with().item(item).user(user).quantity(quantity).build();
     }
 
