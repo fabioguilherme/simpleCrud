@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portofolio.demo.aplication.item.ItemApplicationService;
 import com.portofolio.demo.aplication.item.model.ItemDto;
 import com.portofolio.demo.models.json.item.Item;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -63,5 +67,56 @@ public class ItemControllerTest {
         // When
         // Then
         this.mockMvc.perform(get("/api/item/{id}", itemId)).andExpect(status().is4xxClientError()).andReturn();
+    }
+
+    @Test
+    void canDelete() throws Exception {
+        // Given
+        Long itemId = 1L;
+        String itemName = "fake-name";
+
+        ItemDto itemFound = ItemDto.Builder.with().id(itemId).name(itemName).build();
+        Item itemExcepted = new Item();
+        itemExcepted.setId(itemId);
+        itemExcepted.setName(itemName);
+
+        doNothing().when(itemApplicationService).deleteById(itemId);
+
+        // When
+        MvcResult result = this.mockMvc.perform(delete("/api/item/{id}", itemId)).andExpect(status().isOk()).andReturn();
+
+        // Then
+        Mockito.verify(itemApplicationService).deleteById(itemId);
+    }
+
+    @Test
+    void canGetAll() throws Exception {
+        // Given
+        Long itemId = 1L;
+        String itemName = "fake-name";
+
+        ItemDto itemFound = ItemDto.Builder.with().id(itemId).name(itemName).build();
+        Item itemExcepted = new Item();
+        itemExcepted.setId(itemId);
+        itemExcepted.setName(itemName);
+
+        Long itemId2 = 2L;
+        String itemName2 = "fake-222";
+
+        ItemDto itemFound2 = ItemDto.Builder.with().id(itemId2).name(itemName2).build();
+        Item itemExcepted2 = new Item();
+        itemExcepted2.setId(itemId2);
+        itemExcepted2.setName(itemName2);
+        List<Item> listExcepted = Lists.list(itemExcepted, itemExcepted2);
+
+        when(itemApplicationService.getAll()).thenReturn(Lists.list(itemFound, itemFound2));
+
+        // When
+        MvcResult result = this.mockMvc.perform(get("/api/item", itemId)).andExpect(status().isOk()).andReturn();
+
+        // Then
+        Mockito.verify(itemApplicationService).getAll();
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
     }
 }

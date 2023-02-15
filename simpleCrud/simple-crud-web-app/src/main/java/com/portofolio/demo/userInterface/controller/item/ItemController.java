@@ -2,8 +2,9 @@ package com.portofolio.demo.userInterface.controller.item;
 
 
 import com.portofolio.demo.aplication.item.ItemApplicationService;
+import com.portofolio.demo.aplication.item.model.CreateItemRequest;
 import com.portofolio.demo.aplication.item.model.ItemDto;
-import com.portofolio.demo.models.json.item.CreateItemRequest;
+import com.portofolio.demo.models.json.item.CreateItemRequestJson;
 import com.portofolio.demo.models.json.item.Item;
 import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import com.portofolio.demo.userInterface.controller.MainController;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -24,7 +27,7 @@ public class ItemController extends MainController {
 
     private final ItemApplicationService service;
 
-    private Logger log = LoggerFactory.getLogger(ItemController.class);
+    private final Logger log = LoggerFactory.getLogger(ItemController.class);
 
     @Autowired
     public ItemController(ItemApplicationService service) {
@@ -33,9 +36,15 @@ public class ItemController extends MainController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createItem(@Valid @RequestBody CreateItemRequest request) {
+    public Item createItem(@Valid @RequestBody CreateItemRequestJson request) {
 
-        log.info("Creating item...");
+        CreateItemRequest serviceRequest = CreateItemRequest.withName(request.getName());
+
+        ItemDto dto = service.save(serviceRequest);
+
+        log.info("Created item.");
+
+        return fromDtoToJson(dto);
     }
 
 
@@ -54,6 +63,21 @@ public class ItemController extends MainController {
         log.info("Item found with id " + itemId);
 
         return fromDtoToJson(optionalDto.get());
+    }
+
+    @DeleteMapping("/{itemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteItemById(@PathVariable("itemId") Long itemId) {
+        service.deleteById(itemId);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Item> getAllItems() {
+
+        List<ItemDto> itemDtos = service.getAll();
+
+        return itemDtos.stream().map(this::fromDtoToJson).collect(Collectors.toList());
     }
 
     private Item fromDtoToJson(ItemDto itemDto) {

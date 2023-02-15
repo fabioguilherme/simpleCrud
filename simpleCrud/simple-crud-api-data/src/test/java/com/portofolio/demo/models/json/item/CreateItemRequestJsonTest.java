@@ -9,7 +9,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateItemRequestTest {
+public class CreateItemRequestJsonTest {
 
     @Test
     void shouldBeInvalidIfNameIsNull() {
@@ -17,7 +17,7 @@ public class CreateItemRequestTest {
         String name = null;
 
         // When
-        CreateItemRequest item = new CreateItemRequest();
+        CreateItemRequestJson item = new CreateItemRequestJson();
         item.setName(name);
 
         // Then
@@ -25,11 +25,11 @@ public class CreateItemRequestTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<CreateItemRequest>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<CreateItemRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
 
         assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateItemRequest>> list = vialations.stream().toList();
+        List<ConstraintViolation<CreateItemRequestJson>> list = vialations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("must not be null");
     }
 
@@ -39,7 +39,7 @@ public class CreateItemRequestTest {
         String name = "fakename";
 
         // When
-        CreateItemRequest item = new CreateItemRequest();
+        CreateItemRequestJson item = new CreateItemRequestJson();
         item.setName(name);
 
         // Then
@@ -47,7 +47,7 @@ public class CreateItemRequestTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<CreateItemRequest>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<CreateItemRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
 
         assertThat(violations.size()).isEqualTo(0);
@@ -60,7 +60,7 @@ public class CreateItemRequestTest {
         String name = "";
 
         // When
-        CreateItemRequest item = new CreateItemRequest();
+        CreateItemRequestJson item = new CreateItemRequestJson();
         item.setName(name);
 
         // Then
@@ -68,10 +68,10 @@ public class CreateItemRequestTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<CreateItemRequest>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<CreateItemRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
         assertThat(violations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateItemRequest>> list = violations.stream().toList();
+        List<ConstraintViolation<CreateItemRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Name of the item can not be empty");
     }
 }
