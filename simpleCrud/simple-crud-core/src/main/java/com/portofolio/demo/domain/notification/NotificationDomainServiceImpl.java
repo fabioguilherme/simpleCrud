@@ -2,7 +2,9 @@ package com.portofolio.demo.domain.notification;
 
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.shared.errors.BusinessException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class NotificationDomainServiceImpl implements NotificationDomainService {
 
 
