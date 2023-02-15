@@ -59,6 +59,7 @@ public class NotificationControllerTest {
                 .build();
 
         Notification notificationExpected = new Notification();
+
         notificationExpected.setId(id);
         notificationExpected.setMessage(message);
         notificationExpected.setUserName(userName);

@@ -84,6 +84,7 @@ public class ItemController extends MainController {
         Item item = new Item();
         item.setId(itemDto.getId());
         item.setName(itemDto.getName());
+        item.setUri(itemDto.getUri());
 
         return item;
     }

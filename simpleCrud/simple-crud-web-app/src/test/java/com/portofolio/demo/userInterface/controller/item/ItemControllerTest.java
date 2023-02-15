@@ -45,7 +45,7 @@ public class ItemControllerTest {
         String itemName = "fake-name";
         String uri = "fake-uri";
 
-        ItemDto itemFound = ItemDto.Builder.with().id(itemId).name(itemName).build();
+        ItemDto itemFound = ItemDto.Builder.with().id(itemId).name(itemName).uri(uri).build();
         Item itemExcepted = new Item();
         itemExcepted.setId(itemId);
         itemExcepted.setName(itemName);
