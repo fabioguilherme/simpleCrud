@@ -2,10 +2,13 @@ package com.portofolio.demo.userInterface.controller.item;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portofolio.demo.aplication.item.ItemApplicationService;
+import com.portofolio.demo.aplication.item.model.CreateItemRequest;
 import com.portofolio.demo.aplication.item.model.ItemDto;
+import com.portofolio.demo.models.json.item.CreateItemRequestJson;
 import com.portofolio.demo.models.json.item.Item;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,10 +20,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ItemController.class)
@@ -40,11 +43,13 @@ public class ItemControllerTest {
         // Given
         Long itemId = 1L;
         String itemName = "fake-name";
+        String uri = "fake-uri";
 
         ItemDto itemFound = ItemDto.Builder.with().id(itemId).name(itemName).build();
         Item itemExcepted = new Item();
         itemExcepted.setId(itemId);
         itemExcepted.setName(itemName);
+        itemExcepted.setUri(uri);
 
         when(itemApplicationService.getById(itemId)).thenReturn(Optional.of(itemFound));
 
@@ -73,12 +78,6 @@ public class ItemControllerTest {
     void canDelete() throws Exception {
         // Given
         Long itemId = 1L;
-        String itemName = "fake-name";
-
-        ItemDto itemFound = ItemDto.Builder.with().id(itemId).name(itemName).build();
-        Item itemExcepted = new Item();
-        itemExcepted.setId(itemId);
-        itemExcepted.setName(itemName);
 
         doNothing().when(itemApplicationService).deleteById(itemId);
 
@@ -118,5 +117,41 @@ public class ItemControllerTest {
         Mockito.verify(itemApplicationService).getAll();
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
+    }
+
+    @Test
+    public void canDOAPost201() throws Exception {
+        // Given
+        Long itemId = 1L;
+        String itemName = "fake-name";
+
+        ItemDto itemPersisted = ItemDto.Builder.with().id(itemId).name(itemName).build();
+        Item itemExcepted = new Item();
+        itemExcepted.setId(itemId);
+        itemExcepted.setName(itemName);
+
+        CreateItemRequestJson requestJson = new CreateItemRequestJson();
+        requestJson.setName(itemName);
+
+
+        when(itemApplicationService.save(any())).thenReturn(itemPersisted);
+
+        // When
+        MvcResult result = this.mockMvc.perform(post("/api/item")
+                        .content(objectMapper.writeValueAsString(requestJson))
+                        .contentType("application/json"))
+                .andExpect(status().isCreated()).andReturn();
+
+        // Then
+        ArgumentCaptor<CreateItemRequest> requestCaptor = ArgumentCaptor.forClass(CreateItemRequest.class);
+
+        Mockito.verify(itemApplicationService).save(requestCaptor.capture());
+
+        CreateItemRequest request = requestCaptor.getValue();
+
+        assertThat(request).isNotNull();
+        assertThat(request.getName()).isEqualTo(itemName);
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(itemExcepted));
     }
 }

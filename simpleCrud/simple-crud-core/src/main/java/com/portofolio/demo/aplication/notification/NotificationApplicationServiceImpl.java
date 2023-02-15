@@ -55,6 +55,9 @@ public class NotificationApplicationServiceImpl implements NotificationApplicati
         return repositoryService.getById(id).map(this::fromEntity);
     }
 
+    //TODO create a get to return notifications by user-email
+
+
     @Override
     public List<NotificationDto> getAll() {
         List<Notification> list = repositoryService.getAll();
