@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ItemController extends MainController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Item createItem(@Valid @RequestBody CreateItemRequestJson request) {
 
@@ -48,7 +49,7 @@ public class ItemController extends MainController {
     }
 
 
-    @GetMapping("/{itemId}")
+    @GetMapping(path = "/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     private Item getItem(@PathVariable("itemId") Long itemId) {
@@ -69,13 +70,16 @@ public class ItemController extends MainController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteItemById(@PathVariable("itemId") Long itemId) {
         service.deleteById(itemId);
+        log.info("Item deleted with id " + itemId);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<Item> getAllItems() {
 
         List<ItemDto> itemDtos = service.getAll();
+
+        log.info("Search ended.");
 
         return itemDtos.stream().map(this::fromDtoToJson).collect(Collectors.toList());
     }

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class NotificationController extends MainController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Notification createNotification(@Valid @RequestBody CreateNotificationRequestJson request) {
 
@@ -44,7 +45,7 @@ public class NotificationController extends MainController {
         return fromDtoToJson(dto);
     }
 
-    @GetMapping("/{notificationId}")
+    @GetMapping(path = "/{notificationId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     private Notification getNotification(@PathVariable("notificationId") Long notificationId) {
@@ -62,17 +63,22 @@ public class NotificationController extends MainController {
     }
 
     //TODO get notification by user email
+
     @DeleteMapping("/{notificationId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteNotificationById(@PathVariable("notificationId") Long notificationId) {
         service.deleteById(notificationId);
+        log.info("Notification deleted with id: " + notificationId);
     }
 
-    @GetMapping
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<Notification> getAllNotifications() {
 
         List<NotificationDto> notificationDtos = service.getAll();
+
+        log.info("Search end.");
 
         return notificationDtos.stream().map(this::fromDtoToJson).collect(Collectors.toList());
     }
