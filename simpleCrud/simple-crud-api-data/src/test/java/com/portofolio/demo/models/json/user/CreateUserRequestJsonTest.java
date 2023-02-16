@@ -43,11 +43,11 @@ public class CreateUserRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<CreateUserRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<CreateUserRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateUserRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateUserRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Name can not be null or empty");
     }
 
@@ -65,11 +65,11 @@ public class CreateUserRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<CreateUserRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<CreateUserRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateUserRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateUserRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Name can not be null or empty");
     }
 
@@ -87,11 +87,11 @@ public class CreateUserRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<CreateUserRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<CreateUserRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateUserRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateUserRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Email can not be null or empty");
     }
 
@@ -109,11 +109,11 @@ public class CreateUserRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<CreateUserRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<CreateUserRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateUserRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateUserRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Email can not be null or empty");
     }
 
@@ -130,12 +130,10 @@ public class CreateUserRequestJsonTest {
         request.setEmail(email);
 
         // Then
+        Set<ConstraintViolation<CreateUserRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
-        Set<ConstraintViolation<CreateUserRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
-
-
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateUserRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateUserRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Email must be valid");
     }
 }

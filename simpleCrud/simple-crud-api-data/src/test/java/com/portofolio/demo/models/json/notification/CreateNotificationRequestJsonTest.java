@@ -28,10 +28,10 @@ public class CreateNotificationRequestJsonTest {
         assertThat(notification.getUserId()).isEqualTo(userId);
         assertThat(notification.getMessage()).isEqualTo(message);
 
-        Set<ConstraintViolation<CreateNotificationRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
+        Set<ConstraintViolation<CreateNotificationRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
 
 
-        assertThat(vialations.size()).isEqualTo(0);
+        assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
@@ -51,11 +51,11 @@ public class CreateNotificationRequestJsonTest {
         assertThat(notification.getUserId()).isEqualTo(userId);
         assertThat(notification.getMessage()).isEqualTo(message);
 
-        Set<ConstraintViolation<CreateNotificationRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
+        Set<ConstraintViolation<CreateNotificationRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateNotificationRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateNotificationRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("must not be null");
     }
 
@@ -76,11 +76,11 @@ public class CreateNotificationRequestJsonTest {
         assertThat(notification.getUserId()).isEqualTo(userId);
         assertThat(notification.getMessage()).isEqualTo(message);
 
-        Set<ConstraintViolation<CreateNotificationRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
+        Set<ConstraintViolation<CreateNotificationRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateNotificationRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateNotificationRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("must not be null");
     }
 
@@ -101,11 +101,11 @@ public class CreateNotificationRequestJsonTest {
         assertThat(notification.getUserId()).isEqualTo(userId);
         assertThat(notification.getMessage()).isEqualTo(message);
 
-        Set<ConstraintViolation<CreateNotificationRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
+        Set<ConstraintViolation<CreateNotificationRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(notification);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<CreateNotificationRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<CreateNotificationRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Message of the notification can not be empty");
     }
 

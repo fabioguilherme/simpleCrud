@@ -68,10 +68,10 @@ public class ItemTest {
 
         assertThat(item.getName()).isEqualTo(name);
 
-        Set<ConstraintViolation<Item>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
+        Set<ConstraintViolation<Item>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(item);
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<Item>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<Item>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Name of the item can not be empty");
     }
 }

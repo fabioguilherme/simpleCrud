@@ -39,11 +39,11 @@ public class UpdateUserEmailRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<UpdateUserEmailRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<UpdateUserEmailRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<UpdateUserEmailRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<UpdateUserEmailRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Email can not be null or empty");
     }
 
@@ -59,11 +59,11 @@ public class UpdateUserEmailRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<UpdateUserEmailRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<UpdateUserEmailRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<UpdateUserEmailRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<UpdateUserEmailRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Email can not be null or empty");
     }
 
@@ -80,11 +80,11 @@ public class UpdateUserEmailRequestJsonTest {
 
         // Then
 
-        Set<ConstraintViolation<UpdateUserEmailRequestJson>> vialations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
+        Set<ConstraintViolation<UpdateUserEmailRequestJson>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(request);
 
 
-        assertThat(vialations.size()).isEqualTo(1);
-        List<ConstraintViolation<UpdateUserEmailRequestJson>> list = vialations.stream().toList();
+        assertThat(violations.size()).isEqualTo(1);
+        List<ConstraintViolation<UpdateUserEmailRequestJson>> list = violations.stream().toList();
         assertThat(list.get(0).getMessage()).isEqualTo("Email must be valid");
     }
 }
