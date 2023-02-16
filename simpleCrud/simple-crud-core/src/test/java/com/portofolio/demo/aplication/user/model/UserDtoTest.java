@@ -19,7 +19,6 @@ public class UserDtoTest {
         UserDto dto = UserDto.Builder.with().id(id).name(name).email(email).uri(uri).build();
 
         // Then
-
         assertThat(dto).isNotNull();
 
         assertThat(dto.getId()).isEqualTo(id);
