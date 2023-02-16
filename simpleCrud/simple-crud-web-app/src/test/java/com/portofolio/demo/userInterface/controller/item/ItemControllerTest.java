@@ -124,11 +124,14 @@ public class ItemControllerTest {
         // Given
         Long itemId = 1L;
         String itemName = "fake-name";
+        String uri = "fake-uri";
 
-        ItemDto itemPersisted = ItemDto.Builder.with().id(itemId).name(itemName).build();
+        ItemDto itemPersisted = ItemDto.Builder.with().id(itemId).name(itemName).uri(uri).build();
+
         Item itemExcepted = new Item();
         itemExcepted.setId(itemId);
         itemExcepted.setName(itemName);
+        itemExcepted.setUri(uri);
 
         CreateItemRequestJson requestJson = new CreateItemRequestJson();
         requestJson.setName(itemName);

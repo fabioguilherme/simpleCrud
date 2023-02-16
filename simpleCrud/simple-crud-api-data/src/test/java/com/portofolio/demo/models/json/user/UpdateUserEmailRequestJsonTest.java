@@ -14,7 +14,6 @@ public class UpdateUserEmailRequestJsonTest {
     @Test
     void canBuild() {
         // Given
-        String name = "fakeName";
         String email = "fake@email.com";
 
         // When
@@ -32,7 +31,6 @@ public class UpdateUserEmailRequestJsonTest {
     void shouldInvalidIfEmailIsNull() {
 
         // Given
-        String name = "fake-name";
         String email = null;
 
         // When
@@ -53,7 +51,6 @@ public class UpdateUserEmailRequestJsonTest {
     void shouldInvalidIfEmailIsEmpty() {
 
         // Given
-        String name = "fake-name";
         String email = "";
 
         // When
