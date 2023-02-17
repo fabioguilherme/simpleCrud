@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "api/stock")
 public class StockController extends MainController {
 
+    //TODO get stock by item id
+
     private final StockApplicationService service;
 
     private final Logger log = LoggerFactory.getLogger(StockController.class);

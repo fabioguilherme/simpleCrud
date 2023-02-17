@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class OrderController extends MainController {
 
     //TODO get an order by user email
+    //TODO get an order by status
 
     private final OrderApplicationService service;
 
