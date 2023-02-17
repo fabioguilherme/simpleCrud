@@ -3,7 +3,7 @@ package com.portofolio.demo.models.json.order;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public class ChangeStatusRequestJson {
+public class ChangeOrderStatusRequestJson {
 
     @NotNull(message = "Status must not be null")
     @Pattern(regexp = "(?:^|(?<= ))(DRAFT|PROCESSING|DONE)(?:(?= )|$)", message = "Status possible values: DRAFT, PROCESSING,DONE")
