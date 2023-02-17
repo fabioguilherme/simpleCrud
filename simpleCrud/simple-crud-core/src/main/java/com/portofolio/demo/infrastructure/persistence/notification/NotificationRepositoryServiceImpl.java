@@ -51,4 +51,14 @@ public class NotificationRepositoryServiceImpl implements NotificationRepository
 
         return list;
     }
+
+    @Override
+    public List<Notification> getByUserId(Long userId) {
+        Iterable<Notification> iterable = repository.findNotificationByUserId(userId);
+
+        List<Notification> list = new ArrayList<Notification>();
+        iterable.forEach(list::add);
+
+        return list;
+    }
 }

@@ -172,6 +172,83 @@ public class NotificationControllerTest {
     }
 
     @Test
+    void canGetNotificationByUserId() throws Exception {
+        // Given
+        Long userId = 1L;
+        Long id = 1L;
+        String message = "fake-message";
+        String userName = "fake-name";
+        String userEmail = "fake-email@fake.com";
+        String uri = "http:/localhostfake:8080/api/notification/1";
+        LocalDateTime creationDate = LocalDateTime.now();
+
+        NotificationDto notificationFound = NotificationDto.Builder.with()
+                .id(id)
+                .message(message)
+                .userName(userName)
+                .userEmail(userEmail)
+                .uri(uri)
+                .creationDate(creationDate)
+                .build();
+
+        Notification notificationExcepted = new Notification();
+
+        notificationExcepted.setId(id);
+        notificationExcepted.setMessage(message);
+        notificationExcepted.setUserName(userName);
+        notificationExcepted.setUserEmail(userEmail);
+        notificationExcepted.setUri(uri);
+        notificationExcepted.setCreationDate(creationDate);
+
+        Long id2 = 1L;
+        String message2 = "fake-message";
+        String userName2 = "fake-name";
+        String userEmail2 = "fake-email@fake.com";
+        String uri2 = "http:/localhostfake:8080/api/notification/2";
+        LocalDateTime creationDate2 = LocalDateTime.now();
+
+        NotificationDto notificationFound2 = NotificationDto.Builder.with()
+                .id(id2)
+                .message(message2)
+                .userName(userName2)
+                .userEmail(userEmail2)
+                .uri(uri2)
+                .creationDate(creationDate2)
+                .build();
+
+        Notification notificationExcepted2 = new Notification();
+
+        notificationExcepted2.setId(id2);
+        notificationExcepted2.setMessage(message2);
+        notificationExcepted2.setUserName(userName2);
+        notificationExcepted2.setUserEmail(userEmail2);
+        notificationExcepted2.setUri(uri2);
+        notificationExcepted2.setCreationDate(creationDate2);
+
+
+        List<Notification> listExcepted = Lists.list(notificationExcepted, notificationExcepted2);
+
+        when(notificationApplicationService.getNotificationsByUserId(userId)).thenReturn(Lists.list(notificationFound, notificationFound2));
+
+        // When
+        MvcResult result = this.mockMvc.perform(get("/api/notification").param("userId", "1")).andExpect(status().isOk()).andReturn();
+
+        // Then
+        Mockito.verify(notificationApplicationService).getNotificationsByUserId(userId);
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
+    }
+
+    @Test
+    void shouldReturnA400IfUserIdIsInvalid() throws Exception {
+        // Given
+
+        // When
+        MvcResult result = this.mockMvc.perform(get("/api/notification").param("userId", "abc")).andExpect(status().is4xxClientError()).andReturn();
+
+    }
+
+    @Test
     public void canDOAPost201() throws Exception {
         // Given
         Long id = 1L;

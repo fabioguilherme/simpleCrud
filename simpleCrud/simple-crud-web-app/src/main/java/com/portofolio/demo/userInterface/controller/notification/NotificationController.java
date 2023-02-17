@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -76,9 +77,15 @@ public class NotificationController extends MainController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Notification> getAllNotifications() {
+    public List<Notification> getAllNotifications(@RequestParam(name = "userId", required = false) Long userId) {
 
-        List<NotificationDto> notificationDtos = service.getAll();
+        List<NotificationDto> notificationDtos = Collections.EMPTY_LIST;
+
+        if (userId != null) {
+            notificationDtos = service.getNotificationsByUserId(userId); //TODO should be use an dynamic query, for now it will be like this
+        } else {
+            notificationDtos = service.getAll();
+        }
 
         log.info("Search end.");
 

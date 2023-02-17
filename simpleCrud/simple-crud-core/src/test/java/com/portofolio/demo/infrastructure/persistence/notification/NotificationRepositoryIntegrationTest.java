@@ -10,6 +10,7 @@ import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +45,6 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
-
     public void canFindById() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
@@ -72,6 +72,22 @@ public class NotificationRepositoryIntegrationTest extends IntegrationBaseTest {
         Optional<Notification> storedOptional = repository.findById(id);
 
         assertThat(storedOptional).isEmpty();
+    }
+
+    @Test
+    public void canFindByUserId() throws Exception {
+        // Given
+        User user = userRepository.save(UserFixture.getUser());
+        repository.save(NotificationFixture.getNotificationForUser(user, "fake-message"));
+        repository.save(NotificationFixture.getNotificationForUser(user, "fake-message2"));
+
+        // When
+        List<Notification> storedOptional = repository.findNotificationByUserId(user.getId());
+
+        // Then
+        assertThat(storedOptional).isNotNull();
+
+        assertThat(storedOptional).hasSize(2);
     }
 
     @Override

@@ -135,6 +135,26 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
         assertThat(list).anyMatch(i -> i.getMessage().equals(notificationPersisted2.getMessage()) && notificationPersisted2.getUser().getName().equals(user.getName()));
     }
 
+    @Test
+    public void canGetByUserId() throws Exception {
+        // Given
+        User user = userRepository.save(UserFixture.getUser());
+        String message = "fake-message";
+        String message2 = "fake-message2";
+        Notification notificationToPersist = NotificationFixture.getNotificationForUser(user, message);
+        service.save(notificationToPersist);
+        Notification notificationToPersist2 = NotificationFixture.getNotificationForUser(user, message2);
+        service.save(notificationToPersist2);
+
+        // When
+        List<Notification> notifications = service.getByUserId(user.getId());
+
+        // Then
+        assertThat(notifications).isNotNull();
+
+        assertThat(notifications).hasSize(2);
+    }
+
     @Override
     public void clearDataBase() {
         repository.deleteAll();

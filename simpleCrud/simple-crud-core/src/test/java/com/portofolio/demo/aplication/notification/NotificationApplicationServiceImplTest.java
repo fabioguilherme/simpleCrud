@@ -17,12 +17,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class NotificationApplicationServiceImplTest {
@@ -71,9 +73,9 @@ public class NotificationApplicationServiceImplTest {
 
         ArgumentCaptor<Notification> argumentCaptor = ArgumentCaptor.forClass(Notification.class);
 
-        Mockito.verify(userRepositoryService).getById(userId);
-        Mockito.verify(notificationDomainService).createNotification(user, message);
-        Mockito.verify(notificationRepositoryService).save(any());
+        verify(userRepositoryService).getById(userId);
+        verify(notificationDomainService).createNotification(user, message);
+        verify(notificationRepositoryService).save(any());
     }
 
     @Test
@@ -87,7 +89,7 @@ public class NotificationApplicationServiceImplTest {
         // Then
         ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
 
-        Mockito.verify(notificationRepositoryService).deleteById(argumentCaptor.capture());
+        verify(notificationRepositoryService).deleteById(argumentCaptor.capture());
 
         Long idCaptured = argumentCaptor.getValue();
 
@@ -122,7 +124,7 @@ public class NotificationApplicationServiceImplTest {
 
         ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
 
-        Mockito.verify(notificationRepositoryService).getById(argumentCaptor.capture());
+        verify(notificationRepositoryService).getById(argumentCaptor.capture());
 
         Long idCaptured = argumentCaptor.getValue();
 
@@ -164,5 +166,45 @@ public class NotificationApplicationServiceImplTest {
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationFound.getId());
         assertThat(dto.getUserName()).isEqualTo(notificationFound.getUser().getName());
         assertThat(dto.getUserEmail()).isEqualTo(notificationFound.getUser().getEmail());
+    }
+
+    @Test
+    public void canGetNotificationByUserId() throws Exception {
+        // Given
+        User user = UserFixture.getUser();
+        Long userId = user.getId();
+        String message = "fake";
+        String message2 = "fake2";
+        Notification notificationFound = NotificationFixture.getNotificationForUser(user, message);
+        Notification notificationFound2 = NotificationFixture.getNotificationForUser(user, message2);
+
+        Mockito.when(notificationRepositoryService.getByUserId(userId)).thenReturn(Arrays.asList(notificationFound, notificationFound2));
+
+        // When
+        List<NotificationDto> response = applicationService.getNotificationsByUserId(userId);
+
+        // Then
+
+        verify(notificationRepositoryService).getByUserId(userId);
+
+        assertThat(response).hasSize(2);
+
+        assertThat(response).anySatisfy(dto -> {
+            assertThat(dto.getId()).isEqualTo(notificationFound.getId());
+            assertThat(dto.getMessage()).isEqualTo(notificationFound.getMessage());
+            assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationFound.getId());
+            assertThat(dto.getUserName()).isEqualTo(notificationFound.getUser().getName());
+            assertThat(dto.getUserEmail()).isEqualTo(notificationFound.getUser().getEmail());
+        });
+
+        assertThat(response).anySatisfy(dto -> {
+            assertThat(dto.getId()).isEqualTo(notificationFound2.getId());
+            assertThat(dto.getMessage()).isEqualTo(notificationFound2.getMessage());
+            assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationFound2.getId());
+            assertThat(dto.getUserName()).isEqualTo(notificationFound2.getUser().getName());
+            assertThat(dto.getUserEmail()).isEqualTo(notificationFound2.getUser().getEmail());
+        });
+
+
     }
 }
