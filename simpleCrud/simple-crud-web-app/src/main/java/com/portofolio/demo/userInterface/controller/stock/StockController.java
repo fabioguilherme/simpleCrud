@@ -24,8 +24,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "api/stock")
 public class StockController extends MainController {
 
-    //TODO get stock by item id
-
     private final StockApplicationService service;
 
     private final Logger log = LoggerFactory.getLogger(StockController.class);
@@ -75,9 +73,9 @@ public class StockController extends MainController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Stock> getAllStocks() {
+    public List<Stock> getAllStocks(@RequestParam(name = "itemId", required = false) Long itemId) {
 
-        List<StockDto> stockDtos = service.getAll();
+        List<StockDto> stockDtos = service.getAll(itemId);
 
         log.info("Search ended.");
 

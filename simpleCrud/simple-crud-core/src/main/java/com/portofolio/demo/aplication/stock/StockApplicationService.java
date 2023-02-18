@@ -17,5 +17,5 @@ public interface StockApplicationService {
 
     Optional<StockDto> getById(Long id);
 
-    List<StockDto> getAll();
+    List<StockDto> getAll(Long itemId);
 }

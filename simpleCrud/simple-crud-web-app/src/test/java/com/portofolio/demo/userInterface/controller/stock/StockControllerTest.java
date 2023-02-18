@@ -123,13 +123,56 @@ public class StockControllerTest {
 
         List<Stock> listExcepted = Lists.list(stockExcepted, stockExcepted2);
 
-        when(stockApplicationService.getAll()).thenReturn(Lists.list(stockFound, stockFound2));
+        when(stockApplicationService.getAll(null)).thenReturn(Lists.list(stockFound, stockFound2));
 
         // When
         MvcResult result = this.mockMvc.perform(get("/api/stock", stockId)).andExpect(status().isOk()).andReturn();
 
         // Then
-        Mockito.verify(stockApplicationService).getAll();
+        Mockito.verify(stockApplicationService).getAll(null);
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
+    }
+
+    @Test
+    void canGetAllByItemId() throws Exception {
+        // Given
+        Long stockId = 1L;
+        Long itemId = 1L;
+        String itemName = "fake-name";
+        int quantity = 5;
+        String uri = "fake-uri";
+
+        StockDto stockFound = StockDto.Builder.with().id(stockId).itemName(itemName).quantity(quantity).uri(uri).build();
+
+        Stock stockExcepted = new Stock();
+        stockExcepted.setId(stockId);
+        stockExcepted.setItemName(itemName);
+        stockExcepted.setQuantity(quantity);
+        stockExcepted.setUri(uri);
+
+        Long stockId2 = 2L;
+        String itemName2 = "fake-name2";
+        int quantity2 = 5;
+        String uri2 = "fake-uri2";
+
+        StockDto stockFound2 = StockDto.Builder.with().id(stockId2).itemName(itemName2).quantity(quantity2).uri(uri2).build();
+
+        Stock stockExcepted2 = new Stock();
+        stockExcepted2.setId(stockId2);
+        stockExcepted2.setItemName(itemName2);
+        stockExcepted2.setQuantity(quantity2);
+        stockExcepted2.setUri(uri2);
+
+        List<Stock> listExcepted = Lists.list(stockExcepted, stockExcepted2);
+
+        when(stockApplicationService.getAll(itemId)).thenReturn(Lists.list(stockFound, stockFound2));
+
+        // When
+        MvcResult result = this.mockMvc.perform(get("/api/stock", stockId).param("itemId", itemId.toString())).andExpect(status().isOk()).andReturn();
+
+        // Then
+        Mockito.verify(stockApplicationService).getAll(itemId);
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
     }

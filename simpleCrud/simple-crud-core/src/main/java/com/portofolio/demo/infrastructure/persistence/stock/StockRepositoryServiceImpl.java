@@ -1,8 +1,11 @@
 package com.portofolio.demo.infrastructure.persistence.stock;
 
+import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.stock.Stock;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
 import com.portofolio.demo.shared.errors.BusinessException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +20,13 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
 
     private final StockRepository repository;
 
+    private final EntityManager entityManager;
+
     @Autowired
-    public StockRepositoryServiceImpl(ItemRepository itemRepository, StockRepository repository) {
+    public StockRepositoryServiceImpl(ItemRepository itemRepository, StockRepository repository, EntityManager entityManager) {
         this.itemRepository = itemRepository;
         this.repository = repository;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -61,12 +67,25 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
     }
 
     @Override
-    public List<Stock> getAll() {
-        Iterable<Stock> iterable = repository.findAll();
+    public List<Stock> getAll(Long itemId) {
 
-        List<Stock> list = new ArrayList<Stock>();
-        iterable.forEach(list::add);
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
 
-        return list;
+        Root<Stock> book = cq.from(Stock.class);
+
+
+        if (itemId != null) {
+
+            List<Predicate> predicates = new ArrayList<>();
+
+            Join<Stock, Item> item = book.join("item");
+
+            predicates.add(cb.equal(item.get("id"), itemId));
+
+            cq.where(predicates.toArray(new Predicate[0]));
+        }
+
+        return entityManager.createQuery(cq).getResultList();
     }
 }

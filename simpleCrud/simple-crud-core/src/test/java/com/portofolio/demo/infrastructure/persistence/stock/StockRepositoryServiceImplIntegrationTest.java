@@ -164,13 +164,35 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
 
 
         // When
-        List<Stock> list = service.getAll();
+        List<Stock> list = service.getAll(null);
 
         // Then
         assertThat(list).hasSize(2);
 
         assertThat(list).anyMatch(s -> s.getItem().getName().equals(stockPersisted.getItem().getName()) && stockPersisted.getQuantity() == s.getQuantity());
         assertThat(list).anyMatch(s -> s.getItem().getName().equals(stockPersisted2.getItem().getName()) && stockPersisted2.getQuantity() == s.getQuantity());
+    }
+
+    @Test
+    public void canGetAllByItemId() throws Exception {
+        // Given
+        Item item = itemRepository.save(ItemFixture.getItem());
+        Long itemId = item.getId();
+        Stock stockToPersist = StockFixture.getStockWithItem(item, 5);
+        Stock stockPersisted = service.save(stockToPersist);
+
+        Item item2 = itemRepository.save(ItemFixture.getItemWithName("item2"));
+        Stock stockToPersist2 = StockFixture.getStockWithItem(item2, 6);
+        service.save(stockToPersist2);
+
+
+        // When
+        List<Stock> list = service.getAll(itemId);
+
+        // Then
+        assertThat(list).hasSize(1);
+
+        assertThat(list).anyMatch(s -> s.getItem().getId().equals(itemId) && s.getItem().getName().equals(stockPersisted.getItem().getName()) && stockPersisted.getQuantity() == s.getQuantity());
     }
 
     @Override

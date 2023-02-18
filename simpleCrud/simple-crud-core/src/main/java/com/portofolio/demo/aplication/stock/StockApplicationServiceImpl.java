@@ -74,8 +74,8 @@ public class StockApplicationServiceImpl implements StockApplicationService {
     }
 
     @Override
-    public List<StockDto> getAll() {
-        List<Stock> list = stockRepositoryService.getAll();
+    public List<StockDto> getAll(Long itemId) {
+        List<Stock> list = stockRepositoryService.getAll(itemId);
 
         return list.stream().map(this::fromEntity).collect(Collectors.toList());
     }

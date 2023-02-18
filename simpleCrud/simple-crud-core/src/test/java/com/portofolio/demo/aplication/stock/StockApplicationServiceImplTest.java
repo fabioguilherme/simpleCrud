@@ -154,10 +154,32 @@ public class StockApplicationServiceImplTest {
         // Given
         Stock stockFound = StockFixture.getStock();
 
-        Mockito.when(stockRepositoryService.getAll()).thenReturn(Collections.singletonList(stockFound));
+        Mockito.when(stockRepositoryService.getAll(null)).thenReturn(Collections.singletonList(stockFound));
 
         // When
-        List<StockDto> response = applicationService.getAll();
+        List<StockDto> response = applicationService.getAll(null);
+
+        // Then
+        assertThat(response).hasSize(1);
+
+        StockDto dto = response.get(0);
+
+        assertThat(dto.getItemName()).isEqualTo(stockFound.getItem().getName());
+        assertThat(dto.getId()).isEqualTo(stockFound.getId());
+        assertThat(dto.getQuantity()).isEqualTo(stockFound.getQuantity());
+        assertThat(dto.getUri()).isEqualTo(URI_BASE + STOCK_URI_BASE + stockFound.getId());
+    }
+
+    @Test
+    public void canGetAllByItemId() throws Exception {
+        // Given
+        Stock stockFound = StockFixture.getStock();
+        Long itemId = stockFound.getItem().getId();
+
+        Mockito.when(stockRepositoryService.getAll(itemId)).thenReturn(Collections.singletonList(stockFound));
+
+        // When
+        List<StockDto> response = applicationService.getAll(itemId);
 
         // Then
         assertThat(response).hasSize(1);
