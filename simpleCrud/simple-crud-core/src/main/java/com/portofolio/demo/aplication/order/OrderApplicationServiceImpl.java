@@ -72,8 +72,8 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
     }
 
     @Override
-    public List<OrderDto> getAll() {
-        List<Order> list = orderRepositoryService.getAll();
+    public List<OrderDto> getAll(Long userId, OrderStatus status) {
+        List<Order> list = orderRepositoryService.getAll(userId, status);
 
         return list.stream().map(this::fromEntity).collect(Collectors.toList());
     }

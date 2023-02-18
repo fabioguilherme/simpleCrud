@@ -1,6 +1,10 @@
 package com.portofolio.demo.infrastructure.persistence.order;
 
 import com.portofolio.demo.domain.order.Order;
+import com.portofolio.demo.domain.order.OrderStatus;
+import com.portofolio.demo.domain.user.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +17,12 @@ public class OrderRepositoryServiceImpl implements OrderRepositoryService {
 
     private final OrderRepository repository;
 
+    private final EntityManager entityManager;
+
     @Autowired
-    public OrderRepositoryServiceImpl(OrderRepository repository) {
+    public OrderRepositoryServiceImpl(OrderRepository repository, EntityManager entityManager) {
         this.repository = repository;
+        this.entityManager = entityManager;
     }
 
     @Override
@@ -46,12 +53,30 @@ public class OrderRepositoryServiceImpl implements OrderRepositoryService {
     }
 
     @Override
-    public List<Order> getAll() {
-        Iterable<Order> iterable = repository.findAll();
+    public List<Order> getAll(Long userId, OrderStatus status) {
 
-        List<Order> list = new ArrayList<Order>();
-        iterable.forEach(list::add);
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> cq = cb.createQuery(Order.class);
 
-        return list;
+        Root<Order> root = cq.from(Order.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (userId != null) {
+
+            Join<Order, User> user = root.join("user");
+
+            predicates.add(cb.equal(user.get("id"), userId));
+        }
+
+        if (status != null) {
+            predicates.add(cb.equal(root.get("status"), status));
+        }
+
+        if (!predicates.isEmpty())
+            cq.where(predicates.toArray(new Predicate[0]));
+
+
+        return entityManager.createQuery(cq).getResultList();
     }
 }

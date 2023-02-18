@@ -25,9 +25,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "api/order")
 public class OrderController extends MainController {
 
-    //TODO get an order by user email
-    //TODO get an order by status
-
     private final OrderApplicationService service;
 
     private final Logger log = LoggerFactory.getLogger(OrderController.class);
@@ -63,9 +60,10 @@ public class OrderController extends MainController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<Order> getAllOrders() {
+    public List<Order> getAllOrders(@RequestParam(name = "userId", required = false) Long userId,
+                                    @RequestParam(name = "status", required = false) OrderStatus status) {
 
-        List<OrderDto> orderDtos = service.getAll();
+        List<OrderDto> orderDtos = service.getAll(userId, status);
 
         log.info("Search ended.");
 

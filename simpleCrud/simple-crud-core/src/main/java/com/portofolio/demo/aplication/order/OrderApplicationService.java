@@ -17,5 +17,5 @@ public interface OrderApplicationService {
 
     Optional<OrderDto> getById(Long id);
 
-    List<OrderDto> getAll();
+    List<OrderDto> getAll(Long userId, OrderStatus status);
 }

@@ -162,13 +162,92 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
 
 
         // When
-        List<Order> list = service.getAll();
+        List<Order> list = service.getAll(null, null);
 
         // Then
         assertThat(list).hasSize(2);
 
         assertThat(list).anyMatch(o -> o.getItem().getName().equals(orderToPersist.getItem().getName()) && orderToPersist.getUser().getName().equals(user.getName()) && orderToPersist.getQuantity() == quantity);
         assertThat(list).anyMatch(o -> o.getItem().getName().equals(orderToPersist2.getItem().getName()) && orderToPersist2.getUser().getName().equals(user.getName()) && orderToPersist2.getQuantity() == quantity2);
+    }
+
+    @Test
+    public void canGetAllByUserId() throws Exception {
+        // Given
+        User user = userRepository.save(UserFixture.getUser());
+        Item item = itemRepository.save(ItemFixture.getItem());
+        int quantity = 5;
+        Order orderToPersist = service.save(OrderFixture.getOrderWithUserAndItem(user, item, quantity));
+
+        int quantity2 = 8;
+        Order orderToPersist2 = service.save(OrderFixture.getOrderWithUserAndItem(user, item, quantity2));
+        Long id = orderToPersist.getId();
+
+
+        // When
+        List<Order> list = service.getAll(null, null);
+
+        // Then
+        assertThat(list).hasSize(2);
+
+        assertThat(list).anyMatch(o -> o.getItem().getName().equals(orderToPersist.getItem().getName())
+                && o.getUser().getName().equals(user.getName()) && o.getQuantity() == quantity);
+        assertThat(list).anyMatch(o -> o.getItem().getName().equals(orderToPersist2.getItem().getName())
+                && o.getUser().getName().equals(user.getName()) && o.getQuantity() == quantity2);
+    }
+
+    @Test
+    public void canGetAllByStatus() throws Exception {
+        // Given
+        User user = userRepository.save(UserFixture.getUser());
+        Item item = itemRepository.save(ItemFixture.getItem());
+        int quantity = 5;
+        OrderStatus orderStatus = OrderStatus.DRAFT;
+
+        Order orderToPersist = service.save(OrderFixture.getOrderWithUserAndItem(user, item, quantity));
+
+        int quantity2 = 8;
+        Order orderToPersist2 = service.save(OrderFixture.getOrderWithUserAndItem(user, item, quantity2));
+        Long id = orderToPersist.getId();
+
+
+        // When
+        List<Order> list = service.getAll(null, orderStatus);
+
+        // Then
+        assertThat(list).hasSize(2);
+
+        assertThat(list).anyMatch(o -> o.getItem().getName().equals(orderToPersist.getItem().getName()) && o.getUser().getName().equals(user.getName())
+                && o.getQuantity() == quantity && o.getStatus().equals(orderStatus));
+        assertThat(list).anyMatch(o -> o.getItem().getName().equals(orderToPersist2.getItem().getName()) && o.getUser().getName().equals(user.getName())
+                && o.getQuantity() == quantity2 && o.getStatus().equals(orderStatus));
+    }
+
+    @Test
+    public void canGetAllByUserIdAndStatus() throws Exception {
+        // Given
+        User user = userRepository.save(UserFixture.getUser());
+        Long userId = user.getId();
+
+        OrderStatus orderStatus = OrderStatus.DRAFT;
+
+        Item item = itemRepository.save(ItemFixture.getItem());
+        int quantity = 5;
+        Order orderToPersist = service.save(OrderFixture.getOrderWithUserAndItem(user, item, quantity));
+
+        int quantity2 = 8;
+        Order orderToPersist2 = service.save(OrderFixture.getOrderWithUserAndItemDone(user, item, quantity2));
+
+
+        // When
+
+        List<Order> list = service.getAll(userId, orderStatus);
+
+        // Then
+        assertThat(list).hasSize(1);
+
+        assertThat(list).anyMatch(o -> o.getUser().getId().equals(userId) && o.getItem().getName().equals(orderToPersist.getItem().getName())
+                && o.getUser().getName().equals(user.getName()) && o.getQuantity() == quantity && o.getStatus().equals(orderStatus));
     }
 
     @Override

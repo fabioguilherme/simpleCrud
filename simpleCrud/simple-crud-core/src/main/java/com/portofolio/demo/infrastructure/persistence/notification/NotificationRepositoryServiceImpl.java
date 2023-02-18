@@ -58,14 +58,14 @@ public class NotificationRepositoryServiceImpl implements NotificationRepository
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Notification> cq = cb.createQuery(Notification.class);
 
-        Root<Notification> book = cq.from(Notification.class);
+        Root<Notification> root = cq.from(Notification.class);
 
 
         if (userId != null) {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            Join<Notification, User> user = book.join("user");
+            Join<Notification, User> user = root.join("user");
 
             predicates.add(cb.equal(user.get("id"), userId));
 

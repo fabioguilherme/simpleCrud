@@ -131,8 +131,10 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
         // Then
         assertThat(list).hasSize(2);
 
-        assertThat(list).anyMatch(i -> i.getMessage().equals(notificationPersisted.getMessage()) && notificationPersisted.getUser().getName().equals(user.getName()));
-        assertThat(list).anyMatch(i -> i.getMessage().equals(notificationPersisted2.getMessage()) && notificationPersisted2.getUser().getName().equals(user.getName()));
+        assertThat(list).anyMatch(i -> i.getMessage().equals(notificationPersisted.getMessage())
+                && i.getUser().getName().equals(user.getName()));
+        assertThat(list).anyMatch(i -> i.getMessage().equals(notificationPersisted2.getMessage())
+                && i.getUser().getName().equals(user.getName()));
     }
 
     @Test
@@ -156,7 +158,8 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
         // Then
         assertThat(list).hasSize(1);
 
-        assertThat(list).anyMatch(i -> i.getUser().getId().equals(userId) && i.getMessage().equals(notificationPersisted.getMessage()) && notificationPersisted.getUser().getName().equals(user.getName()));
+        assertThat(list).anyMatch(i -> i.getUser().getId().equals(userId) && i.getMessage().equals(notificationPersisted.getMessage())
+                && i.getUser().getName().equals(user.getName()));
     }
 
     @Override

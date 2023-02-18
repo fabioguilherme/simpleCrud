@@ -167,15 +167,101 @@ public class OrderControllerTest {
 
         List<Order> listExcepted = Lists.list(orderExcepted, orderExcepted2);
 
-        when(orderApplicationService.getAll()).thenReturn(Lists.list(orderFound, orderFound2));
+        when(orderApplicationService.getAll(null, null)).thenReturn(Lists.list(orderFound, orderFound2));
 
         // When
-        MvcResult result = this.mockMvc.perform(get("/api/order", orderId)).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/api/order")).andExpect(status().isOk()).andReturn();
 
         // Then
-        Mockito.verify(orderApplicationService).getAll();
+        Mockito.verify(orderApplicationService).getAll(null, null);
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
+    }
+
+    @Test
+    void canGetAllByUserIdAndOrderStatus() throws Exception {
+        // Given
+        Long orderId = 1L;
+        String itemName = "fake-name";
+        String userName = "user-fake-name";
+        String userEmail = "fake-name@fake.com";
+        LocalDateTime creationDate = LocalDateTime.now();
+        int quantity = 5;
+        String uri = "fake-uri";
+
+        Long userId = 1L;
+        OrderStatus status = OrderStatus.DRAFT;
+
+        OrderDto orderFound = OrderDto.Builder.with()
+                .id(orderId)
+                .itemName(itemName)
+                .userName(userName)
+                .userEmail(userEmail)
+                .creationDate(creationDate)
+                .quantity(quantity)
+                .uri(uri).build();
+
+        Order orderExcepted = new Order();
+
+        orderExcepted.setId(orderId);
+        orderExcepted.setItemName(itemName);
+        orderExcepted.setUserName(userName);
+        orderExcepted.setUserEmail(userEmail);
+        orderExcepted.setCreationDate(creationDate);
+        orderExcepted.setQuantity(quantity);
+        orderExcepted.setUri(uri);
+
+        Long orderId2 = 2L;
+        String itemName2 = "fake-name2";
+        String userName2 = "user-fake-name2";
+        String userEmail2 = "fake-name2@fake.com";
+        LocalDateTime creationDate2 = LocalDateTime.now();
+        int quantity2 = 5;
+        String uri2 = "fake-uri2";
+
+        OrderDto orderFound2 = OrderDto.Builder.with()
+                .id(orderId2)
+                .itemName(itemName2)
+                .userName(userName2)
+                .userEmail(userEmail2)
+                .creationDate(creationDate2)
+                .quantity(quantity2)
+                .uri(uri2).build();
+
+        Order orderExcepted2 = new Order();
+
+        orderExcepted2.setId(orderId2);
+        orderExcepted2.setItemName(itemName2);
+        orderExcepted2.setUserName(userName2);
+        orderExcepted2.setUserEmail(userEmail2);
+        orderExcepted2.setCreationDate(creationDate2);
+        orderExcepted2.setQuantity(quantity2);
+        orderExcepted2.setUri(uri2);
+
+        List<Order> listExcepted = Lists.list(orderExcepted, orderExcepted2);
+
+        when(orderApplicationService.getAll(userId, status)).thenReturn(Lists.list(orderFound, orderFound2));
+
+        // When
+        MvcResult result = this.mockMvc.perform(get("/api/order").param("userId", userId.toString()).param("status", status.name()))
+                .andExpect(status().isOk()).andReturn();
+
+        // Then
+        Mockito.verify(orderApplicationService).getAll(userId, status);
+
+        assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
+    }
+
+    @Test
+    void shouldGetA400IfTheParamHasAWrongStatus() throws Exception {
+        // Given
+        Long userId = 1L;
+        String status = "FAKE";
+
+
+        // When
+        this.mockMvc.perform(get("/api/order").param("userId", userId.toString()).param("status", status))
+                .andExpect(status().is4xxClientError()).andReturn();
     }
 
     @Test

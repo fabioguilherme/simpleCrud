@@ -72,14 +72,14 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
 
-        Root<Stock> book = cq.from(Stock.class);
+        Root<Stock> root = cq.from(Stock.class);
 
 
         if (itemId != null) {
 
             List<Predicate> predicates = new ArrayList<>();
 
-            Join<Stock, Item> item = book.join("item");
+            Join<Stock, Item> item = root.join("item");
 
             predicates.add(cb.equal(item.get("id"), itemId));
 

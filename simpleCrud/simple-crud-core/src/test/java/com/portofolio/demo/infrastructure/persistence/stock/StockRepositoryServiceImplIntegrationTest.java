@@ -192,7 +192,8 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
         // Then
         assertThat(list).hasSize(1);
 
-        assertThat(list).anyMatch(s -> s.getItem().getId().equals(itemId) && s.getItem().getName().equals(stockPersisted.getItem().getName()) && stockPersisted.getQuantity() == s.getQuantity());
+        assertThat(list).anyMatch(s -> s.getItem().getId().equals(itemId) && s.getItem().getName().equals(stockPersisted.getItem().getName())
+                && stockPersisted.getQuantity() == s.getQuantity());
     }
 
     @Override

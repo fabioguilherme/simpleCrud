@@ -111,7 +111,7 @@ public class ItemControllerTest {
         when(itemApplicationService.getAll()).thenReturn(Lists.list(itemFound, itemFound2));
 
         // When
-        MvcResult result = this.mockMvc.perform(get("/api/item", itemId)).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/api/item")).andExpect(status().isOk()).andReturn();
 
         // Then
         Mockito.verify(itemApplicationService).getAll();

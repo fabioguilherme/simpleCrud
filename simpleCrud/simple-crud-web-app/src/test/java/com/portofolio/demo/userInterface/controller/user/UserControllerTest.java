@@ -115,7 +115,7 @@ public class UserControllerTest {
         when(userApplicationService.getAll()).thenReturn(Lists.list(userFound, userFound2));
 
         // When
-        MvcResult result = this.mockMvc.perform(get("/api/user", userId)).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/api/user")).andExpect(status().isOk()).andReturn();
 
         // Then
         Mockito.verify(userApplicationService).getAll();

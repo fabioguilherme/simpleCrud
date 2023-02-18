@@ -126,7 +126,7 @@ public class StockControllerTest {
         when(stockApplicationService.getAll(null)).thenReturn(Lists.list(stockFound, stockFound2));
 
         // When
-        MvcResult result = this.mockMvc.perform(get("/api/stock", stockId)).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/api/stock")).andExpect(status().isOk()).andReturn();
 
         // Then
         Mockito.verify(stockApplicationService).getAll(null);
@@ -169,7 +169,7 @@ public class StockControllerTest {
         when(stockApplicationService.getAll(itemId)).thenReturn(Lists.list(stockFound, stockFound2));
 
         // When
-        MvcResult result = this.mockMvc.perform(get("/api/stock", stockId).param("itemId", itemId.toString())).andExpect(status().isOk()).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/api/stock").param("itemId", itemId.toString())).andExpect(status().isOk()).andReturn();
 
         // Then
         Mockito.verify(stockApplicationService).getAll(itemId);

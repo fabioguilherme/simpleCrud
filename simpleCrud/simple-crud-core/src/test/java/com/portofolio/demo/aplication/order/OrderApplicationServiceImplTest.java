@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderApplicationServiceImplTest {
@@ -83,10 +84,10 @@ public class OrderApplicationServiceImplTest {
 
         ArgumentCaptor<Order> argumentCaptor = ArgumentCaptor.forClass(Order.class);
 
-        Mockito.verify(itemRepositoryService).getById(itemId);
-        Mockito.verify(userRepositoryService).getById(userId);
-        Mockito.verify(orderDomainService).createOrder(itemReturned, userReturned, quantity);
-        Mockito.verify(orderRepositoryService).save(argumentCaptor.capture());
+        verify(itemRepositoryService).getById(itemId);
+        verify(userRepositoryService).getById(userId);
+        verify(orderDomainService).createOrder(itemReturned, userReturned, quantity);
+        verify(orderRepositoryService).save(argumentCaptor.capture());
 
         Order orderCaptured = argumentCaptor.getValue();
 
@@ -104,7 +105,7 @@ public class OrderApplicationServiceImplTest {
         // Then
         ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
 
-        Mockito.verify(orderRepositoryService).deleteById(argumentCaptor.capture());
+        verify(orderRepositoryService).deleteById(argumentCaptor.capture());
 
         Long idCaptured = argumentCaptor.getValue();
 
@@ -135,9 +136,9 @@ public class OrderApplicationServiceImplTest {
         // Then
         ArgumentCaptor<Order> argumentCaptor = ArgumentCaptor.forClass(Order.class);
 
-        Mockito.verify(orderRepositoryService).save(argumentCaptor.capture());
-        Mockito.verify(orderDomainService).updateOrderStatus(orderFound, newStatus);
-        Mockito.verify(orderRepositoryService).save(argumentCaptor.capture());
+        verify(orderRepositoryService).save(argumentCaptor.capture());
+        verify(orderDomainService).updateOrderStatus(orderFound, newStatus);
+        verify(orderRepositoryService).save(argumentCaptor.capture());
     }
 
     @Test
@@ -168,7 +169,7 @@ public class OrderApplicationServiceImplTest {
 
         ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
 
-        Mockito.verify(orderRepositoryService).getById(argumentCaptor.capture());
+        verify(orderRepositoryService).getById(argumentCaptor.capture());
 
         Long idCaptured = argumentCaptor.getValue();
 
@@ -196,10 +197,10 @@ public class OrderApplicationServiceImplTest {
         // Given
         Order orderFound = OrderFixture.getOrder();
 
-        Mockito.when(orderRepositoryService.getAll()).thenReturn(Collections.singletonList(orderFound));
+        Mockito.when(orderRepositoryService.getAll(null, null)).thenReturn(Collections.singletonList(orderFound));
 
         // When
-        List<OrderDto> response = applicationService.getAll();
+        List<OrderDto> response = applicationService.getAll(null, null);
 
         // Then
         assertThat(response).hasSize(1);
@@ -213,5 +214,88 @@ public class OrderApplicationServiceImplTest {
         assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
         assertThat(dto.getCreationDate()).isNotNull();
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+    }
+
+    @Test
+    public void canGetAllByUserIdAndOrderStatus() throws Exception {
+        // Given
+        Order orderFound = OrderFixture.getOrder();
+        OrderStatus status = orderFound.getStatus();
+        Long userId = orderFound.getUser().getId();
+
+        Mockito.when(orderRepositoryService.getAll(userId, status)).thenReturn(Collections.singletonList(orderFound));
+
+        // When
+        List<OrderDto> response = applicationService.getAll(userId, status);
+
+        // Then
+        assertThat(response).hasSize(1);
+
+        OrderDto dto = response.get(0);
+
+        assertThat(dto.getItemName()).isEqualTo(orderFound.getItem().getName());
+        assertThat(dto.getUserName()).isEqualTo(orderFound.getUser().getName());
+        assertThat(dto.getUserEmail()).isEqualTo(orderFound.getUser().getEmail());
+        assertThat(dto.getId()).isEqualTo(orderFound.getId());
+        assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
+        assertThat(dto.getCreationDate()).isNotNull();
+        assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+
+        verify(orderRepositoryService).getAll(userId, status);
+    }
+
+    @Test
+    public void canGetAllByUserId() throws Exception {
+        // Given
+        Order orderFound = OrderFixture.getOrder();
+        Long userId = orderFound.getUser().getId();
+
+
+        Mockito.when(orderRepositoryService.getAll(userId, null)).thenReturn(Collections.singletonList(orderFound));
+
+        // When
+        List<OrderDto> response = applicationService.getAll(userId, null);
+
+        // Then
+        assertThat(response).hasSize(1);
+
+        OrderDto dto = response.get(0);
+
+        assertThat(dto.getItemName()).isEqualTo(orderFound.getItem().getName());
+        assertThat(dto.getUserName()).isEqualTo(orderFound.getUser().getName());
+        assertThat(dto.getUserEmail()).isEqualTo(orderFound.getUser().getEmail());
+        assertThat(dto.getId()).isEqualTo(orderFound.getId());
+        assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
+        assertThat(dto.getCreationDate()).isNotNull();
+        assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+
+        verify(orderRepositoryService).getAll(userId, null);
+    }
+
+    @Test
+    public void canGetAllByStatus() throws Exception {
+        // Given
+        Order orderFound = OrderFixture.getOrder();
+        OrderStatus status = orderFound.getStatus();
+
+        Mockito.when(orderRepositoryService.getAll(null, status)).thenReturn(Collections.singletonList(orderFound));
+
+        // When
+        List<OrderDto> response = applicationService.getAll(null, status);
+
+        // Then
+        assertThat(response).hasSize(1);
+
+        OrderDto dto = response.get(0);
+
+        assertThat(dto.getItemName()).isEqualTo(orderFound.getItem().getName());
+        assertThat(dto.getUserName()).isEqualTo(orderFound.getUser().getName());
+        assertThat(dto.getUserEmail()).isEqualTo(orderFound.getUser().getEmail());
+        assertThat(dto.getId()).isEqualTo(orderFound.getId());
+        assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
+        assertThat(dto.getCreationDate()).isNotNull();
+        assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+
+        verify(orderRepositoryService).getAll(null, status);
     }
 }

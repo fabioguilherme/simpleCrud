@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class StockApplicationServiceImplTest {
@@ -168,6 +169,8 @@ public class StockApplicationServiceImplTest {
         assertThat(dto.getId()).isEqualTo(stockFound.getId());
         assertThat(dto.getQuantity()).isEqualTo(stockFound.getQuantity());
         assertThat(dto.getUri()).isEqualTo(URI_BASE + STOCK_URI_BASE + stockFound.getId());
+
+        verify(stockRepositoryService).getAll(null);
     }
 
     @Test
@@ -190,6 +193,9 @@ public class StockApplicationServiceImplTest {
         assertThat(dto.getId()).isEqualTo(stockFound.getId());
         assertThat(dto.getQuantity()).isEqualTo(stockFound.getQuantity());
         assertThat(dto.getUri()).isEqualTo(URI_BASE + STOCK_URI_BASE + stockFound.getId());
+
+
+        verify(stockRepositoryService).getAll(itemId);
     }
 
 
