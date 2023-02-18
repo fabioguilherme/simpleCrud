@@ -160,13 +160,13 @@ public class NotificationControllerTest {
 
         List<Notification> listExcepted = Lists.list(notificationExcepted, notificationExcepted2);
 
-        when(notificationApplicationService.getAll()).thenReturn(Lists.list(notificationFound, notificationFound2));
+        when(notificationApplicationService.getAll(any())).thenReturn(Lists.list(notificationFound, notificationFound2));
 
         // When
         MvcResult result = this.mockMvc.perform(get("/api/notification")).andExpect(status().isOk()).andReturn();
 
         // Then
-        Mockito.verify(notificationApplicationService).getAll();
+        Mockito.verify(notificationApplicationService).getAll(any());
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
     }
@@ -228,13 +228,13 @@ public class NotificationControllerTest {
 
         List<Notification> listExcepted = Lists.list(notificationExcepted, notificationExcepted2);
 
-        when(notificationApplicationService.getNotificationsByUserId(userId)).thenReturn(Lists.list(notificationFound, notificationFound2));
+        when(notificationApplicationService.getAll(userId)).thenReturn(Lists.list(notificationFound, notificationFound2));
 
         // When
         MvcResult result = this.mockMvc.perform(get("/api/notification").param("userId", "1")).andExpect(status().isOk()).andReturn();
 
         // Then
-        Mockito.verify(notificationApplicationService).getNotificationsByUserId(userId);
+        Mockito.verify(notificationApplicationService).getAll(userId);
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo(objectMapper.writeValueAsString(listExcepted));
     }

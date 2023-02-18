@@ -126,7 +126,7 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
 
 
         // When
-        List<Notification> list = service.getAll();
+        List<Notification> list = service.getAll(null);
 
         // Then
         assertThat(list).hasSize(2);
@@ -136,23 +136,27 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
     }
 
     @Test
-    public void canGetByUserId() throws Exception {
+    public void canGetAllByUserId() throws Exception {
         // Given
         User user = userRepository.save(UserFixture.getUser());
+        User user2 = userRepository.save(UserFixture.getUser());
+        Long userId = user.getId();
         String message = "fake-message";
-        String message2 = "fake-message2";
         Notification notificationToPersist = NotificationFixture.getNotificationForUser(user, message);
-        service.save(notificationToPersist);
-        Notification notificationToPersist2 = NotificationFixture.getNotificationForUser(user, message2);
+        Notification notificationPersisted = service.save(notificationToPersist);
+
+        String message2 = "fake-message2";
+        Notification notificationToPersist2 = NotificationFixture.getNotificationForUser(user2, message2);
         service.save(notificationToPersist2);
 
+
         // When
-        List<Notification> notifications = service.getByUserId(user.getId());
+        List<Notification> list = service.getAll(userId);
 
         // Then
-        assertThat(notifications).isNotNull();
+        assertThat(list).hasSize(1);
 
-        assertThat(notifications).hasSize(2);
+        assertThat(list).anyMatch(i -> i.getUser().getId().equals(userId) && i.getMessage().equals(notificationPersisted.getMessage()) && notificationPersisted.getUser().getName().equals(user.getName()));
     }
 
     @Override

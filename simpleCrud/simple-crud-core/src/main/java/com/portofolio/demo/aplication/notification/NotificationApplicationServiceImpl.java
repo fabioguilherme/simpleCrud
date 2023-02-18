@@ -55,19 +55,10 @@ public class NotificationApplicationServiceImpl implements NotificationApplicati
         return repositoryService.getById(id).map(this::fromEntity);
     }
 
-    //TODO create a get to return notifications by user-email
-
 
     @Override
-    public List<NotificationDto> getAll() {
-        List<Notification> list = repositoryService.getAll();
-
-        return list.stream().map(this::fromEntity).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<NotificationDto> getNotificationsByUserId(Long userId) {
-        List<Notification> list = repositoryService.getByUserId(userId);
+    public List<NotificationDto> getAll(Long userId) {
+        List<Notification> list = repositoryService.getAll(userId);
 
         return list.stream().map(this::fromEntity).collect(Collectors.toList());
     }

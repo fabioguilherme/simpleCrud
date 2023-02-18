@@ -13,7 +13,5 @@ public interface NotificationRepositoryService {
 
     Optional<Notification> getById(Long id);
 
-    List<Notification> getAll();
-
-    List<Notification> getByUserId(Long userId);
+    List<Notification> getAll(Long userId);
 }

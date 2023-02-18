@@ -1,6 +1,9 @@
 package com.portofolio.demo.infrastructure.persistence.notification;
 
 import com.portofolio.demo.domain.notification.Notification;
+import com.portofolio.demo.domain.user.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +14,15 @@ import java.util.Optional;
 @Service
 public class NotificationRepositoryServiceImpl implements NotificationRepositoryService {
 
+    private final NotificationRepository repository;
+
+    private final EntityManager entityManager;
+
     @Autowired
-    private NotificationRepository repository;
+    public NotificationRepositoryServiceImpl(NotificationRepository repository, EntityManager entityManager) {
+        this.repository = repository;
+        this.entityManager = entityManager;
+    }
 
     @Override
     public Notification save(Notification notification) {
@@ -43,22 +53,25 @@ public class NotificationRepositoryServiceImpl implements NotificationRepository
     }
 
     @Override
-    public List<Notification> getAll() {
-        Iterable<Notification> iterable = repository.findAll();
+    public List<Notification> getAll(Long userId) {
 
-        List<Notification> list = new ArrayList<Notification>();
-        iterable.forEach(list::add);
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Notification> cq = cb.createQuery(Notification.class);
 
-        return list;
-    }
+        Root<Notification> book = cq.from(Notification.class);
 
-    @Override
-    public List<Notification> getByUserId(Long userId) {
-        Iterable<Notification> iterable = repository.findNotificationByUserId(userId);
 
-        List<Notification> list = new ArrayList<Notification>();
-        iterable.forEach(list::add);
+        if (userId != null) {
 
-        return list;
+            List<Predicate> predicates = new ArrayList<>();
+
+            Join<Notification, User> user = book.join("user");
+
+            predicates.add(cb.equal(user.get("id"), userId));
+
+            cq.where(predicates.toArray(new Predicate[0]));
+        }
+
+        return entityManager.createQuery(cq).getResultList();
     }
 }

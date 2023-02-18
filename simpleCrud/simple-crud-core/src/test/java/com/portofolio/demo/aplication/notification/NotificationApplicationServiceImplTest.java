@@ -151,10 +151,10 @@ public class NotificationApplicationServiceImplTest {
         // Given
         Notification notificationFound = NotificationFixture.getNotification();
 
-        Mockito.when(notificationRepositoryService.getAll()).thenReturn(Collections.singletonList(notificationFound));
+        Mockito.when(notificationRepositoryService.getAll(null)).thenReturn(Collections.singletonList(notificationFound));
 
         // When
-        List<NotificationDto> response = applicationService.getAll();
+        List<NotificationDto> response = applicationService.getAll(null);
 
         // Then
         assertThat(response).hasSize(1);
@@ -178,14 +178,14 @@ public class NotificationApplicationServiceImplTest {
         Notification notificationFound = NotificationFixture.getNotificationForUser(user, message);
         Notification notificationFound2 = NotificationFixture.getNotificationForUser(user, message2);
 
-        Mockito.when(notificationRepositoryService.getByUserId(userId)).thenReturn(Arrays.asList(notificationFound, notificationFound2));
+        Mockito.when(notificationRepositoryService.getAll(userId)).thenReturn(Arrays.asList(notificationFound, notificationFound2));
 
         // When
-        List<NotificationDto> response = applicationService.getNotificationsByUserId(userId);
+        List<NotificationDto> response = applicationService.getAll(userId);
 
         // Then
 
-        verify(notificationRepositoryService).getByUserId(userId);
+        verify(notificationRepositoryService).getAll(userId);
 
         assertThat(response).hasSize(2);
 
