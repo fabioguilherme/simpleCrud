@@ -86,7 +86,7 @@ public class OrderController extends MainController {
     @PatchMapping(path = "/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    private void addQuantityToOrder(@PathVariable("orderId") Long orderId, @Valid @RequestBody ChangeOrderStatusRequestJson request) {
+    private void changeStatus(@PathVariable("orderId") Long orderId, @Valid @RequestBody ChangeOrderStatusRequestJson request) {
 
         service.changeStatus(orderId, OrderStatus.valueOf(request.getStatus()));
 

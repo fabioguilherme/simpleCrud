@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class CreateNotificationRequestJson implements Serializable {
 
-    @NotNull
+    @NotNull(message = "UserId must not be null")
     private Long userId;
     @NotNull
     @Size(min = 1, message = "Message of the notification can not be empty")

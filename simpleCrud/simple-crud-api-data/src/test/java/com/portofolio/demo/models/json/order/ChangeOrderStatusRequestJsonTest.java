@@ -93,7 +93,7 @@ public class ChangeOrderStatusRequestJsonTest {
 
         assertThat(violations).hasSize(1);
         List<ConstraintViolation<ChangeOrderStatusRequestJson>> list = violations.stream().toList();
-        assertThat(list.get(0).getMessage()).isEqualTo("Status possible values: DRAFT, PROCESSING,DONE");
+        assertThat(list.get(0).getMessage()).isEqualTo("Status possible values: DRAFT, PROCESSING, DONE");
 
     }
 

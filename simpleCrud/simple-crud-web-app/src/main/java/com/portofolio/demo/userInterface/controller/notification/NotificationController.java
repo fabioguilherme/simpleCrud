@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "api/notification")
 public class NotificationController extends MainController {
 
-    //TODO get notification by user id
-
     private final NotificationApplicationService service;
 
     private final Logger log = LoggerFactory.getLogger(NotificationController.class);
@@ -63,8 +61,6 @@ public class NotificationController extends MainController {
 
         return fromDtoToJson(optionalDto.get());
     }
-
-    //TODO get notification by user email
 
     @DeleteMapping("/{notificationId}")
     @ResponseStatus(HttpStatus.OK)

@@ -8,6 +8,7 @@ import com.portofolio.demo.domain.stock.StockDomainService;
 import com.portofolio.demo.domain.stock.StockFixture;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
 import com.portofolio.demo.shared.errors.BusinessException;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,6 +150,16 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
         // When
         // Then
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.getById(id)).withMessage("Id can not be null");
+    }
+
+    @Test
+    public void shouldThrowResourceNotFoundWhenStockNotExists() {
+        // Given
+        Long id = 5L;
+
+        // When
+        // Then
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> service.deleteById(id)).withMessage("Stock not found with id: " + id);
     }
 
     @Test

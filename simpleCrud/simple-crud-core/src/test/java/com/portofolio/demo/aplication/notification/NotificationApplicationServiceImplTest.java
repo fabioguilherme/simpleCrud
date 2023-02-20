@@ -70,6 +70,7 @@ public class NotificationApplicationServiceImplTest {
         assertThat(response.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationPersisted.getId());
         assertThat(response.getUserName()).isEqualTo(notificationPersisted.getUser().getName());
         assertThat(response.getUserEmail()).isEqualTo(notificationPersisted.getUser().getEmail());
+        assertThat(response.getCreationDate()).isNotNull();
 
         ArgumentCaptor<Notification> argumentCaptor = ArgumentCaptor.forClass(Notification.class);
 
@@ -166,6 +167,7 @@ public class NotificationApplicationServiceImplTest {
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationFound.getId());
         assertThat(dto.getUserName()).isEqualTo(notificationFound.getUser().getName());
         assertThat(dto.getUserEmail()).isEqualTo(notificationFound.getUser().getEmail());
+        assertThat(dto.getCreationDate()).isNotNull();
     }
 
     @Test
@@ -195,6 +197,7 @@ public class NotificationApplicationServiceImplTest {
             assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationFound.getId());
             assertThat(dto.getUserName()).isEqualTo(notificationFound.getUser().getName());
             assertThat(dto.getUserEmail()).isEqualTo(notificationFound.getUser().getEmail());
+            assertThat(dto.getCreationDate()).isNotNull();
         });
 
         assertThat(response).anySatisfy(dto -> {
@@ -203,6 +206,7 @@ public class NotificationApplicationServiceImplTest {
             assertThat(dto.getUri()).isEqualTo(URI_BASE + ITEM_URI_BASE + notificationFound2.getId());
             assertThat(dto.getUserName()).isEqualTo(notificationFound2.getUser().getName());
             assertThat(dto.getUserEmail()).isEqualTo(notificationFound2.getUser().getEmail());
+            assertThat(dto.getCreationDate()).isNotNull();
         });
 
 

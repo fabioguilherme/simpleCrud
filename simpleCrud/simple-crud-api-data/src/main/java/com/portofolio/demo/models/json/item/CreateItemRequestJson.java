@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class CreateItemRequestJson implements Serializable {
 
 
-    @NotNull
+    @NotNull(message = "Name must not be null")
     @Size(min = 1, message = "Name of the item can not be empty")
     private String name;
 

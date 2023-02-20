@@ -3,6 +3,7 @@ package com.portofolio.demo.infrastructure.persistence.order;
 import com.portofolio.demo.domain.order.Order;
 import com.portofolio.demo.domain.order.OrderStatus;
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,10 @@ public class OrderRepositoryServiceImpl implements OrderRepositoryService {
     public void deleteById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id can not be null");
+        }
+
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Order not found with id: " + id, null);
         }
 
         repository.deleteById(id);

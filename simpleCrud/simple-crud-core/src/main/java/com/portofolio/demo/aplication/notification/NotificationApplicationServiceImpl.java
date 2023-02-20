@@ -63,13 +63,15 @@ public class NotificationApplicationServiceImpl implements NotificationApplicati
         return list.stream().map(this::fromEntity).collect(Collectors.toList());
     }
 
-    private NotificationDto fromEntity(Notification notificationToPersist) {
+    private NotificationDto fromEntity(Notification notification) {
         return NotificationDto.Builder.with()
-                .id(notificationToPersist.getId())
-                .message(notificationToPersist.getMessage())
-                .uri(URI_BASE + NOTIFICATION_URI_BASE + notificationToPersist.getId())
-                .userEmail(notificationToPersist.getUser().getEmail())
-                .userName(notificationToPersist.getUser().getName()).build();
+                .id(notification.getId())
+                .message(notification.getMessage())
+                .uri(URI_BASE + NOTIFICATION_URI_BASE + notification.getId())
+                .userEmail(notification.getUser().getEmail())
+                .userName(notification.getUser().getName())
+                .creationDate(notification.getCreationDate()).build();
+
     }
 
 }

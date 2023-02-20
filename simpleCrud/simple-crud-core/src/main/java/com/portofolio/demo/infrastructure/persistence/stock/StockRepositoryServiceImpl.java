@@ -4,6 +4,7 @@ import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.stock.Stock;
 import com.portofolio.demo.infrastructure.persistence.item.ItemRepository;
 import com.portofolio.demo.shared.errors.BusinessException;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,10 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
     public void deleteById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id can not be null");
+        }
+
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Stock not found with id: " + id, null);
         }
 
         repository.deleteById(id);

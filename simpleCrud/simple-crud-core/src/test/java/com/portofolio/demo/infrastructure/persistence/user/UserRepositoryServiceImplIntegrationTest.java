@@ -101,7 +101,7 @@ public class UserRepositoryServiceImplIntegrationTest extends IntegrationBaseTes
     }
 
     @Test
-    public void shouldThrowResourceNotFoundWhenItemNotExists() {
+    public void shouldThrowResourceNotFoundWhenUserNotExists() {
         // Given
         Long id = 5L;
 

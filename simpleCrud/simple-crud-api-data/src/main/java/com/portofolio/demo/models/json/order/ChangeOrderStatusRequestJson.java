@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Pattern;
 public class ChangeOrderStatusRequestJson {
 
     @NotNull(message = "Status must not be null")
-    @Pattern(regexp = "(?:^|(?<= ))(DRAFT|PROCESSING|DONE)(?:(?= )|$)", message = "Status possible values: DRAFT, PROCESSING,DONE")
+    @Pattern(regexp = "(?:^|(?<= ))(DRAFT|PROCESSING|DONE)(?:(?= )|$)", message = "Status possible values: DRAFT, PROCESSING, DONE")
     private String status;
 
     public String getStatus() {

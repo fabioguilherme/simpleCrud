@@ -30,7 +30,7 @@ public class CreateItemRequestJsonTest {
 
         assertThat(violations.size()).isEqualTo(1);
         List<ConstraintViolation<CreateItemRequestJson>> list = violations.stream().toList();
-        assertThat(list.get(0).getMessage()).isEqualTo("must not be null");
+        assertThat(list.get(0).getMessage()).isEqualTo("Name must not be null");
     }
 
     @Test

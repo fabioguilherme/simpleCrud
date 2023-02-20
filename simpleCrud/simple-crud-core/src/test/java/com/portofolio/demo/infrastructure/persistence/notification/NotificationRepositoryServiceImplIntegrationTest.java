@@ -6,6 +6,7 @@ import com.portofolio.demo.domain.notification.NotificationFixture;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.domain.user.UserFixture;
 import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -84,6 +85,16 @@ public class NotificationRepositoryServiceImplIntegrationTest extends Integratio
         // When
         // Then
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.deleteById(id)).withMessage("Id can not be null");
+    }
+
+    @Test
+    public void shouldThrowResourceNotFoundWhenNotificationNotExists() {
+        // Given
+        Long id = 5L;
+
+        // When
+        // Then
+        assertThatExceptionOfType(ResourceNotFoundException.class).isThrownBy(() -> service.deleteById(id)).withMessage("Notification not found with id: " + id);
     }
 
     @Test

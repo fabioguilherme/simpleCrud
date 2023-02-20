@@ -2,6 +2,7 @@ package com.portofolio.demo.infrastructure.persistence.notification;
 
 import com.portofolio.demo.domain.notification.Notification;
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,10 @@ public class NotificationRepositoryServiceImpl implements NotificationRepository
     public void deleteById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id can not be null");
+        }
+
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Notification not found with id: " + id, null);
         }
 
         repository.deleteById(id);
