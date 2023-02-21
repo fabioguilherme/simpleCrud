@@ -18,6 +18,7 @@ public class OrderTest {
         String userEmail = "user@fakeemail.com";
         LocalDateTime creationDate = LocalDateTime.now();
         String uri = "fake-uri";
+        String status = "fake-status";
 
         // When
         Order order = new Order();
@@ -28,6 +29,7 @@ public class OrderTest {
         order.setUserEmail(userEmail);
         order.setCreationDate(creationDate);
         order.setUri(uri);
+        order.setStatus(status);
 
         // Then
         assertThat(order).isNotNull();
@@ -39,5 +41,6 @@ public class OrderTest {
         assertThat(order.getUserName()).isEqualTo(userName);
         assertThat(order.getCreationDate()).isEqualTo(creationDate);
         assertThat(order.getUri()).isEqualTo(uri);
+        assertThat(order.getStatus()).isEqualTo(status);
     }
 }

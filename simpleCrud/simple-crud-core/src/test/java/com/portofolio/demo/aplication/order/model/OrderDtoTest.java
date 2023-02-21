@@ -1,5 +1,6 @@
 package com.portofolio.demo.aplication.order.model;
 
+import com.portofolio.demo.domain.order.OrderStatus;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ public class OrderDtoTest {
         String userEmail = "user@fakeemail.com";
         LocalDateTime creationDate = LocalDateTime.now();
         String uri = "fake-uri";
+        OrderStatus status = OrderStatus.DONE;
 
         // When
         OrderDto dto = OrderDto.Builder.with()
@@ -28,6 +30,7 @@ public class OrderDtoTest {
                 .userEmail(userEmail)
                 .creationDate(creationDate)
                 .uri(uri)
+                .status(status)
                 .build();
 
         // Then
@@ -40,6 +43,7 @@ public class OrderDtoTest {
         assertThat(dto.getUserName()).isEqualTo(userName);
         assertThat(dto.getCreationDate()).isEqualTo(creationDate);
         assertThat(dto.getUri()).isEqualTo(uri);
+        assertThat(dto.getStatus()).isEqualTo(status);
 
     }
 }

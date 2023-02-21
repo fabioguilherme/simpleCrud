@@ -105,6 +105,7 @@ public class OrderController extends MainController {
         order.setQuantity(orderDto.getQuantity());
         order.setCreationDate(orderDto.getCreationDate());
         order.setUri(orderDto.getUri());
+        order.setStatus(orderDto.getStatus().name());
 
         return order;
     }

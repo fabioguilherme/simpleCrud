@@ -88,6 +88,7 @@ public class OrderApplicationServiceImpl implements OrderApplicationService {
                 .userEmail(entity.getUser().getEmail())
                 .userName(entity.getUser().getName())
                 .uri(URI_BASE + ORDER_URI_BASE + entity.getId())
+                .status(entity.getStatus())
                 .build();
     }
 }

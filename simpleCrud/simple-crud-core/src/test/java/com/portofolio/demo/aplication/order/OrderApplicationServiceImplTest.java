@@ -81,6 +81,7 @@ public class OrderApplicationServiceImplTest {
         assertThat(response.getQuantity()).isEqualTo(orderPersisted.getQuantity());
         assertThat(response.getCreationDate()).isNotNull();
         assertThat(response.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderPersisted.getId());
+        assertThat(response.getStatus()).isEqualTo(orderPersisted.getStatus());
 
         ArgumentCaptor<Order> argumentCaptor = ArgumentCaptor.forClass(Order.class);
 
@@ -166,6 +167,7 @@ public class OrderApplicationServiceImplTest {
         assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
         assertThat(dto.getCreationDate()).isNotNull();
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+        assertThat(dto.getStatus()).isEqualTo(orderFound.getStatus());
 
         ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
 
@@ -214,6 +216,7 @@ public class OrderApplicationServiceImplTest {
         assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
         assertThat(dto.getCreationDate()).isNotNull();
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+        assertThat(dto.getStatus()).isEqualTo(orderFound.getStatus());
     }
 
     @Test
@@ -240,6 +243,7 @@ public class OrderApplicationServiceImplTest {
         assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
         assertThat(dto.getCreationDate()).isNotNull();
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+        assertThat(dto.getStatus()).isEqualTo(orderFound.getStatus());
 
         verify(orderRepositoryService).getAll(userId, status);
     }
@@ -268,6 +272,7 @@ public class OrderApplicationServiceImplTest {
         assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
         assertThat(dto.getCreationDate()).isNotNull();
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+        assertThat(dto.getStatus()).isEqualTo(orderFound.getStatus());
 
         verify(orderRepositoryService).getAll(userId, null);
     }
@@ -295,6 +300,7 @@ public class OrderApplicationServiceImplTest {
         assertThat(dto.getQuantity()).isEqualTo(orderFound.getQuantity());
         assertThat(dto.getCreationDate()).isNotNull();
         assertThat(dto.getUri()).isEqualTo(URI_BASE + ORDER_URI_BASE + orderFound.getId());
+        assertThat(dto.getStatus()).isEqualTo(orderFound.getStatus());
 
         verify(orderRepositoryService).getAll(null, status);
     }

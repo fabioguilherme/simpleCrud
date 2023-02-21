@@ -9,6 +9,7 @@ public class Order {
     private String itemName;
     private String userName;
     private String userEmail;
+    private String status;
     private LocalDateTime creationDate;
     private String uri;
 
@@ -66,5 +67,13 @@ public class Order {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

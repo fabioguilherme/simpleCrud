@@ -1,5 +1,7 @@
 package com.portofolio.demo.aplication.order.model;
 
+import com.portofolio.demo.domain.order.OrderStatus;
+
 import java.time.LocalDateTime;
 
 public class OrderDto {
@@ -11,6 +13,7 @@ public class OrderDto {
     private final String userEmail;
     private final LocalDateTime creationDate;
     private final String uri;
+    private final OrderStatus status;
 
     public OrderDto(Builder builder) {
         this.id = builder.id;
@@ -20,6 +23,7 @@ public class OrderDto {
         this.userEmail = builder.userEmail;
         this.creationDate = builder.creationDate;
         this.uri = builder.uri;
+        this.status = builder.status;
     }
 
     public Long getId() {
@@ -50,6 +54,9 @@ public class OrderDto {
         return uri;
     }
 
+    public OrderStatus getStatus() {
+        return status;
+    }
 
     public static final class Builder {
         private Long id;
@@ -59,6 +66,7 @@ public class OrderDto {
         private String userEmail;
         private LocalDateTime creationDate;
         private String uri;
+        private OrderStatus status;
 
         private Builder() {
         }
@@ -99,6 +107,11 @@ public class OrderDto {
 
         public Builder uri(String uri) {
             this.uri = uri;
+            return this;
+        }
+
+        public Builder status(OrderStatus status) {
+            this.status = status;
             return this;
         }
 

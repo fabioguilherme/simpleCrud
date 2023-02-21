@@ -51,6 +51,7 @@ public class OrderControllerTest {
         LocalDateTime creationDate = LocalDateTime.now();
         int quantity = 5;
         String uri = "fake-uri";
+        OrderStatus status = OrderStatus.DONE;
 
         OrderDto orderFound = OrderDto.Builder.with()
                 .id(orderId)
@@ -59,7 +60,9 @@ public class OrderControllerTest {
                 .userEmail(userEmail)
                 .creationDate(creationDate)
                 .quantity(quantity)
-                .uri(uri).build();
+                .uri(uri)
+                .status(status)
+                .build();
 
         Order orderExcepted = new Order();
 
@@ -69,6 +72,7 @@ public class OrderControllerTest {
         orderExcepted.setUserEmail(userEmail);
         orderExcepted.setCreationDate(creationDate);
         orderExcepted.setQuantity(quantity);
+        orderExcepted.setStatus(status.name());
         orderExcepted.setUri(uri);
 
         when(orderApplicationService.getById(orderId)).thenReturn(Optional.of(orderFound));
@@ -118,6 +122,7 @@ public class OrderControllerTest {
         LocalDateTime creationDate = LocalDateTime.now();
         int quantity = 5;
         String uri = "fake-uri";
+        OrderStatus status = OrderStatus.DONE;
 
         OrderDto orderFound = OrderDto.Builder.with()
                 .id(orderId)
@@ -126,7 +131,8 @@ public class OrderControllerTest {
                 .userEmail(userEmail)
                 .creationDate(creationDate)
                 .quantity(quantity)
-                .uri(uri).build();
+                .uri(uri)
+                .status(status).build();
 
         Order orderExcepted = new Order();
 
@@ -137,6 +143,7 @@ public class OrderControllerTest {
         orderExcepted.setCreationDate(creationDate);
         orderExcepted.setQuantity(quantity);
         orderExcepted.setUri(uri);
+        orderExcepted.setStatus(status.name());
 
         Long orderId2 = 2L;
         String itemName2 = "fake-name2";
@@ -145,6 +152,7 @@ public class OrderControllerTest {
         LocalDateTime creationDate2 = LocalDateTime.now();
         int quantity2 = 5;
         String uri2 = "fake-uri2";
+        OrderStatus status2 = OrderStatus.DONE;
 
         OrderDto orderFound2 = OrderDto.Builder.with()
                 .id(orderId2)
@@ -153,7 +161,8 @@ public class OrderControllerTest {
                 .userEmail(userEmail2)
                 .creationDate(creationDate2)
                 .quantity(quantity2)
-                .uri(uri2).build();
+                .uri(uri2)
+                .status(status2).build();
 
         Order orderExcepted2 = new Order();
 
@@ -164,6 +173,7 @@ public class OrderControllerTest {
         orderExcepted2.setCreationDate(creationDate2);
         orderExcepted2.setQuantity(quantity2);
         orderExcepted2.setUri(uri2);
+        orderExcepted2.setStatus(status2.name());
 
         List<Order> listExcepted = Lists.list(orderExcepted, orderExcepted2);
 
@@ -199,6 +209,7 @@ public class OrderControllerTest {
                 .userEmail(userEmail)
                 .creationDate(creationDate)
                 .quantity(quantity)
+                .status(status)
                 .uri(uri).build();
 
         Order orderExcepted = new Order();
@@ -210,6 +221,7 @@ public class OrderControllerTest {
         orderExcepted.setCreationDate(creationDate);
         orderExcepted.setQuantity(quantity);
         orderExcepted.setUri(uri);
+        orderExcepted.setStatus(status.name());
 
         Long orderId2 = 2L;
         String itemName2 = "fake-name2";
@@ -218,6 +230,7 @@ public class OrderControllerTest {
         LocalDateTime creationDate2 = LocalDateTime.now();
         int quantity2 = 5;
         String uri2 = "fake-uri2";
+        OrderStatus status2 = OrderStatus.DRAFT;
 
         OrderDto orderFound2 = OrderDto.Builder.with()
                 .id(orderId2)
@@ -226,7 +239,8 @@ public class OrderControllerTest {
                 .userEmail(userEmail2)
                 .creationDate(creationDate2)
                 .quantity(quantity2)
-                .uri(uri2).build();
+                .uri(uri2)
+                .status(status2).build();
 
         Order orderExcepted2 = new Order();
 
@@ -237,6 +251,7 @@ public class OrderControllerTest {
         orderExcepted2.setCreationDate(creationDate2);
         orderExcepted2.setQuantity(quantity2);
         orderExcepted2.setUri(uri2);
+        orderExcepted2.setStatus(status2.name());
 
         List<Order> listExcepted = Lists.list(orderExcepted, orderExcepted2);
 
@@ -277,6 +292,7 @@ public class OrderControllerTest {
         LocalDateTime creationDate = LocalDateTime.now();
         int quantity = 5;
         String uri = "fake-uri";
+        OrderStatus status = OrderStatus.DONE;
 
         OrderDto orderPersisted = OrderDto.Builder.with()
                 .id(orderId)
@@ -285,7 +301,8 @@ public class OrderControllerTest {
                 .userEmail(userEmail)
                 .creationDate(creationDate)
                 .quantity(quantity)
-                .uri(uri).build();
+                .uri(uri)
+                .status(status).build();
 
         Order orderExcepted = new Order();
 
@@ -296,6 +313,7 @@ public class OrderControllerTest {
         orderExcepted.setCreationDate(creationDate);
         orderExcepted.setQuantity(quantity);
         orderExcepted.setUri(uri);
+        orderExcepted.setStatus(status.name());
 
         CreateOrderRequestJson requestJson = new CreateOrderRequestJson();
         requestJson.setUserId(userId);
