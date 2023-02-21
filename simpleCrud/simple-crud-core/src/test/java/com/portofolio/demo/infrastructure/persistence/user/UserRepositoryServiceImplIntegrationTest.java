@@ -4,6 +4,7 @@ import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.user.User;
 import com.portofolio.demo.domain.user.UserDomainService;
 import com.portofolio.demo.domain.user.UserFixture;
+import com.portofolio.demo.shared.errors.BusinessException;
 import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,6 +133,35 @@ public class UserRepositoryServiceImplIntegrationTest extends IntegrationBaseTes
         // When
         // Then
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.getById(id)).withMessage("Id can not be null");
+    }
+
+    @Test
+    void shouldThrowAnExceptionWhenSavingIfThereIsAnUserWithThatEmail() throws Exception {
+        // Given
+        User userToPersist = UserFixture.getUser();
+        service.save(userToPersist);
+
+        User newUser = UserFixture.getNewUseWithEmailAndName(userToPersist.getEmail(), "fakeuser2");
+
+        // When
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> service.save(newUser)).withMessage("Can not persist user because there is another user with that email");
+    }
+
+    @Test
+    void shouldThrowAnExceptionWhenUpdatingIfThereIsAnUserWithThatEmail() throws Exception {
+        // Given
+        User userToPersist = UserFixture.getUser();
+        service.save(userToPersist);
+
+        User userToPersist2 = UserFixture.getNewUseWithEmailAndName("fakeemail2@email.com", "fake-user");
+        User userToPersisted2 = service.save(userToPersist2);
+
+        String email = userToPersist.getEmail();
+
+        // When
+        domainService.updateEmail(userToPersisted2, email);
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> service.save(userToPersisted2)).withMessage("Can not change email because that email is already taken");
+
     }
 
     @Test

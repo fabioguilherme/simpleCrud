@@ -1,6 +1,7 @@
 package com.portofolio.demo.infrastructure.persistence.user;
 
 import com.portofolio.demo.domain.user.User;
+import com.portofolio.demo.shared.errors.BusinessException;
 import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,14 @@ public class UserRepositoryServiceImpl implements UserRepositoryService {
     public User save(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User can not be null");
+        }
+
+        if (user.getId() == null && repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new BusinessException("Can not persist user because there is another user with that email", null);
+        }
+
+        if (user.getId() != null && repository.findByEmail(user.getEmail()).isPresent()) {
+            throw new BusinessException("Can not change email because that email is already taken", null);
         }
 
         return repository.save(user);

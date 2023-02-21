@@ -45,6 +45,19 @@ public class UserRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
+    public void canFindByEmail() throws Exception {
+        // Given
+        User userPersisted = repository.save(UserFixture.getUser());
+        String email = userPersisted.getEmail();
+
+        // When
+        Optional<User> storedOptional = repository.findByEmail(email);
+
+        // Then
+        Assertions.assertThat(storedOptional).isPresent();
+    }
+
+    @Test
     public void canDeleteById() throws Exception {
         // Given
         User userPersisted = repository.save(UserFixture.getUser());

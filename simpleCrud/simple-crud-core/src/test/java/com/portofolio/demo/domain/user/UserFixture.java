@@ -8,7 +8,7 @@ public class UserFixture {
 
     public static User getUser() throws NoSuchFieldException {
         String name = "fakeName";
-        String email = "fakeName@email.com";
+        String email = "fakename@email.com";
 
         User user = User.Builder.with().name(name).email(email).build();
 
