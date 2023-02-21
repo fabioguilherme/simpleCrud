@@ -1,6 +1,7 @@
 package com.portofolio.demo.infrastructure.persistence.item;
 
 import com.portofolio.demo.domain.item.Item;
+import com.portofolio.demo.shared.errors.BusinessException;
 import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,13 @@ public class ItemRepositoryServiceImpl implements ItemRepositoryService {
 
     @Override
     public Item save(Item item) {
+
         if (item == null) {
             throw new IllegalArgumentException("Item can not be null");
+        }
+
+        if (repository.findByName(item.getName()).isPresent()) {
+            throw new BusinessException("Already exists a item with the same name", null);
         }
 
         return repository.save(item);

@@ -44,6 +44,20 @@ public class ItemRepositoryIntegrationTest extends IntegrationBaseTest {
     }
 
     @Test
+    public void canFindByName() throws Exception {
+        // Given
+        Item stored = repository.save(ItemFixture.getItem());
+        String name = stored.getName();
+
+        // When
+        Optional<Item> storedOptional = repository.findByName(name);
+
+        // Then
+        assertThat(storedOptional).isPresent();
+        assertThat(storedOptional.get().getName()).isEqualTo(name);
+    }
+
+    @Test
     public void canDeleteById() throws Exception {
         // Given
         Item stored = repository.save(ItemFixture.getItem());

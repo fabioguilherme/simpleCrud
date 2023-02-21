@@ -3,6 +3,7 @@ package com.portofolio.demo.infrastructure.persistence.item;
 import com.portofolio.demo.IntegrationBaseTest;
 import com.portofolio.demo.domain.item.Item;
 import com.portofolio.demo.domain.item.ItemFixture;
+import com.portofolio.demo.shared.errors.BusinessException;
 import com.portofolio.demo.shared.errors.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,18 @@ public class ItemRepositoryServiceImplIntegrationTest extends IntegrationBaseTes
         // When
         // Then
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.deleteById(id)).withMessage("Id can not be null");
+    }
+
+    @Test
+    public void shouldThrowAnExceptionIfExistsAItemWithTheSameName() throws Exception {
+        // Given
+        Item itemToPersist = ItemFixture.getItem();
+
+        // When
+        Item itemPersisted = service.save(itemToPersist);
+
+        // Then
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(() -> service.save(itemToPersist)).withMessage("Already exists a item with the same name");
     }
 
     @Test
