@@ -18,6 +18,7 @@
         <module>simple-crud-api-data</module>
         <module>simple-crud-web-app</module>
         <module>simple-crud-core</module>
+        <module>simple-crud-batch</module>
     </modules>
 
     <packaging>pom</packaging>
