@@ -143,6 +143,22 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
+    public void canGetByItemId() throws Exception {
+        // Given
+        Item item = itemRepository.save(ItemFixture.getItem());
+        Stock stockToPersisted = repository.save(StockFixture.getStockWithItem(item, 5));
+        Long id = stockToPersisted.getId();
+
+        // When
+        Optional<Stock> stockFoundOptional = service.getStockByItemId(item.getId());
+
+        // Then
+        assertThat(stockFoundOptional).isPresent();
+
+        assertThat(stockFoundOptional.get().getItem().getId()).isEqualTo(item.getId());
+    }
+
+    @Test
     public void shouldThrowAnExceptionIfIdIsNullWhenGettingById() {
         // Given
         Long id = null;

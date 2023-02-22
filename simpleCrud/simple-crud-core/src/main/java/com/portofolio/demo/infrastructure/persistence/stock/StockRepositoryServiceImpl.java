@@ -93,4 +93,9 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
 
         return entityManager.createQuery(cq).getResultList();
     }
+
+    @Override
+    public Optional<Stock> getStockByItemId(Long itemId) {
+        return repository.findStockByItemId(itemId);
+    }
 }

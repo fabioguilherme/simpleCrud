@@ -15,4 +15,6 @@ public interface StockRepositoryService {
     Optional<Stock> getById(Long id);
 
     List<Stock> getAll(Long itemId);
+
+    Optional<Stock> getStockByItemId(Long itemId);
 }
