@@ -13,6 +13,7 @@ import com.portofolio.demo.infrastructure.persistence.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,6 +78,26 @@ public class OrderRepositoryIntegrationTest extends IntegrationBaseTest {
         Optional<Order> storedOptional = repository.findById(id);
 
         assertThat(storedOptional).isEmpty();
+    }
+
+    @Test
+    public void canGetOrdersNotDone() throws Exception {
+        // Given
+        Item item = itemRepository.save(ItemFixture.getItem());
+        User user = userRepository.save(UserFixture.getUser());
+        Order orderNotDone = repository.save(OrderFixture.getOrderWithUserAndItem(user, item, 3));
+        repository.save(OrderFixture.getOrderWithUserAndItemDone(user, item, 3));
+        long id = orderNotDone.getId();
+
+        // When
+        List<Order> ordersToProcess = repository.getOrdersNotDone();
+
+        // Then
+        assertThat(ordersToProcess).hasSize(1);
+
+        assertThat(ordersToProcess).anySatisfy(order -> {
+            assertThat(order.getId()).isEqualTo(id);
+        });
     }
 
     @Override

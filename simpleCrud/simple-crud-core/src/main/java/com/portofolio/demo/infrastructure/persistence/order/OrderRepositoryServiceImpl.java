@@ -84,4 +84,9 @@ public class OrderRepositoryServiceImpl implements OrderRepositoryService {
 
         return entityManager.createQuery(cq).getResultList();
     }
+
+    @Override
+    public List<Order> getOrdersNotDone() {
+        return repository.getOrdersNotDone();
+    }
 }

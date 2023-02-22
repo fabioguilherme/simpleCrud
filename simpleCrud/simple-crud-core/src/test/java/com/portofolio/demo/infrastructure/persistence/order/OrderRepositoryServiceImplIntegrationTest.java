@@ -114,6 +114,27 @@ public class OrderRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
     }
 
     @Test
+    public void canGetOrdersNotProcessed() throws Exception {
+        // Given
+        User user = userRepository.save(UserFixture.getUser());
+        Item item = itemRepository.save(ItemFixture.getItem());
+        int quantity = 5;
+        Order orderToPersist = service.save(OrderFixture.getOrderWithUserAndItem(user, item, quantity));
+        service.save(OrderFixture.getOrderWithUserAndItemDone(user, item, quantity));
+        Long id = orderToPersist.getId();
+
+        // When
+        List<Order> ordersToProcess = service.getOrdersNotDone();
+
+        // Then
+        assertThat(ordersToProcess).hasSize(1);
+
+        assertThat(ordersToProcess).anySatisfy(order -> {
+            assertThat(order.getId()).isEqualTo(id);
+        });
+    }
+
+    @Test
     public void shouldThrowAnExceptionIfIdIsNullWhenDeleting() {
         // Given
         Long id = null;

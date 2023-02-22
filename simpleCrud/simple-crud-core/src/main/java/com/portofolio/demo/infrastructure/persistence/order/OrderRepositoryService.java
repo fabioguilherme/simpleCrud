@@ -15,4 +15,6 @@ public interface OrderRepositoryService {
     Optional<Order> getById(Long id);
 
     List<Order> getAll(Long userId, OrderStatus status);
+
+    List<Order> getOrdersNotDone();
 }
