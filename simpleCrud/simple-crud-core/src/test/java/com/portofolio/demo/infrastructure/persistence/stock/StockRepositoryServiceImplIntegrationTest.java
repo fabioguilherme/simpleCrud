@@ -69,7 +69,7 @@ public class StockRepositoryServiceImplIntegrationTest extends IntegrationBaseTe
 
         // When
         ThrowableAssert.ThrowingCallable throwingCallable = () -> service.save(newStockToPersist);
-        assertThatExceptionOfType(BusinessException.class).isThrownBy(throwingCallable).withMessage("There already exists a stock for the item id: " + newStockToPersist.getItem().getId());
+        assertThatExceptionOfType(BusinessException.class).isThrownBy(throwingCallable).withMessage("Already exists a stock for the item id: " + newStockToPersist.getItem().getId());
     }
 
     @Test

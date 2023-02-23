@@ -42,7 +42,7 @@ public class StockRepositoryServiceImpl implements StockRepositoryService {
             Optional<Stock> stockOptional = repository.findStockByItemId(stock.getItem().getId());
 
             if (stockOptional.isPresent()) {
-                throw new BusinessException("There already exists a stock for the item id: " + stock.getItem().getId(), null);
+                throw new BusinessException("Already exists a stock for the item id: " + stock.getItem().getId(), null);
             }
         }
 
