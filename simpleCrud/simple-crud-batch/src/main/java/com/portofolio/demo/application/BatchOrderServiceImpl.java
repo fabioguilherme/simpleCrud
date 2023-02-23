@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -22,9 +23,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BatchOrderOrderServiceImpl implements BatchOrderService {
+public class BatchOrderServiceImpl implements BatchOrderService {
 
-    private final Logger log = LoggerFactory.getLogger(BatchOrderOrderServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(BatchOrderServiceImpl.class);
 
 
     private final OrderRepositoryService orderRepositoryService;
@@ -44,7 +45,10 @@ public class BatchOrderOrderServiceImpl implements BatchOrderService {
     private final TransactionTemplate transactionTemplate;
 
     @Autowired
-    public BatchOrderOrderServiceImpl(OrderRepositoryService orderRepositoryService, StockRepositoryService stockRepositoryService, StockDomainService stockDomainService, PlatformTransactionManager transactionManager, OrderDomainService orderDomainService, NotificationDomainService notificationDomainService, NotificationRepository notificationRepository) {
+    public BatchOrderServiceImpl(OrderRepositoryService orderRepositoryService, StockRepositoryService stockRepositoryService,
+                                 StockDomainService stockDomainService, PlatformTransactionManager transactionManager,
+                                 OrderDomainService orderDomainService, NotificationDomainService notificationDomainService,
+                                 NotificationRepository notificationRepository) {
         this.orderRepositoryService = orderRepositoryService;
         this.stockRepositoryService = stockRepositoryService;
         this.stockDomainService = stockDomainService;
@@ -53,6 +57,7 @@ public class BatchOrderOrderServiceImpl implements BatchOrderService {
         this.notificationDomainService = notificationDomainService;
         this.notificationRepository = notificationRepository;
         this.transactionTemplate = new TransactionTemplate(this.transactionManager);
+        this.transactionTemplate.setIsolationLevel(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
     }
 
     @Override

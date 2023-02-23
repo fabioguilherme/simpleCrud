@@ -24,7 +24,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BatchOrderOrderServiceImplIntegrationTest extends IntegrationBaseTest {
+public class BatchOrderServiceImplIntegrationTest extends IntegrationBaseTest {
 
     @Autowired
     private ItemRepository itemRepository;
@@ -50,7 +50,7 @@ public class BatchOrderOrderServiceImplIntegrationTest extends IntegrationBaseTe
     private NotificationDomainService notificationDomainService;
 
     @Autowired
-    private BatchOrderOrderServiceImpl batchOrderOrderService;
+    private BatchOrderServiceImpl batchOrderOrderService;
 
 
     @Test
