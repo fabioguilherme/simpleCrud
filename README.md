@@ -1,4 +1,4 @@
-This is a simple exercise, a simple order manager. You should develop an API where users can create and manage orders. Items can be ordered and orders are automatically fulfilled as soon as the item stock allows it.
+This is a simple exercise, a simple order manager(manage by the batch) . You should develop an API where users can create and manage orders. Items can be ordered and orders are automatically fulfilled as soon as the item stock allows it.
 Specification
 The system should be able to provide the following features:
 - create, read, update and delete and list all entities;
