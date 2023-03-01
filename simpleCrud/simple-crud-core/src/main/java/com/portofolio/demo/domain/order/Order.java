@@ -33,6 +33,10 @@ public class Order {
     @Column(name = "order_status")
     private OrderStatus status;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     protected Order() {
     }
 
@@ -68,6 +72,10 @@ public class Order {
 
     public OrderStatus getStatus() {
         return status;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     private void validate() {

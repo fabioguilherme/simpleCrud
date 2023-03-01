@@ -13,6 +13,10 @@ public class Item {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     protected Item() {
     }
 
@@ -33,6 +37,10 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     protected static Item withName(String name) {

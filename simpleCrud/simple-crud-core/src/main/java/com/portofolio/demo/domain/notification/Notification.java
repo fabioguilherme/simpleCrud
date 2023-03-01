@@ -28,6 +28,10 @@ public class Notification {
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     protected Notification() {
     }
 
@@ -69,6 +73,10 @@ public class Notification {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     protected static final class Builder {

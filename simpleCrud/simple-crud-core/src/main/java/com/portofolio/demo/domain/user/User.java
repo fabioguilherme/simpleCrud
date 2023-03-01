@@ -18,6 +18,10 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     public User(Builder builder) {
         this.email = builder.email;
         this.name = builder.name;
@@ -38,6 +42,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     private void validate() {

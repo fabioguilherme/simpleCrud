@@ -24,6 +24,10 @@ public class Stock {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
+    @Column(name = "version")
+    @Version
+    private Long version;
+
     protected Stock() {
     }
 
@@ -50,6 +54,10 @@ public class Stock {
 
     public Item getItem() {
         return item;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     private void validate() {
