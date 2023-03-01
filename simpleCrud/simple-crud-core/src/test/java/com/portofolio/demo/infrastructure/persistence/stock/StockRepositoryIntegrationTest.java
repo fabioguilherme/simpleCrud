@@ -25,17 +25,16 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
         int quantity = 3;
-        Stock stockToStored = repository.save(StockFixture.getStockWithItem(item, 3));
 
         // When
-        Stock stored = repository.save(stockToStored);
+        Stock stockStored = repository.save(StockFixture.getStockWithItem(item, quantity));
 
         // Then
-        assertThat(stored).isNotNull();
+        assertThat(stockStored).isNotNull();
 
-        assertThat(stored.getItem().getId()).isEqualTo(item.getId());
-        assertThat(stored.getQuantity()).isEqualTo(quantity);
-        assertThat(stored.getCreationDate()).isNotNull();
+        assertThat(stockStored.getItem().getId()).isEqualTo(item.getId());
+        assertThat(stockStored.getQuantity()).isEqualTo(quantity);
+        assertThat(stockStored.getCreationDate()).isNotNull();
     }
 
     @Test
@@ -56,7 +55,7 @@ public class StockRepositoryIntegrationTest extends IntegrationBaseTest {
     public void canFindByItemId() throws Exception {
         // Given
         Item item = repositoryItem.save(ItemFixture.getItem());
-        Stock stock = repository.save(StockFixture.getStockWithItem(item, 3));
+        repository.save(StockFixture.getStockWithItem(item, 3));
         long id = item.getId();
 
         // When
