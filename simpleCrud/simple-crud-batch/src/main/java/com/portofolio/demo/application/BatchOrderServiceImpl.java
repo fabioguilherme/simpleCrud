@@ -68,6 +68,8 @@ public class BatchOrderServiceImpl implements BatchOrderService {
 
         List<Order> orders = orderRepositoryService.getOrdersNotDone();
 
+        long startTime = System.currentTimeMillis();
+
         for (Order order : orders) {
             try {
 
@@ -86,6 +88,10 @@ public class BatchOrderServiceImpl implements BatchOrderService {
                 log.error("Error processing order with id: " + order.getId() + "\n" + "Error: " + e.getMessage());
             }
         }
+
+        long finishTime = System.currentTimeMillis();
+
+        log.info("the process finished in: " + (finishTime - startTime) / 1000 + " seconds");
 
     }
 
