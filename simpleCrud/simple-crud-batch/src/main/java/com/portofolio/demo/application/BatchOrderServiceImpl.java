@@ -58,6 +58,7 @@ public class BatchOrderServiceImpl implements BatchOrderService {
         this.notificationRepository = notificationRepository;
         this.transactionTemplate = new TransactionTemplate(this.transactionManager);
         this.transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        this.transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
     }
 
     @Override
