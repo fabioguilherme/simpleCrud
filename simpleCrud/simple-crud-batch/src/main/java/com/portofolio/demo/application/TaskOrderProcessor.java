@@ -19,13 +19,30 @@ public class TaskOrderProcessor implements Runnable {
 
         log.info("Processing order with id: " + orderToProcess.getId() + " in thread: " + Thread.currentThread().getName());
 
-        try {
-            this.orderServiceProcessor.processOrder(orderToProcess);
-            log.info("Processed order with id: " + orderToProcess.getId());
-        } catch (RuntimeException exception) {
-            log.error("Error processing order with id: " + orderToProcess.getId());
-        }
+        int retry = 0;
+        boolean canContinue = true;
 
+        while (retry < 7 && canContinue) {
+
+            try {
+                this.orderServiceProcessor.processOrder(orderToProcess);
+                log.info("Processed order with id: " + orderToProcess.getId());
+                canContinue = false;
+            } catch (RuntimeException exception) {
+                log.error("Error processing order with id: " + orderToProcess.getId() + ". With error: " + exception.getMessage());
+                try {
+                    Thread.sleep(250L);
+                } catch (InterruptedException e) {
+                    log.warn("Thread interrupted with name: " + Thread.currentThread().getName());
+                }
+            }
+
+            retry++;
+        }
+    }
+
+    public Order getOrderToProcess() {
+        return orderToProcess;
     }
 
     @Override

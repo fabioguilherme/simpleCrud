@@ -69,6 +69,5 @@ public class OrderServiceProcessorImpl implements OrderServiceProcessor {
         Notification notification = notificationDomainService.createNotification(orderToProcess.getUser(), "Order processed with the id: " + orderToProcess.getId());
         notificationRepository.save(notification);
 
-        this.log.info("Processed order with id: " + orderToProcess.getId());
     }
 }
